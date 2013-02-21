@@ -627,9 +627,17 @@ input[type='button'], input[type='submit'] {
 }
 .itemName,.itemValue
 {
-    margin-top:13px;
-    margin-bottom:15px;
+    margin-top:9px;
+    margin-bottom:11px;
     padding-left:7px;
+    padding-top:4px;
+    padding-bottom:4px;
+}
+.itemRemove
+{
+    margin-top:9px;
+    margin-bottom:11px;
+    
 }
 .itemTopRow
 {
@@ -637,9 +645,7 @@ input[type='button'], input[type='submit'] {
     border: 1px solid;
     border-color:#ddd;
     background-color:#d1d2c6;
-    margin-top:13px;
-    margin-bottom:15px;
-    padding-left:7px;
-    padding-top:4px;
-    padding-bottom:4px;
+    margin-top:9px;
+    margin-bottom:11px;
+    
 }

@@ -1,0 +1,26 @@
+<div class='sidebar_navigation_links'>
+    <a href='#'>Sign Up</a>
+    <br/>
+    <a href='#'>About Us</a>
+</div>
+<div class='pane'>
+    <a href='#' class='sidebar_username'>Hi Tanmai!</a>
+    <br/>
+    <a href='#description'>Profile</a>
+    <br/>
+    <a href='#samplemenu'>Kitchens</a>
+    <br/>
+    <a href='#'>Logout</a>
+</div>
+<div class='pane'>
+    <a href='#'>Description</a>
+    <br/>
+    <a href='#'>Sample Menu</a>
+</div>
+<div class='pane'>
+    <ul class='sidebar_comments'>
+        <li>This is a comment --Anon</li>
+        <li>This is another comment --Anon</li>
+        <li>Here's some more text about how wonderful this is! --Someone else</li>
+    </ul>
+</div>

@@ -1,0 +1,14 @@
+<div class="row-fluid itemRow" id="addedItem{{index}}">
+    <div class="span9 itemName">{{name}}</div>
+    
+    <div class="span1"><input class="input-block-level" type="number" value=0></div>
+    
+    <div class="span1 itemValue">0.00</div>
+    
+    <div class="span1 itemRemove">
+        <a class="btn btn-danger" id="removeItem{{index}}">
+            <i class="icon-remove-circle"></i>
+        </a>
+    </div>
+</div>
+                    
