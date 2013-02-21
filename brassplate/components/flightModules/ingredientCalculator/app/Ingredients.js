@@ -1,22 +1,28 @@
 define(
-['flight/lib/component', 'bootstrap/js/bootstrap-typeahead', 'mustache/mustache', 'text!templates/ingredientCalculator/addItem.txt', 'text!flightModules/ingredientCalculator/app/namelist.txt'],
+    [
+        'flight/lib/component', 
+        'bootstrap/js/bootstrap-typeahead', 
+        'underscore/underscore',
+        'mustache/mustache', 
+        'text!templates/ingredientCalculator/addItem.txt', 
+        'text!flightModules/ingredientCalculator/app/namelist.txt'
+    ],
 
-function(component, typeAhead, Mustache, addItemTemplate, nameList) {
+function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) {
     return component(Ingredients);
 
     function Ingredients() {
         this.defaultAttrs({
-            selectedItems: []
+            selectedItems: [],
+            allItems:window.$.parseJSON(nameList),
+            names:window._.map(window.$.parseJSON(nameList),function(item){return item.NAME})
         });
 
-
         this.initfunction = function() {
-
-            var names = (window.$.parseJSON(nameList));
             window.$("#ingredientTypeahead").typeahead({
-                source: names,
+                source: this.attr.names,
                 updater: function(item) {
-                    var index = names.indexOf(item);
+                    var index = this.source.indexOf(item);
                     window.$("#ingredientsComponent").trigger({
                         type: "newItemAdded",
                         item: item,
@@ -34,8 +40,8 @@ function(component, typeAhead, Mustache, addItemTemplate, nameList) {
         };
         this.renderNewItem = function(name, index) {
             return Mustache.render(addItemTemplate, {
-                name: name,
-                index: index
+                data:this.attr.allItems[index],
+                index:index
             });
         };
         this.itemAdded = function(event) {
@@ -48,6 +54,23 @@ function(component, typeAhead, Mustache, addItemTemplate, nameList) {
                         type:"itemRemoved",
                         index:event.index
                     });
+                });
+                window.$("#itemQuantity"+event.index).on("input",function(){
+                    var sum = 0;
+                    window.$(".inputQuantity").each(function( index ) {
+                        //console.log( index +":"+ window.$(this).val());
+                        var p = window.$(this).val();
+                        if(p===null||p==="")
+                        {
+                            
+                        }
+                        else sum+=parseFloat(p);
+                        
+                        
+                    
+                    });
+                    console.log(sum);
+                    
                 });
                 this.attr.selectedItems.push(event.index);
                 console.log(this.attr.selectedItems);

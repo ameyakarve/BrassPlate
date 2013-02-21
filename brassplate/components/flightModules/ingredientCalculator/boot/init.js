@@ -18,13 +18,11 @@ define(
     ){
         function initialize()
         {
-            console.log(mainLeftPaneTemplate);
             window.$("#wrapper_inner").html(Mustache.render(mainLeftPaneTemplate,{}));
             window.$("#sidebar").html(Mustache.render(sidebarTemplate,{}));    
             window.$("#footer").html(Mustache.render(footerTemplate,{}));    
             window.$("#footer").html(Mustache.render(hiddenStuffTemplate,{}));  
             Ingredients.attachTo("#ingredientsComponent");
-            console.log("Booted app with all dependencies");
         }
         return initialize;
     }

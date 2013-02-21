@@ -15,8 +15,10 @@
                     <h1>Ingredients calculator</h1>
                     <div class="row-fluid">
                         <div class="row-fluid itemTopRow">
-                            <div class="span9 itemName">Item Name</div>
+                            <div class="span7 itemName">Item Name</div>
+                            <div class="span1 itemName">Price</div>                            
                             <div class="span1 itemName">Quantity</div>
+                            <div class="span1 itemName">Unit</div>
                             <div class="span2 itemValue">Total price</div>
                         </div>
                     </div>

@@ -9,3 +9,4 @@
 {"ts":1361456233761,"patch":[[{"diffs":[[0,"an1 item"],[-1,"Valu"],[1,"Remov"],[0,"e\">\r\n   "]],"start1":272,"start2":272,"length1":20,"length2":21}]],"length":428,"saved":false}
 {"ts":1361456361419,"patch":[[{"diffs":[[0,"span"],[-1,"2"],[1,"1"],[0," ite"]],"start1":219,"start2":219,"length1":9,"length2":9}]],"length":428,"saved":false}
 {"contributors":[],"silentsave":false,"ts":1361464365646,"patch":[[{"diffs":[[0,"span"],[-1,"8"],[1,"9"],[0," ite"]],"start1":73,"start2":73,"length1":9,"length2":9},{"diffs":[[0,"-danger\""],[1," id=\"removeItem{{index}}\""],[0,">\r\n     "]],"start1":315,"start2":315,"length1":16,"length2":41}]],"length":453,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1361468301334,"patch":[[{"diffs":[[0,"ue\">"],[-1,"0.00"],[1,"{{price}}"],[0,"</di"]],"start1":232,"start2":232,"length1":12,"length2":17}]],"length":458,"saved":false}

@@ -1,7 +1,11 @@
 console.log("Entered RequireMain");
 requirejs.config({
     // baseUrl: ''
-});
+    shim: {
+    'underscore/underscore': {
+      exports: '_'
+    }
+}});
 require(
         [
           'flight/lib/compose',
