@@ -1,0 +1,3 @@
+{"ts":1361424888183,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":false,"ts":1361424895691,"patch":[[{"diffs":[[1,"This is some sample text"]],"start1":0,"start2":0,"length1":0,"length2":24}]],"length":24,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1361428495331,"patch":[[{"diffs":[[-1,"This is some sample text"],[1,"[\n    \"Ameya\",\n    \"Karve\",\n    \"More sample text\",\n    \"Loren Ipsum\"\n]"]],"start1":0,"start2":0,"length1":24,"length2":71}]],"length":71,"saved":false}

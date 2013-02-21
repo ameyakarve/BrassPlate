@@ -1,0 +1,188 @@
+
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='nnISCy0otML4KzNkX6E0aKQHpXO7UW5E' /></div> 
+    <title>The Brass Plate</title> 
+    <link rel="stylesheet" href="stylesheets/Bootstrap/css/bootstrap.css"> 
+    <link rel='stylesheet' href="stylesheets/Main/main2.css" type='text/css'/> 
+</head> 
+ 
+ 
+    <body>
+    <div id='wrapper_body'> 
+        <div id='wrapper'>
+		<div id='wrapper_inner'> 
+            <a name='top'></a> 
+            <div id='heading'> 
+                <a href='/' id='heading-title' class='blocklink'> 
+                    <h1>The Brass Plate</h1> 
+                    <div id='heading-title-inner'> 
+                        <div id='heading-main'></div> 
+                        <div id='heading-end'></div> 
+                    </div> 
+                </a> 
+                <div class='clearfloats'></div> 
+            </div> 
+			<div id='content'>
+                <div class="row-fluid" id="ingredientsComponent">
+                    
+                    <h1>Ingredients calculator</h1>
+                    <div class="row-fluid">
+                        <div class="row-fluid itemTopRow">
+                            <div class="span8">Item Name</div>
+                            <div class="span2">Quantity</div>
+                            <div class="span2">Total price</div>
+                        </div>
+                    </div>
+                    <div class="row-fluid" id="itemList">
+                        
+                    </div>
+                    <div class="row-fluid">
+                        <div class="row-fluid itemTopRow">
+                            <div class="span8">Total</div>
+                            
+                            <div class="span2 offset2">0.00</div>
+                        </div>
+                    </div>
+                    <form>
+                        <fieldset>
+                            <h2>Add a new Ingredient</h2>
+                            <label>
+                                Ingredient Name
+                            </label>
+                            <div class="control-group" id="warningGroup">
+                                <div class="controls">
+                                    <input class="input-large" type="text" id="ingredientTypeahead" placeholder="Start typing ingredient name"/>
+                                    <span class="help-inline" id="inputWarning"></span>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+			</div>
+            </div></div><!-- #wrapper --> 
+ 
+        <div id='sidebar'> 
+            <div class='sidebar_navigation_links'> 
+                <a href='#'>Sign Up</a><br/> 
+                <a href='#'>About Us</a> 
+            </div> 
+            <div class='pane'> 
+                <a href='#' class='sidebar_username'>Hi Tanmai!</a><br/> 
+                <a href='#description'>Profile</a><br/> 
+                <a href='#samplemenu'>Kitchens</a><br/> 
+                <a href='#'>Logout</a> 
+            </div> 
+            <div class='pane'> 
+                <a href='#'>Description</a><br/> 
+                <a href='#'>Sample Menu</a> 
+            </div> 
+            <div class='pane'> 
+                <ul class='sidebar_comments'> 
+                    <li>This is a comment --Anon</li> 
+                    <li>This is another comment --Anon</li> 
+                    <li>Here's some more text about how wonderful this is! --Someone else</li> 
+                </ul> 
+            </div> 
+        </div><!-- #sidebar --> 
+        <div class='clearfloats'></div> 
+ 
+        <div id='footer'> 
+            <div class='social_icons'> 
+                <a href='https://www.facebook.com/TheBrassPlate' class='icon-facebook' class='blocklink'></a> 
+                <!--<a class='icon-twitter' class='blocklink'></a>
+                <a class='icon-tumblr' class='blocklink'></a>--> 
+            </div> 
+            <div class='footer_text'> 
+                An initiative of Brassplate Enterprises <span class="copyright-symbol">&#169;</span> 
+            </div> 
+            <div class='clearfloats'></div> 
+        </div> 
+ 
+        <div id='hiddenstuff'> 
+            <div id='form_uploadimage_1' class='lightbox'> 
+                <h1>Upload an Image</h1> 
+                <form id="upload_new_image" action='/cook/edit_kitchen/upload_new_image/?kitchen_id=8&photo_set_id=10' target='upload_frame' enctype="multipart/form-data" method="POST"> 
+                    <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='nnISCy0otML4KzNkX6E0aKQHpXO7UW5E' /></div> 
+                    <label>Image</label> 
+                    <input type='text' name="photo_name" value=""/><br/> 
+                    <input name='filename' type='file'/> 
+                    <input type='submit' value='Upload'/> 
+                    <div class='clearfloats'></div> 
+                </form> 
+                <iframe id='upload_frame' name='upload_frame' width="300px" height="300px" style='display:none;'></iframe> 
+            </div> 
+ 
+            <div id='form_uploadimage_2' class='lightbox'> 
+                <h1>Crop the Image</h1> 
+                <form data-js_model="sliderEdits" class="script_form js_model" method="POST" action="/cook/edit_kitchen/crop_photo/?kitchen_id=8"> 
+                    <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='nnISCy0otML4KzNkX6E0aKQHpXO7UW5E' /></div> 
+                    <input value="0" type='hidden' name='crop_x1' id='crop_x1' /> 
+                    <input value="0" type='hidden' name='crop_x2' id='crop_x2' /> 
+                    <input value="0" type='hidden' name='crop_y1' id='crop_y1' /> 
+                    <input value="0" type='hidden' name='crop_y2' id='crop_y2' /> 
+                    <input value="0" type='hidden' name='width'  id='crop_w' /> 
+                    <input value="0" type='hidden' name='height'  id='crop_h' /> 
+                    <input type='submit' value='Crop' /> 
+                    <div class='clearfloats'></div> 
+                </form> 
+            </div> 
+ 
+            <div id='form_add_menu' class='lightbox js_model' data-js_model="menuitemEdits"> 
+                <h1>Add New Item</h1> 
+                <form id="add_menu_form" class="script_form"> 
+                    <label>Name</label><input type=text value="" name="name" placeholder="Enter name here"/> 
+                    <label>Items</label><textarea name="items" placeholder="Enter a very brief desctiption here"></textarea> 
+                    <input type='submit' value='Proceed'/> 
+                    <div class='clearfloats'></div> 
+                </form> 
+            </div> 
+            <div id='form_add_edit_menu_tags' class='lightbox'> 
+                <h1>Add [Edit] Menu | Edit Tags</h1> 
+                <form> 
+                    <label>Add tag:</label><input class='autocomplete_combo'/> 
+                    <select class='autocomplete_combo'> 
+                        <option value=''>Select...</option> 
+                        <option value='Apple'>Apple</option> 
+                        <option value='Ball'>Ball</option> 
+                        <option value='Cat'>Cat</option> 
+                    </select> 
+                    <input type='submit' value='Add' /> 
+                    <div class='clearfloats'></div> 
+                </form> 
+                <ul> 
+                    <li>Tag - <a href='http://www.delete_url_here' class='ajax_trigger'>Remove</a></li> 
+                    <li>Tag - <a href='http://www.delete_url_here' class='ajax_trigger'>Remove</a></li> 
+                    <li>Tag - <a href='http://www.delete_url_here' class='ajax_trigger'>Remove</a></li> 
+                </ul> 
+                <input type='button' href='http://www.get_script_url_for_save' value='Save' /> 
+                <div class='clearfloats'></div> 
+            </div> 
+            <div id='form_login' class='lightbox'> 
+                <h1>Log In</h1> 
+                <form> 
+                    <label>Username</label><input /> 
+                    <label>Password</label><input type='password' /> 
+                    <input type='submit' value='Login'/> 
+                    <div class='clearfloats'></div> 
+                </form> 
+            </div> 
+            <div id='form_sign_up' class='lightbox'> 
+                <h1>Sign Up</h1> 
+                <form> 
+                    <label>Username</label><input /> 
+                    <label>Password</label><input type='password' /> 
+                    <label>Confirm Password</label><input type='password' /> 
+                    <input type='submit' value='Sign Up'/> 
+                    <div class='clearfloats'></div> 
+                </form> 
+            </div> 
+        </div><!-- #hiddenstuff --> 
+    </div>
+    <script data-main='RequireMainIngredientCalculator.js' src='requirejs/require.js'></script>    
+    </body> 
+ 
+ 
+ 
+</html> 

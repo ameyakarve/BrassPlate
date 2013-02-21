@@ -1,0 +1,309 @@
+!!! 5
+html(lang='en')    
+	head	
+		title= title	
+		link(rel="stylesheet", href="stylesheets/Main/styles.css")
+		link(rel="stylesheet", href="stylesheets/Bootstrap/css/bootstrap.css")
+		link(rel="stylesheet", href="stylesheets/BootstrapEditable/css/bootstrap-editable.css")
+		link(rel="stylesheet", href="stylesheets/Main/main2.css")
+		
+	body
+		div(class='hidden')
+			input(type='hidden', name='csrfmiddlewaretoken', value='nnISCy0otML4KzNkX6E0aKQHpXO7UW5E')
+		#wrapper_body
+			#wrapper
+				#wrapper_inner
+					a(name='top')
+					#heading
+					a#heading-title.blocklink(href='/')
+						h1 The Brass Plate
+						#heading-title-inner
+						#heading-main
+						#heading-end
+					.clearfloats
+					#content
+					.pane.message.error
+						| This is an error message.
+					.pane.message.info
+						| This is an info message.
+					a(name='description')
+					#kitchen_description.pane
+						h1
+							span.editabletext.editableFheading(data-original-title='Enter your kitchen\'s name:') Ct3's kitchen. Loaded.
+						.kitchen_desc_left
+						.kitchen_info
+							| Location:
+							span.editabletext.editableFlocation(data-original-title='Select Area:') Alwarpet
+						.kitchen_info
+							| Cuisine:
+						#kitchen_description_editcuisines.editpage.js_model(data-js_model='kitchenCuisineEdits')
+							br
+							ul
+							li
+								| Gujarati -
+								a.ajax_trigger(href='/cook/edit_kitchen/remove_cuisine/?kitchen_id=8&cuisine_id=1') Remove
+							li
+								| Bengali -
+								a.ajax_trigger(href='/cook/edit_kitchen/remove_cuisine/?kitchen_id=8&cuisine_id=2') Remove
+							form.editpage.script_form(action='/cook/edit_kitchen/add_cuisine/?kitchen_id=8')
+							label Add cuisine:
+							select.autocomplete_combo(name='cuisine_id')
+								option(value='') Select...
+								option(value='1') Gujarati
+								option(value='2') Bengali
+							input(type='submit', value='Add')
+							.clearfloats
+						br
+						.kitchen_info
+							| Tags:
+						#kitchen_description_edittags.editpage.js_model(data-js_model='kitchenTagEdits')
+							br
+							ul
+							li
+								| high-oil -
+								a.ajax_trigger(href='/cook/edit_kitchen/remove_tag/?kitchen_id=8&tag_type=2&tag_id=2&parent_id=8') Remove
+							form.editpage.script_form(action='/cook/edit_kitchen/add_tag/?kitchen_id=8')
+							label Add tag:
+							select.autocomplete_combo(name='tag_id')
+								option(value='') Select...
+								option(value='1') Bengali
+								option(value='2') high-oil
+								option(value='3') super-spicy
+							input(type='hidden', name='tag_type', value='2')
+							input(type='hidden', name='parent_id', value='8')
+							input(type='submit', value='Add')
+							.clearfloats
+						form#featured_menuitem_form.editpage.script_form.js_model(action='/cook/edit_kitchen/select_featured/?kitchen_id=8', data-js_model='featuredItemEdits')
+							label Select item:
+							select(name='menuitem_id')
+							option(value='-1') None
+							option(value='6') My Menu
+							option(value='7') Featured Menu
+							input(type='submit', value='Select')
+						.kitchen_desc_right
+						.kitchen_profile_images
+							.description_image_sidebar
+							.menu_selector Featured Menu
+							.description_image_sidebar_scroll
+								img(src='/media/6/10/2.png')
+								img(src='/media/6/10/23%3A23%3A32__18-02-2013.jpg')
+								img(src='/media/6/10/23%3A07%3A35__19-02-2013.jpg')
+								img(src='/media/6/10/23%3A08%3A16__19-02-2013.jpg')
+								img(src='/media/6/10/23%3A09%3A22__19-02-2013.jpg')
+							.kitchen_box.featured_menu
+							h3 Featured Menu
+							.kitchen_tags
+							.kitchen_price
+								span.rupee_symbol `
+								| 0
+							.kitchen_description
+								p
+								| Item 1
+								br
+								| Item 2
+							.kitchen_description
+								p
+							#slider.nivoslider
+							img(title='title')
+							a.ajax_trigger.confirm(href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=11', data-confirm_message='Are you sure you want to remove this image? It will be deleted permanently.') Remove
+							| " src='/media/6/10/2.png'/
+							img(title='title')
+							a.ajax_trigger.confirm(href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=156', data-confirm_message='Are you sure you want to remove this image? It will be deleted permanently.') Remove
+							| " src='/media/6/10/23%3A23%3A32__18-02-2013.jpg'/
+							img(title='title')
+							a.ajax_trigger.confirm(href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=181', data-confirm_message='Are you sure you want to remove this image? It will be deleted permanently.') Remove
+							| " src='/media/6/10/23%3A07%3A35__19-02-2013.jpg'/
+							img(title='title')
+							a.ajax_trigger.confirm(href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=182', data-confirm_message='Are you sure you want to remove this image? It will be deleted permanently.') Remove
+							| " src='/media/6/10/23%3A08%3A16__19-02-2013.jpg'/
+							img(title='title')
+							a.ajax_trigger.confirm(href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=183', data-confirm_message='Are you sure you want to remove this image? It will be deleted permanently.') Remove
+							| " src='/media/6/10/23%3A09%3A22__19-02-2013.jpg'/
+							.clearfloats
+							#form_uploadimage.editpage.js_model(data-js_model='sliderEdits')
+							li
+								a(href='/media/6/10/2.png') sample 1
+								| - stored as: 6/10/2.png	 -
+								a.ajax_trigger.confirm(href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=11', data-confirm_message='Are you sure you want to remove this image? It will be deleted permanently.') Remove
+							li
+								a(href='/media/6/10/23%3A23%3A32__18-02-2013.jpg') asdw
+								| - stored as: 6/10/23:23:32__18-02-2013.jpg	 -
+								a.ajax_trigger.confirm(href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=156', data-confirm_message='Are you sure you want to remove this image? It will be deleted permanently.') Remove
+							li
+								a(href='/media/6/10/23%3A07%3A35__19-02-2013.jpg') ads2
+								| - stored as: 6/10/23:07:35__19-02-2013.jpg	 -
+								a.ajax_trigger.confirm(href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=181', data-confirm_message='Are you sure you want to remove this image? It will be deleted permanently.') Remove
+							li
+								a(href='/media/6/10/23%3A08%3A16__19-02-2013.jpg') asdf2
+								| - stored as: 6/10/23:08:16__19-02-2013.jpg	 -
+								a.ajax_trigger.confirm(href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=182', data-confirm_message='Are you sure you want to remove this image? It will be deleted permanently.') Remove
+							li
+								a(href='/media/6/10/23%3A09%3A22__19-02-2013.jpg') asdfa
+								| - stored as: 6/10/23:09:22__19-02-2013.jpg	 -
+								a.ajax_trigger.confirm(href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=183', data-confirm_message='Are you sure you want to remove this image? It will be deleted permanently.') Remove
+							input.lightbox_trigger(type='button', value='Add Image to Slider', href='#form_uploadimage_1')
+							.clearfloats
+							a#refresh_slider_btn.ajax_trigger.js_model(href='/cook/edit_kitchen/refresh_slider/?kitchen_id=8', data-js_model='sliderEdits', style='display: none;') Refresh Slider
+						.kitchen_profile_desc
+							.editableare.editableFdescription(data-original-title='Kitchen description')
+							p This is CT3's kitchen. Good error handling now in place for the inlines.
+							p
+								| Yay wokring working.
+								br
+						.clearfloats
+					a(name='samplemenu')
+					#samplemenus.pane
+						h1 Items
+						a.toplink(href='#top') Top
+						.kitchen_box_filter
+						h3 Filter
+						ul
+							li(data-id='1') Bengali
+							li(data-id='2') high-oil
+							li(data-id='3') super-spicy
+							li(data-id='4') template-meal
+							li(data-id='5') no-dessert
+						.kitchen_boxes
+						.kitchen_box
+							h3 My Menu
+							.kitchen_tags
+							| #template-meal,
+							| #no-dessert
+							.kitchen_price
+							span.rupee_symbol `
+							| 0
+							.kitchen_description
+							p Enter menu content here
+							a.ajax_trigger(href='http://edit script') Edit
+							| |
+							a.ajax_trigger(href='http://remove script') Delete
+						.kitchen_box
+							h3 Featured Menu
+							.kitchen_tags
+							.kitchen_price
+							span.rupee_symbol `
+							| 0
+							.kitchen_description
+							p
+								| Item 1
+								br
+								| Item 2
+							a.ajax_trigger(href='http://edit script') Edit
+							| |
+							a.ajax_trigger(href='http://remove script') Delete
+						input.editpage.lightbox_trigger(href='#form_add_menu', type='button', value='Add A Menu')
+						.clearfloats
+					.clearfloats 
+				#sidebar
+				.sidebar_navigation_links
+					a(href='#') Sign Up
+					br
+					a(href='#') About Us
+				.pane
+					a.sidebar_username(href='#') Hi Tanmai!
+					br
+					a(href='#description') Profile
+					br
+					a(href='#samplemenu') Kitchens
+					br
+					a(href='#') Logout
+				.pane
+					a(href='#') Description
+					br
+					a(href='#') Sample Menu
+				.pane
+					ul.sidebar_comments
+					li This is a comment --Anon
+					li This is another comment --Anon
+					li Here's some more text about how wonderful this is! --Someone else
+				#sidebar 
+				.clearfloats
+				#footer
+				.social_icons
+					a.blocklink(href='https://www.facebook.com/TheBrassPlate')
+				.footer_text
+					| An initiative of Brassplate Enterprises
+					span.copyright-symbol ©
+				.clearfloats
+				#hiddenstuff
+				#form_uploadimage_1.lightbox
+					h1 Upload an Image
+					form#upload_new_image(action='/cook/edit_kitchen/upload_new_image/?kitchen_id=8&photo_set_id=10', target='upload_frame', enctype='multipart/form-data', method='POST')
+					div(style='display: none;')
+						input(type='hidden', name='csrfmiddlewaretoken', value='nnISCy0otML4KzNkX6E0aKQHpXO7UW5E')
+					label Image
+					input(type='text', name='photo_name', value='')
+					br
+					input(name='filename', type='file')
+					input(type='submit', value='Upload')
+					.clearfloats
+					iframe#upload_frame(name='upload_frame', width='300px', height='300px', style='display: none;')
+				#form_uploadimage_2.lightbox
+					h1 Crop the Image
+					form.script_form.js_model(data-js_model='sliderEdits', method='POST', action='/cook/edit_kitchen/crop_photo/?kitchen_id=8')
+					div(style='display: none;')
+						input(type='hidden', name='csrfmiddlewaretoken', value='nnISCy0otML4KzNkX6E0aKQHpXO7UW5E')
+					input#crop_x1(value='0', type='hidden', name='crop_x1')
+					input#crop_x2(value='0', type='hidden', name='crop_x2')
+					input#crop_y1(value='0', type='hidden', name='crop_y1')
+					input#crop_y2(value='0', type='hidden', name='crop_y2')
+					input#crop_w(value='0', type='hidden', name='width')
+					input#crop_h(value='0', type='hidden', name='height')
+					input(type='submit', value='Crop')
+					.clearfloats
+				#form_add_menu.lightbox.js_model(data-js_model='menuitemEdits')
+					h1 Add New Item
+					form#add_menu_form.script_form
+					label Name
+					input(type='text', value='', name='name', placeholder='Enter name here')
+					label Items
+					textarea(name='items', placeholder='Enter a very brief desctiption here')
+					input(type='submit', value='Proceed')
+					.clearfloats
+				#form_add_edit_menu_tags.lightbox
+					h1 Add [Edit] Menu | Edit Tags
+					form
+					label Add tag:
+					input.autocomplete_combo
+					select.autocomplete_combo
+						option(value='') Select...
+						option(value='Apple') Apple
+						option(value='Ball') Ball
+						option(value='Cat') Cat
+					input(type='submit', value='Add')
+					.clearfloats
+					ul
+					li
+						| Tag -
+						a.ajax_trigger(href='http://www.delete_url_here') Remove
+					li
+						| Tag -
+						a.ajax_trigger(href='http://www.delete_url_here') Remove
+					li
+						| Tag -
+						a.ajax_trigger(href='http://www.delete_url_here') Remove
+					input(type='button', href='http://www.get_script_url_for_save', value='Save')
+					.clearfloats
+				#form_login.lightbox
+					h1 Log In
+					form
+					label Username
+					input
+					label Password
+					input(type='password')
+					input(type='submit', value='Login')
+					.clearfloats
+				#form_sign_up.lightbox
+					h1 Sign Up
+					form
+					label Username
+					input
+					label Password
+					input(type='password')
+					label Confirm Password
+					input(type='password')
+					input(type='submit', value='Sign Up')
+					.clearfloats
+				#hiddenstuff 
+
+		script(data-main='RequireMain.js', src='requirejs/require.js')

@@ -1,0 +1,1017 @@
+
+<!DOCTYPE html> 
+<html> 
+<head> 
+ 
+ 
+ 
+ 
+ 
+        <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='nnISCy0otML4KzNkX6E0aKQHpXO7UW5E' /></div> 
+        <title>Ct3&#39;s kitchen. Loaded. @ The Brass Plate</title> 
+ 
+        <title>The Brass Plate</title> 
+ 
+        <!--CSS--> 
+        <link rel="stylesheet" href="./static/nivoslider/default/default.css" type="text/css" media="screen" /> 
+        <link rel="stylesheet" href="./static/nivoslider/nivo-slider.css" type="text/css" media="screen" /> 
+        <link rel="stylesheet" href="./static/jcrop/css/jquery.Jcrop.min.css"                            > 
+        <link rel="stylesheet" href="./static/fancybox/jquery.fancybox.css" type="text/css" media="screen" /> 
+ 
+        <link rel="stylesheet" href="./static/autocomplete/css/ui-lightness/jquery-ui-1.10.0.custom.css"/> 
+        <link rel="stylesheet" href="./static/jqueryui/css/ui-lightness/jquery-ui-1.10.1.custom.css"/> 
+ 
+        <link rel="stylesheet" href="./static/bootstrap/css/bootstrap.css"> 
+        <link rel="stylesheet" href="./static/bootstrap-editable/css/bootstrap-editable.css"> 
+ 
+        <link rel='stylesheet' href="./static/main2.css" type='text/css'/> 
+ 
+ 
+        <!--JS--> 
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.js"></script> 
+ 
+        <script type="text/javascript" src="./static/fancybox/jquery.fancybox.pack.js"></script> 
+        <script type="text/javascript" src="./static/nivoslider/jquery.nivo.slider.js"></script> 
+        <script type="text/javascript" src="./static/jcrop/js/jquery.Jcrop.min.js"></script> 
+ 
+ 
+        <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script> 
+ 
+        <script type="text/javascript" src="./static/bootstrap/js/bootstrap.js"></script> 
+        <!-- Bootstrap and jQueryUI conflict resolution --> 
+        <script> 
+         var bstooltip = $.fn.tooltip.noConflict();
+         $.fn.bstooltip = bstooltip;          
+        </script> 
+ 
+        <script type="text/javascript" src="./static/bootstrap-editable/js/bootstrap-editable.js"></script> 
+ 
+ 
+        <script type="text/javascript" src="./static/autocomplete_combo.js"></script> 
+ 
+        <script> 
+            $(function() {
+                initializeStuff();
+            });
+ 
+            var cur_jcrop = null;
+            /* USELESS STUFF
+               kitchen_tags_source:  [   
+                                                'Bengali', 
+                                              
+                                                'high-oil', 
+                                              
+                                                'super-spicy', 
+                                             
+                                        ],
+ 
+ 
+            */
+ 
+            var inlineEdits= 
+            {
+                /*
+                cuisine_source: [   
+                                            {value: 1, text: 'Gujarati'},
+                                         
+                                            {value: 2, text: 'Bengali'},
+                                        
+                                ],*/
+ 
+                area_source:    [   
+                                         {value: 1, text: 'Besantnagar'}, 
+                                      
+                                        
+                                      
+                                         {value: 3, text: 'Alwarpet'}, 
+                                     
+                                ],
+                
+                success: function (response, new_value) 
+                         {
+                             response = JSON.parse(response);
+                             if(response.error != false) 
+                             {
+                                 return response.error;
+                             }
+                             return {new_value: response.data};
+                         },
+ 
+                initialize: function()
+                            {
+                                /* Call the editables on this */ 
+                                $('.editableFheading').editable(    {ajaxOptions: {type: 'POST', dataType:'html'}, 
+                                                                     type:'text',     
+                                                                     url:'/cook/edit_kitchen/kitchen/?kitchen_id='+8, 
+                                                                     name:'name', 
+                                                                     pk:'8', 
+                                                                     value:$('.editableFheading').text(),
+                                                                     success: function(r, n) { return inlineEdits.success(r, n);} 
+                                                                     });
+ 
+                                $('.editableFlocation').editable(   {ajaxOptions: {type: 'POST', dataType:'html'}, 
+                                                                     type:'select',     
+                                                                     url:'/cook/edit_kitchen/cook/?kitchen_id='+8, 
+                                                                     name:'area_id',
+                                                                     pk:'8', 
+                                                                     value:'3',
+                                                                     source: inlineEdits.area_source,
+                                                                     success: function(r, n) { return inlineEdits.success(r, n);} 
+                                                                     });
+ 
+                                $('.editableFdescription').editable({ajaxOptions: {type: 'POST', dataType:'html'}, 
+                                                                     type:'textarea', 
+                                                                     url:'/cook/edit_kitchen/kitchen/?kitchen_id='+8, 
+                                                                     name:'description', 
+                                                                     pk:'1', 
+                                                                    value: $(".editableFdescription").text(),
+                                                                     success: function(r, n) { return inlineEdits.success(r, n);} 
+                                                                     });
+ 
+                                /*TODO: Change to multiple cuisine values
+                                $('.editableFcuisine').editable(    {ajaxOptions: {type: 'POST', dataType:'html'}, 
+                                                                     type:'select',     
+                                                                     url:'/cook/edit_kitchen/kitchen/?kitchen_id='+8, 
+                                                                     name:'cuisine_id', 
+                                                                     pk:'8', 
+                                                                     value:'', 
+                                                                     source: inlineEdits.cuisine_source,
+                                                                     success: function(r, n) { return inlineEdits.success(r, n);} 
+                                                                     });
+                                 */
+                            },
+            };
+ 
+            
+            var kitchenCuisineEdits = 
+            {
+                success: function(d) 
+                         { 
+                             $("#kitchen_description_editcuisines ul").html(d.data);
+                             initializeAJAX();
+                         },
+ 
+                initialize: function () 
+                            {
+                                //Initialize the autocomplete combobox plugin
+                                $("select[name='cuisine_id'].autocomplete_combo").combobox(); 
+                            },
+ 
+                error: function(d) 
+                       { 
+                           showMessage('error', d.error);
+                       },
+ 
+                validate: function(form)
+                          { 
+                              if (!form.children("[name=cuisine_id]").val())
+                                  return false;
+                              return true;
+                          },
+            };
+ 
+ 
+            var kitchenTagEdits=
+            {
+                success: function(d) 
+                         { 
+                             $("#kitchen_description_edittags ul").html(d.data);
+                             initializeAJAX();
+                         },
+ 
+                initialize: function () 
+                            {
+                                //Initialize the autocomplete combobox plugin
+                                $("select[name='tag_id'].autocomplete_combo").combobox(); 
+                            },
+ 
+                error: function(d) 
+                       { 
+                           showMessage('error', d.error);
+                       },
+ 
+                validate: function(form)
+                          { 
+                              if (!form.children("[name=tag_id]").val())
+                                  return false;
+                              return true;
+                          },
+            };
+ 
+            var featuredItemEdits=
+            {
+                short_scroll_side_height: '181px',
+                long_scroll_side_height: '221px',
+                success: function(d) 
+                         { 
+                            if (d.data == "NONE")
+                            {
+                                //Hide featured_menu_item stuff
+                                $('.description_image_sidebar .description_image_sidebar_scroll').click();
+                                $('.description_image_sidebar .menu_selector').hide();
+ 
+                                //Increase height of the sidebar
+                                $('.description_image_sidebar .description_image_sidebar_scroll').css('height', featuredItemEdits.long_scroll_side_height);
+                            }
+                            else
+                            {
+                                $('.description_image_sidebar .menu_selector').show();
+                                $('.description_image_sidebar .menu_selector').click();
+ 
+                                //Decrease height of the sidebar
+                                $('.description_image_sidebar .description_image_sidebar_scroll').css('height', featuredItemEdits.short_scroll_side_height);
+                            }
+                            $(".kitchen_box.featured_menu").html(d.data);
+                         },
+ 
+                initialize: function () 
+                            {
+                                /*TODO: Add autocomplete if it's a long combobox*/
+                                return;
+                            },
+ 
+                error: function(d) 
+                       { 
+                           showMessage('error', d.error);
+                       },
+ 
+                validate: function(form)
+                          { 
+                              return true;
+                          },
+ 
+            };
+ 
+            var sliderEdits=
+            {
+                is_sliderimg_raw_loaded: false,
+ 
+                validate_form1: function(form) 
+                                {
+                                    if (!form.children("[name=photo_name]").val())
+                                        return false;
+ 
+                                    if (!form.children("[name=filename]").val())
+                                        return false;
+ 
+                                    return true;
+                                },
+ 
+                initialize: function() {
+                               /* Call initialize only once in the beginning to initialize:
+                                * Upload forms
+                                * Upload form states
+                                * Slider Views
+                                * For other slider view refreshes, use $("#refresh_slider_btn").click()
+                                */
+ 
+                               $('#slider').nivoSlider({ effect: 'fade',  });
+ 
+                               sliderEdits.initializeSidebarStuff(); 
+ 
+                               $('#form_uploadimage_1 form').die('submit');
+                               $('#form_uploadimage_1 form').live('submit', function(e) {
+                                    var form = $(e.currentTarget);
+                                    var r = sliderEdits.validate_form1(form);
+                                    if (r)
+                                    {
+                                        sliderEdits.is_sliderimg_raw_loaded = true;
+                                    }
+                                    else
+                                    {
+                                        //TODO: Change to better notification
+                                        alert('Invalid fields');
+                                        e.preventDefault();
+                                    }
+                                });
+                 
+                                $('#upload_frame').off('load');
+                                $('#upload_frame').on('load', function() {
+                                    if (sliderEdits.is_sliderimg_raw_loaded)
+                                    {
+                                        //Refresh the slider view
+                                        $("#refresh_slider_btn").click();
+ 
+                                        //Ready the next form for receiving its input
+                                        sliderEdits.initialize_form2();
+ 
+                                        /*TODO: Error handling on value of new_img return*/
+                                        var new_img = ($($('#upload_frame')[0].contentWindow.document).find('body')[0].innerHTML);
+                                        if($.trim(new_img) == '') return false;
+                                        $("#form_uploadimage_2 h1").after(new_img);
+                                        var img_data = $("#form_uploadimage_2 img").attr("data-foodphoto_id");
+                                        $("#form_uploadimage_2 form").append("<input type='hidden' name='foodphoto_id' value='"+img_data+"' />");
+ 
+ 
+                                        //Form 1 has successfully finished executing. It is ready for the next upload
+                                        sliderEdits.ready_new_upload();
+ 
+                                        //This showlightbox should be after everything
+                                        hideLightbox();
+                                        showLightbox("#form_uploadimage_2");
+                                    }
+                                });
+ 
+                            },
+ 
+                initialize_form2: function()
+                                  {
+                                      $("#form_uploadimage_2 > img").remove();
+                                      $("#form_uploadimage_2 form input[name='foodphoto_id']").remove();
+                                  },
+ 
+                initializeSidebarStuff: function()
+                                        {
+                                            $('.description_image_sidebar .description_image_sidebar_scroll').click(function() {
+                                                    $('#kitchen_description .kitchen_box').hide();
+                                                    $('#kitchen_description #slider').show();
+                                                    });
+                                            $('.description_image_sidebar .menu_selector').click(function() {
+                                                    $('#kitchen_description .kitchen_box').show();
+                                                    $('#kitchen_description #slider').hide();
+                                                    });
+                                            $('.description_image_sidebar_scroll img').click(function(e) {
+                                                    $('#kitchen_description .kitchen_box').hide();
+                                                    $('#kitchen_description #slider').show();
+                                                    i = $(e.currentTarget);
+                                                    $('#kitchen_description .nivo-controlNav .nivo-control[rel='+i.data('image-index')+']').click();
+                                                    });
+                                        },
+ 
+                ready_new_upload: function () 
+                                            {
+                                                sliderEdits.is_sliderimg_raw_loaded = false;
+                                                $("#form_uploadimage_1 form")[0].reset();
+ 
+                                                //TODO: These two need not be called
+                                                //$("#form_uploadimage_2 > img").remove();
+                                                //$("#form_uploadimage_2 form input[name='foodphoto_id']").remove();
+ 
+                                            },
+ 
+                reload_slider: function() {
+                                    /*Function to refresh nivo slider div without AJAX
+                                     * by removing all of nivoslider's effects
+                                     */
+                                    $("#slider").data('nivoslider').stop(); 
+                                    $("#slider > div").remove();
+                                    $(".nivo-main-image").remove();
+                                    $("#slider").attr("class", "nivoslider");
+                                    var old = $(".kitchen_profile_images").clone();
+                                    $(".kitchen_profile_images").html('');
+                                    $(".kitchen_profile_images").replaceWith(old);
+                              },
+ 
+                validate_form2:  function(form)
+                                    {
+                                        console.log("validating image upload form 2");
+                                        return true;
+                                    },
+ 
+                validate: function (element)
+                          {
+                             //In case there are any validation
+                             if(element.closest("div").attr("id") == "form_uploadimage_2") 
+                             { 
+                                return sliderEdits.validate_form2(element);
+                             }
+                             else
+                                 alert("DEBUG: This validate should not have been case free. Contact the web admin if the error persists.");
+                          },
+ 
+                success: function (data, element)
+                         {
+                             //In case there are any validation
+                             if(element.closest("div").attr("id") == "form_uploadimage_2") 
+                             {
+                                 sliderEdits.success_form2(data, element);
+                             }
+                             else if (element.closest("div").attr("id") == "form_uploadimage") 
+                             {
+                                 sliderEdits.success_removelinks(data, element);
+                             }
+                             else if (element.attr("id") == "refresh_slider_btn")
+                             {
+                                 sliderEdits.success_refresh_slider(data, element);
+                             }
+                             else
+                                 alert("DEBUG: This success should not have been case free. Contact the web admin if the error persists.");
+ 
+                        },
+                
+                success_refresh_slider: function(data, element) 
+                                        {
+                                             $(".kitchen_desc_right .kitchen_profile_images").replaceWith(data.data);
+                                             $('#slider').nivoSlider({ effect: 'fade'  });
+                                             initializeAJAX();
+                                             initializeScriptForms();
+                                             sliderEdits.initializeSidebarStuff();
+                                        },
+ 
+                success_removelinks: function( data, link) 
+                                       {
+                                         showMessage('info', 'Image removed');
+                                         $("#refresh_slider_btn").click();
+ 
+                                       },
+ 
+                success_form2: function( data, form) 
+                               {
+                                 showMessage('info', 'New image added after cropping');
+ 
+                                 sliderEdits.success_refresh_slider(data, form);
+ 
+                                 //Reload the newly added image's cache copy
+                                 var src = $('img.new_crop').attr('src');
+                                 $('img.new_crop').attr('src', src+"?ts="+(new Date().getTime()));
+ 
+                                 hideLightbox();
+ 
+                                 //Form 2 has successfully finished execution
+                                 sliderEdits.initialize_form2();
+                               },
+ 
+                 error: function (data, form)
+                       {
+                           showMessage('error', data.error);
+                           hideLightbox();
+                       },
+            };
+            
+            var menuitemEdits=
+            {
+                initialize: function() {},
+ 
+                /*All validations*/
+                validate: function(element) 
+                                {
+                                    if (element.attr("id") == "add_menu_form")
+                                    {
+                                        return menuitemEdits.validate_add_form(element);
+                                    }
+                                },
+                validate_add_form: function(form)
+                                   {
+                                       if(!form.chdren("input[name=name]"))
+                                           return false;
+                                       if(!form.chdren("input[name=items]"))
+                                           return false;
+ 
+                                       return true;
+                                   },
+ 
+                success: function() {},
+                error: function() {},
+ 
+                
+            };
+ 
+            function initializeAJAX()
+            {
+                /* For link based AJAX stuff. Like Remove links */
+                $('.ajax_trigger').off('click');
+                $('.ajax_trigger').on('click', function(e) {
+                    var link = $(e.currentTarget);
+                    var r = true;
+ 
+                    //Find the JS model that manages this view
+                    var model = link.closest(".js_model").attr('data-js_model');
+                    model = window[model];
+ 
+                    if (link.hasClass('confirm'))
+                    {
+                        r = confirm(link.attr('data-confirm_message'));
+                    }
+                    if (r)
+                    {
+                        $.ajax({
+                                url: link.attr('href'),
+                                success: function (data, s, jqxhr) 
+                                         {
+                                            data = JSON.parse(data);
+                                            //Call the success, error hooks
+                                            if (data.error)
+                                            {
+                                                model.error(data, link);
+                                            }
+                                            else
+                                            {
+                                                model.success(data, link);
+                                                initializeAJAX();
+                                            }
+                                         },
+                               });
+ 
+                    }
+                    e.preventDefault();
+                });
+            }
+           
+ 
+            function initializeScriptForms()
+            {
+                $('form.script_form').die('submit');
+                $('form.script_form').live('submit', function(e) {
+                    var form = $(e.currentTarget);
+                    console.log(form.attr('action'));
+                    console.log(form.serialize());
+                    var model = window[form.closest(".js_model").attr('data-js_model')]; 
+                    var valid = true;
+                    if (model.validate)
+                    {
+                        valid = model.validate(form);        
+                        console.log("form is: " + valid);
+                    }
+                    if (valid)
+                    {
+                        $.ajax({
+                            url: form.attr('action'),
+                            data: form.serialize(),
+                            //dataType: json,
+                            success: function (data, s, jqxhr) 
+                                     {
+                                        //Find the JS model that manages this view
+                                        data = JSON.parse(data);
+ 
+                                        //Call the success, error hooks
+                                        if (data.error)
+                                        {
+                                            model.error(data, form);
+                                        }
+                                        else
+                                        {
+                                            model.success(data, form);
+                                        }
+                                     },
+                        });
+                    }
+                    else 
+                    {
+                        //TODO: Change to the bootstrap tooltip or something
+                        showMessage('error', "Invalid entry");
+                    }
+                    e.preventDefault();
+                });
+ 
+            }
+ 
+            function initializeStuff()
+            {
+                /*For the image upload and cropping*/
+                cur_jcrop = null;
+ 
+                $.ajaxSetup({
+                                beforeSend: function (xhr, settings) 
+                                            {
+                                                xhr.setRequestHeader("X-CSRFToken",$("input[name='csrfmiddlewaretoken']").val());
+                                            },   
+                                type: 'POST'
+                            });
+ 
+ 
+                inlineEdits.initialize();
+                kitchenCuisineEdits.initialize();
+                kitchenTagEdits.initialize();
+                sliderEdits.initialize();
+ 
+                //Initialize all the AJAX links and forms
+                initializeAJAX();
+                initializeScriptForms();
+                $(".ajax_trigger, input[type='submit']").on('click', function(e) { hideMessage(); });
+ 
+                $('.lightbox_trigger').fancybox({padding: 0,
+                                                 onUpdate: function() { 
+                                                                 cropImage(); 
+                                                                 },
+                                                 /* 
+                                                 beforeClose: function() {
+                                                                sliderEdits.ready_new_upload();
+                                                            }
+                                                */
+                                                 });
+ 
+ 
+                $('.kitchen_box_filter li').die('click');
+                $('.kitchen_box_filter li').live('click', function(e) {
+                    tag = $(e.currentTarget);
+                    tag.toggleClass('selected');
+                    var jsonData = {'tags': []};
+                    $.each($('.kitchen_box_filter li.selected'), function(i, v) {
+                        jsonData['tags'].push($(v).data('id'));
+                    });
+                    $.post('INSERT URL HERE INSERT URL HERE !!!!!', JSON.stringify(jsonData));
+                });
+ 
+            }
+ 
+            function cropImage()
+            {
+                //Remove Jcrop
+                if (cur_jcrop)
+                    cur_jcrop.destroy();
+ 
+                //Restart jcrop
+                jQuery('#form_uploadimage_2 img').Jcrop({
+                    aspectRatio: 1.33333,
+                    minSize: 100,
+                    setSelect: [0, 0, 300, 300], // if we've saved what they cropped last time, else delete
+                    onSelect: function(c) {
+                        console.log(c.x);
+                        console.log(c.x2);
+                        jQuery('#crop_x1').val(c.x);
+                        jQuery('#crop_x2').val(c.x2);
+                        jQuery('#crop_y1').val(c.y);
+                        jQuery('#crop_y2').val(c.y2);
+                        jQuery('#crop_w').val(c.w);
+                        jQuery('#crop_h').val(c.h);
+                    }
+                }, function() { cur_jcrop = this;});
+            }
+ 
+            function showLightbox(id) {
+                link = $('<a href="' + id + '" class="lightbox_trigger" style="display:none;">Open</a>');
+                $('body').append(link);
+                link.click();
+                link.remove();
+            }
+ 
+            function hideLightbox() {
+                $.fancybox.close();
+            }
+ 
+            //type should be either info or error
+            function showMessage(type, message) {
+                $('.message').hide();
+                $('.message.'+type).html(message);
+                $('.message.'+type).show();
+            }
+ 
+            function hideMessage() {
+                $('.message').hide();
+            }
+ 
+        </script> 
+ 
+</head> 
+ 
+ 
+    <body><div id='wrapper_body'> 
+        <div id='wrapper'><div id='wrapper_inner'> 
+            <a name='top'></a> 
+            <div id='heading'> 
+                <a href='/' id='heading-title' class='blocklink'> 
+                    <h1>The Brass Plate</h1> 
+                    <div id='heading-title-inner'> 
+                        <div id='heading-main'></div> 
+                        <div id='heading-end'></div> 
+                    </div> 
+                </a> 
+                <div class='clearfloats'></div> 
+            </div> 
+            <div id='content'> 
+                <div class='pane message error'> 
+                    This is an error message.
+                </div> 
+                <div class='pane message info'> 
+                    This is an info message.
+                </div> 
+                <!-- end messages --> 
+                <a name='description'></a> 
+                <div id='kitchen_description' class='pane'> 
+                    <h1> 
+                        <span class='editabletext editableFheading' data-original-title="Enter your kitchen's name:">Ct3&#39;s kitchen. Loaded.</span> 
+                    </h1> 
+                    <div class='kitchen_desc_left'> 
+                        <div class='kitchen_info'>Location:
+                            <span class='editabletext editableFlocation' data-original-title="Select Area:">Alwarpet</span> 
+                        </div> 
+                        <div class='kitchen_info'>Cuisine:
+                        </div> 
+                        <div id='kitchen_description_editcuisines' class='editpage js_model' data-js_model="kitchenCuisineEdits"> 
+                            <br/> 
+                            <ul> 
+                                
+                                    <li>Gujarati - <a href='/cook/edit_kitchen/remove_cuisine/?kitchen_id=8&cuisine_id=1' class='ajax_trigger'>Remove</a></li> 
+                                
+                                    <li>Bengali - <a href='/cook/edit_kitchen/remove_cuisine/?kitchen_id=8&cuisine_id=2' class='ajax_trigger'>Remove</a></li> 
+                                
+                            </ul> 
+                            <form action="/cook/edit_kitchen/add_cuisine/?kitchen_id=8" class="editpage script_form"> 
+                                <label>Add cuisine:</label> 
+                                    <select name="cuisine_id" class='autocomplete_combo'> 
+                                        <option value=''>Select...</option> 
+                                        
+                                            <option value='1'>Gujarati</option> 
+                                        
+                                            <option value='2'>Bengali</option> 
+                                        
+                                    </select> 
+                                <input type='submit' value='Add' /> 
+                                <div class='clearfloats'></div> 
+                            </form> 
+                        </div> 
+ 
+ 
+                        <br/> 
+                        <div class='kitchen_info'>Tags: 
+                        </div> 
+                        <div id='kitchen_description_edittags' class='editpage js_model' data-js_model="kitchenTagEdits"> 
+                            <br/> 
+                            <ul> 
+                                
+                                    <li>high-oil - <a href='/cook/edit_kitchen/remove_tag/?kitchen_id=8&tag_type=2&tag_id=2&parent_id=8' class='ajax_trigger'>Remove</a></li> 
+                                
+                            </ul> 
+                            <form action="/cook/edit_kitchen/add_tag/?kitchen_id=8" class="editpage script_form"> 
+                                <label>Add tag:</label> 
+                                    <select name="tag_id" class='autocomplete_combo'> 
+                                        <option value=''>Select...</option> 
+                                        
+                                            <option value='1'>Bengali</option> 
+                                        
+                                            <option value='2'>high-oil</option> 
+                                        
+                                            <option value='3'>super-spicy</option> 
+                                        
+                                    </select> 
+                                <input type='hidden' name='tag_type' value='2' /> 
+                                <input type='hidden' name='parent_id' value='8' /> 
+                                <input type='submit' value='Add' /> 
+                                <div class='clearfloats'></div> 
+                            </form> 
+                        </div> 
+ 
+                        <form id="featured_menuitem_form" action='/cook/edit_kitchen/select_featured/?kitchen_id=8' class='editpage script_form js_model' data-js_model="featuredItemEdits"> 
+                            <label>Select item:</label> 
+                                <select name='menuitem_id'> 
+                                    <option value="-1">None</option> 
+                                    
+                                        <option value="6">My Menu</option> 
+                                    
+                                        <option value="7">Featured Menu</option> 
+                                    
+                                </select> 
+                            <input type='submit' value='Select' /> 
+                        </form> 
+                    </div> 
+ 
+                    <div class='kitchen_desc_right'> 
+                        <!-- kitchen_profile_images div will be refreshed on every add and remove of a photo --> 
+                        <div class='kitchen_profile_images'> 
+                            <div class='description_image_sidebar'> 
+                                <div class='menu_selector'>Featured Menu</div> 
+                                <div class='description_image_sidebar_scroll'> 
+                                      
+                                        <img src='/media/6/10/2.png'/> 
+                                      
+                                        <img src='/media/6/10/23%3A23%3A32__18-02-2013.jpg'/> 
+                                      
+                                        <img src='/media/6/10/23%3A07%3A35__19-02-2013.jpg'/> 
+                                      
+                                        <img src='/media/6/10/23%3A08%3A16__19-02-2013.jpg'/> 
+                                      
+                                        <img src='/media/6/10/23%3A09%3A22__19-02-2013.jpg'/> 
+                                    
+                                </div> 
+                            </div> 
+                            <!-- Featured MenuItem--> 
+                            
+                                <div class='kitchen_box featured_menu'> 
+                                <h3>Featured Menu</h3> 
+                                    <div class='kitchen_tags'> 
+                                        
+                                    </div> 
+                                    
+                                    <div class='kitchen_price'><span class='rupee_symbol'>`</span> 0</div> 
+                                    <div class='kitchen_description'> 
+                                        <p>Item 1<br />Item 2</p> 
+                                    </div> 
+                                    <div class='kitchen_description'> 
+                                        <p></p> 
+                                    </div> 
+                                </div> 
+                            
+                            <div id='slider' class='nivoslider'> 
+                                  
+                                    <img title="<a href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=11' class='ajax_trigger confirm' data-confirm_message='Are you sure you want to remove this image? It will be deleted permanently.'>Remove</a>" src='/media/6/10/2.png'/> 
+                                  
+                                    <img title="<a href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=156' class='ajax_trigger confirm' data-confirm_message='Are you sure you want to remove this image? It will be deleted permanently.'>Remove</a>" src='/media/6/10/23%3A23%3A32__18-02-2013.jpg'/> 
+                                  
+                                    <img title="<a href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=181' class='ajax_trigger confirm' data-confirm_message='Are you sure you want to remove this image? It will be deleted permanently.'>Remove</a>" src='/media/6/10/23%3A07%3A35__19-02-2013.jpg'/> 
+                                  
+                                    <img title="<a href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=182' class='ajax_trigger confirm' data-confirm_message='Are you sure you want to remove this image? It will be deleted permanently.'>Remove</a>" src='/media/6/10/23%3A08%3A16__19-02-2013.jpg'/> 
+                                  
+                                    <img title="<a href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=183' class='ajax_trigger confirm' data-confirm_message='Are you sure you want to remove this image? It will be deleted permanently.'>Remove</a>" src='/media/6/10/23%3A09%3A22__19-02-2013.jpg'/> 
+                                
+                            </div> 
+                            <div class='clearfloats'></div> 
+                            <div id='form_uploadimage' class='editpage js_model' data-js_model="sliderEdits"> 
+                                  
+                                    <li><a href='/media/6/10/2.png'>sample 1</a> - stored as: 6/10/2.png &nbsp; - <a href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=11' class='ajax_trigger confirm' data-confirm_message="Are you sure you want to remove this image? It will be deleted permanently.">Remove</a></li> 
+                                  
+                                    <li><a href='/media/6/10/23%3A23%3A32__18-02-2013.jpg'>asdw</a> - stored as: 6/10/23:23:32__18-02-2013.jpg &nbsp; - <a href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=156' class='ajax_trigger confirm' data-confirm_message="Are you sure you want to remove this image? It will be deleted permanently.">Remove</a></li> 
+                                  
+                                    <li><a href='/media/6/10/23%3A07%3A35__19-02-2013.jpg'>ads2</a> - stored as: 6/10/23:07:35__19-02-2013.jpg &nbsp; - <a href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=181' class='ajax_trigger confirm' data-confirm_message="Are you sure you want to remove this image? It will be deleted permanently.">Remove</a></li> 
+                                  
+                                    <li><a href='/media/6/10/23%3A08%3A16__19-02-2013.jpg'>asdf2</a> - stored as: 6/10/23:08:16__19-02-2013.jpg &nbsp; - <a href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=182' class='ajax_trigger confirm' data-confirm_message="Are you sure you want to remove this image? It will be deleted permanently.">Remove</a></li> 
+                                  
+                                    <li><a href='/media/6/10/23%3A09%3A22__19-02-2013.jpg'>asdfa</a> - stored as: 6/10/23:09:22__19-02-2013.jpg &nbsp; - <a href='/cook/edit_kitchen/remove_image/?kitchen_id=8&foodphoto_id=183' class='ajax_trigger confirm' data-confirm_message="Are you sure you want to remove this image? It will be deleted permanently.">Remove</a></li> 
+                                
+                                <input type='button' value='Add Image to Slider' href='#form_uploadimage_1' class='lightbox_trigger' /> 
+                                <div class='clearfloats'></div> 
+                            </div> 
+                            <a href="/cook/edit_kitchen/refresh_slider/?kitchen_id=8" class="ajax_trigger js_model" id="refresh_slider_btn" data-js_model="sliderEdits" style="display:none;">Refresh Slider</a> 
+                        </div> 
+                        <div class='kitchen_profile_desc'> 
+                            <div class='editableare editableFdescription' data-original-title="Kitchen description"><p>This is CT3&#39;s kitchen. Good error handling now in place for the inlines.</p> 
+ 
+<p>Yay wokring working. <br /></p></div> 
+                        </div> 
+                    </div> 
+                    <div class='clearfloats'></div> 
+                </div> 
+                <a name='samplemenu'></a> 
+                <div class='pane' id='samplemenus'> 
+                    <h1>Items</h1> 
+                    <a href='#top' class='toplink'>Top</a> 
+                    <div class='kitchen_box_filter'> 
+                        <h3>Filter</h3> 
+                        <ul> 
+                            
+                                <li data-id='1'>Bengali</li> 
+                            
+                                <li data-id='2'>high-oil</li> 
+                            
+                                <li data-id='3'>super-spicy</li> 
+                            
+                                <li data-id='4'>template-meal</li> 
+                            
+                                <li data-id='5'>no-dessert</li> 
+                            
+                            </ul> 
+                        </div> 
+ 
+                        <div class='kitchen_boxes'> 
+                        
+                            <div class='kitchen_box'> 
+                                <h3>My Menu</h3> 
+                                <div class='kitchen_tags'> 
+                                    
+                                        #template-meal, 
+                                    
+                                        #no-dessert
+                                    
+                                </div> 
+                                
+                                <div class='kitchen_price'><span class='rupee_symbol'>`</span> 0</div> 
+                                <div class='kitchen_description'> 
+                                    <p>Enter menu content here</p> 
+                                </div> 
+                                <a href='http://edit script' class='ajax_trigger'>Edit</a> | 
+                                <a href='http://remove script' class='ajax_trigger'>Delete</a> 
+                            </div> 
+                        
+                            <div class='kitchen_box'> 
+                                <h3>Featured Menu</h3> 
+                                <div class='kitchen_tags'> 
+                                    
+                                </div> 
+                                
+                                <div class='kitchen_price'><span class='rupee_symbol'>`</span> 0</div> 
+                                <div class='kitchen_description'> 
+                                    <p>Item 1<br />Item 2</p> 
+                                </div> 
+                                <a href='http://edit script' class='ajax_trigger'>Edit</a> | 
+                                <a href='http://remove script' class='ajax_trigger'>Delete</a> 
+                            </div> 
+                        
+                    </div><!-- kitchen_boxes --> 
+ 
+                    <input href='#form_add_menu' type='button' value='Add A Menu' class='editpage lightbox_trigger' /> 
+                    <div class='clearfloats'></div> 
+                </div> 
+                <div class='clearfloats'></div> 
+            </div><!-- content --> 
+        </div></div><!-- #wrapper --> 
+ 
+        <div id='sidebar'> 
+            <div class='sidebar_navigation_links'> 
+                <a href='#'>Sign Up</a><br/> 
+                <a href='#'>About Us</a> 
+            </div> 
+            <div class='pane'> 
+                <a href='#' class='sidebar_username'>Hi Tanmai!</a><br/> 
+                <a href='#description'>Profile</a><br/> 
+                <a href='#samplemenu'>Kitchens</a><br/> 
+                <a href='#'>Logout</a> 
+            </div> 
+            <div class='pane'> 
+                <a href='#'>Description</a><br/> 
+                <a href='#'>Sample Menu</a> 
+            </div> 
+            <div class='pane'> 
+                <ul class='sidebar_comments'> 
+                    <li>This is a comment --Anon</li> 
+                    <li>This is another comment --Anon</li> 
+                    <li>Here's some more text about how wonderful this is! --Someone else</li> 
+                </ul> 
+            </div> 
+        </div><!-- #sidebar --> 
+        <div class='clearfloats'></div> 
+ 
+        <div id='footer'> 
+            <div class='social_icons'> 
+                <a href='https://www.facebook.com/TheBrassPlate' class='icon-facebook' class='blocklink'></a> 
+                <!--<a class='icon-twitter' class='blocklink'></a>
+                <a class='icon-tumblr' class='blocklink'></a>--> 
+            </div> 
+            <div class='footer_text'> 
+                An initiative of Brassplate Enterprises <span class="copyright-symbol">&#169;</span> 
+            </div> 
+            <div class='clearfloats'></div> 
+        </div> 
+ 
+        <div id='hiddenstuff'> 
+            <div id='form_uploadimage_1' class='lightbox'> 
+                <h1>Upload an Image</h1> 
+                <form id="upload_new_image" action='/cook/edit_kitchen/upload_new_image/?kitchen_id=8&photo_set_id=10' target='upload_frame' enctype="multipart/form-data" method="POST"> 
+                    <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='nnISCy0otML4KzNkX6E0aKQHpXO7UW5E' /></div> 
+                    <label>Image</label> 
+                    <input type='text' name="photo_name" value=""/><br/> 
+                    <input name='filename' type='file'/> 
+                    <input type='submit' value='Upload'/> 
+                    <div class='clearfloats'></div> 
+                </form> 
+                <iframe id='upload_frame' name='upload_frame' width="300px" height="300px" style='display:none;'></iframe> 
+            </div> 
+ 
+            <div id='form_uploadimage_2' class='lightbox'> 
+                <h1>Crop the Image</h1> 
+                <form data-js_model="sliderEdits" class="script_form js_model" method="POST" action="/cook/edit_kitchen/crop_photo/?kitchen_id=8"> 
+                    <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='nnISCy0otML4KzNkX6E0aKQHpXO7UW5E' /></div> 
+                    <input value="0" type='hidden' name='crop_x1' id='crop_x1' /> 
+                    <input value="0" type='hidden' name='crop_x2' id='crop_x2' /> 
+                    <input value="0" type='hidden' name='crop_y1' id='crop_y1' /> 
+                    <input value="0" type='hidden' name='crop_y2' id='crop_y2' /> 
+                    <input value="0" type='hidden' name='width'  id='crop_w' /> 
+                    <input value="0" type='hidden' name='height'  id='crop_h' /> 
+                    <input type='submit' value='Crop' /> 
+                    <div class='clearfloats'></div> 
+                </form> 
+            </div> 
+ 
+            <div id='form_add_menu' class='lightbox js_model' data-js_model="menuitemEdits"> 
+                <h1>Add New Item</h1> 
+                <form id="add_menu_form" class="script_form"> 
+                    <label>Name</label><input type=text value="" name="name" placeholder="Enter name here"/> 
+                    <label>Items</label><textarea name="items" placeholder="Enter a very brief desctiption here"></textarea> 
+                    <input type='submit' value='Proceed'/> 
+                    <div class='clearfloats'></div> 
+                </form> 
+            </div> 
+            <div id='form_add_edit_menu_tags' class='lightbox'> 
+                <h1>Add [Edit] Menu | Edit Tags</h1> 
+                <form> 
+                    <label>Add tag:</label><input class='autocomplete_combo'/> 
+                    <select class='autocomplete_combo'> 
+                        <option value=''>Select...</option> 
+                        <option value='Apple'>Apple</option> 
+                        <option value='Ball'>Ball</option> 
+                        <option value='Cat'>Cat</option> 
+                    </select> 
+                    <input type='submit' value='Add' /> 
+                    <div class='clearfloats'></div> 
+                </form> 
+                <ul> 
+                    <li>Tag - <a href='http://www.delete_url_here' class='ajax_trigger'>Remove</a></li> 
+                    <li>Tag - <a href='http://www.delete_url_here' class='ajax_trigger'>Remove</a></li> 
+                    <li>Tag - <a href='http://www.delete_url_here' class='ajax_trigger'>Remove</a></li> 
+                </ul> 
+                <input type='button' href='http://www.get_script_url_for_save' value='Save' /> 
+                <div class='clearfloats'></div> 
+            </div> 
+            <div id='form_login' class='lightbox'> 
+                <h1>Log In</h1> 
+                <form> 
+                    <label>Username</label><input /> 
+                    <label>Password</label><input type='password' /> 
+                    <input type='submit' value='Login'/> 
+                    <div class='clearfloats'></div> 
+                </form> 
+            </div> 
+            <div id='form_sign_up' class='lightbox'> 
+                <h1>Sign Up</h1> 
+                <form> 
+                    <label>Username</label><input /> 
+                    <label>Password</label><input type='password' /> 
+                    <label>Confirm Password</label><input type='password' /> 
+                    <input type='submit' value='Sign Up'/> 
+                    <div class='clearfloats'></div> 
+                </form> 
+            </div> 
+        </div><!-- #hiddenstuff --> 
+    </div></body> 
+ 
+ 
+ 
+</html> 
