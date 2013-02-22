@@ -40,7 +40,8 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
 		window.$("#totalPriceValue").html(sum.toFixed(2));
 		var thisVal = parseFloat(window.$("#itemQuantity"+event.index)[0].value);
 		if(thisVal<0 || isNaN(thisVal)) thisVal=0;
-		window.$("#itemValue"+event.index).html(thisVal.toFixed(2));
+		var cost = thisVal*this.attr.allItems[event.index].PRICE;
+		window.$("#itemValue"+event.index).html(cost.toFixed(2));
 		
 		
 	};
