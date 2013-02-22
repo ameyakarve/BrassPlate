@@ -18,7 +18,7 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
             names:window._.map(window.$.parseJSON(nameList),function(item){return item.NAME}),
             quantities:[]
         });
-	this.setQuantities = function()
+	this.setQuantities = function(event)
 	{
 		var dom = window.$(".inputQuantity");
 		var values = (window._.map(dom,function(item){
@@ -32,6 +32,9 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
 		for(var i = 0; i<this.attr.selectedItems.length; i++)
 			sum += this.attr.allItems[this.attr.selectedItems[i]].PRICE*values[this.attr.selectedItems[i]];
 		window.$("#totalPriceValue").html(sum.toFixed(2));
+		var thisVal = parseFloat(window.$("#itemQuantity"+event.index).value);
+		if(thisVal<0 || isNan(thisVal)) thisVal=0;
+		window.$("#itemValue"+event.index).html(thisVal.toFixed(2));
 		
 		
 	};
@@ -74,7 +77,8 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
                 });
                 window.$("#itemQuantity"+event.index).on("input",function(){
                     window.$("#ingredientsComponent").trigger({
-                    	type:"quantitiesChanged"
+                    	type:"quantitiesChanged",
+                    	index:event.index
                     });
                 });
                 this.attr.selectedItems.push(event.index);
