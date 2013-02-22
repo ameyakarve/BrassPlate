@@ -60,13 +60,17 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
                     window.$(".inputQuantity").each(function( index ) {
                         //console.log( index +":"+ window.$(this).val());
                         var p = window.$(this).val();
-                        if(p===null||p===""||isNaN(parseFloat(p)))
+                        if(p===null||p===""||parseFloat(p)===NaN)
                         {
                             
                         }
                         else {
 				sum+=parseFloat(p);
+				console.log(p);
 			}
+                        
+                        
+                    
                     });
                     console.log(sum);
                     
