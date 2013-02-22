@@ -33,7 +33,7 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
 			sum += this.attr.allItems[this.attr.selectedItems[i]].PRICE*values[this.attr.selectedItems[i]];
 		window.$("#totalPriceValue").html(sum.toFixed(2));
 		var thisVal = parseFloat(window.$("#itemQuantity"+event.index).value);
-		if(thisVal<0 || isNan(thisVal)) thisVal=0;
+		if(thisVal<0 || isNaN(thisVal)) thisVal=0;
 		window.$("#itemValue"+event.index).html(thisVal.toFixed(2));
 		
 		
