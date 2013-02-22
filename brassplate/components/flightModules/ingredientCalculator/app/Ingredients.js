@@ -31,7 +31,10 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
 		var sum = 0;
 		for(var i = 0; i<this.attr.selectedItems.length; i++)
 		{
-			var add=  this.attr.allItems[this.attr.selectedItems[i]].PRICE*values[this.attr.selectedItems[i]];
+			var index = this.attr.selectedItems[i];
+			var price = this.attr.allItems[index].PRICE;
+			var add=  price*values[i];
+			
 			if(!isNaN(add)) sum+=add;
 		}
 		window.$("#totalPriceValue").html(sum.toFixed(2));
