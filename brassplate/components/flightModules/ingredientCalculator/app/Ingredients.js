@@ -28,16 +28,18 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
 				return 0;
 			else return parseFloat(item.value);
 		}));
+		console.log(removed);
 		var sum = 0;
 		for(var i = 0; i<this.attr.selectedItems.length; i++)
 		{
+			
 			var index = this.attr.selectedItems[i];
 			var price = this.attr.allItems[index].PRICE;
 			var add=  price*values[i];
 			
 			if(!isNaN(add)) sum+=add;
 		}
-		if(event.removed==false)
+		if(!event.removed)
 		{
 			window.$("#totalPriceValue").html(sum.toFixed(2));
 			var thisVal = parseFloat(window.$("#itemQuantity"+event.index)[0].value);
