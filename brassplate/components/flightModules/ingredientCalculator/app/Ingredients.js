@@ -61,11 +61,9 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
                     });
                 });
                 window.$("#itemQuantity"+event.index).on("input",function(){
-                    window.$("#ingredientComponent").trigger({
+                    window.$("#ingredientsComponent").trigger({
                     	type:"quantitiesChanged"
                     });
-                    console.log(sum);
-                    
                 });
                 this.attr.selectedItems.push(event.index);
                 console.log(this.attr.selectedItems);
