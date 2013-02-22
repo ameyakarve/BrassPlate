@@ -21,7 +21,18 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
 	this.setQuantities = function()
 	{
 		var dom = window.$(".inputQuantity");
-		console.log(window._.map(dom,function(item){return item.value}));
+		var values = (window._.map(dom,function(item){
+			if(isNaN(parseFloat(item.value)))
+				return 0;
+			else if(parseFloat(item.value)<0)
+				return 0;
+			else return parseFloat(item.value);
+		}));
+		var sum = 0;
+		for(var i = 0; i<this.attr.selectedItems.length; i++)
+			sum += this.attr.allItems[this.attr.selectedItems[i]].PRICE*values[this.attr.selectedItems[i]];
+		console.log(sum);
+		
 		
 	};
         this.initfunction = function() {
