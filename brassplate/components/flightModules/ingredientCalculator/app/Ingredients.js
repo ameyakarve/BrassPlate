@@ -20,7 +20,7 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
         });
 		this.setQuantities = function()
 		{
-			var dom = window.$(.inputQuantity);
+			var dom = window.$(".inputQuantity");
 			console.log(dom);
 		};
         this.initfunction = function() {
