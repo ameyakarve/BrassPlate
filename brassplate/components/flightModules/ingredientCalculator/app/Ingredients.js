@@ -36,8 +36,8 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
 			var index = this.attr.selectedItems[i];
 			var price = this.attr.allItems[index].PRICE;
 			var add=  price*values[i];
-			
-			if(!isNaN(add)) sum+=add;
+			var check = removed&&event.index==index;
+			if(!isNaN(add)&&!check) sum+=add;
 		}
 		if(!event.removed)
 		{
