@@ -18,11 +18,12 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
             names:window._.map(window.$.parseJSON(nameList),function(item){return item.NAME}),
             quantities:[]
         });
-		this.setQuantities = function()
-		{
-			var dom = window.$(".inputQuantity");
-			console.log(dom);
-		};
+	this.setQuantities = function()
+	{
+		var dom = window.$(".inputQuantity");
+		console.log(window._.map(dom,function(item){return item.value}));
+		
+	};
         this.initfunction = function() {
             window.$("#ingredientTypeahead").typeahead({
                 source: this.attr.names,
