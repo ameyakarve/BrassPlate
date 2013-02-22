@@ -37,11 +37,15 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
 			
 			if(!isNaN(add)) sum+=add;
 		}
-		window.$("#totalPriceValue").html(sum.toFixed(2));
-		var thisVal = parseFloat(window.$("#itemQuantity"+event.index)[0].value);
-		if(thisVal<0 || isNaN(thisVal)) thisVal=0;
-		var cost = thisVal*this.attr.allItems[event.index].PRICE;
-		window.$("#itemValue"+event.index).html(cost.toFixed(2));
+		if(event.removed==false)
+		{
+			window.$("#totalPriceValue").html(sum.toFixed(2));
+			var thisVal = parseFloat(window.$("#itemQuantity"+event.index)[0].value);
+			if(thisVal<0 || isNaN(thisVal)) thisVal=0;
+			var cost = thisVal*this.attr.allItems[event.index].PRICE;
+			window.$("#itemValue"+event.index).html(cost.toFixed(2));	
+		}
+		
 		
 		
 	};
@@ -85,7 +89,8 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
                 window.$("#itemQuantity"+event.index).on("input",function(){
                     window.$("#ingredientsComponent").trigger({
                     	type:"quantitiesChanged",
-                    	index:event.index
+                    	index:event.index,
+                    	removed:false
                     });
                 });
                 this.attr.selectedItems.push(event.index);
@@ -105,6 +110,11 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
             var index = this.attr.selectedItems.indexOf(event.index);
             this.attr.selectedItems.splice(index,1);
             console.log(this.attr.selectedItems);
+            window.$("#ingredientsComponent").trigger({
+		type:"quantitiesChanged",
+                index:event.index,
+                removed:true
+	    });
         }
 
         this.after("initialize", function() {
