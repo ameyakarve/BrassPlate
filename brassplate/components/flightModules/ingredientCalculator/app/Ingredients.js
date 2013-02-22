@@ -15,9 +15,14 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
         this.defaultAttrs({
             selectedItems: [],
             allItems:window.$.parseJSON(nameList),
-            names:window._.map(window.$.parseJSON(nameList),function(item){return item.NAME})
+            names:window._.map(window.$.parseJSON(nameList),function(item){return item.NAME}),
+            quantities:[]
         });
-
+		this.setQuantities = function()
+		{
+			var dom = window.$(.inputQuantity);
+			console.log(dom);
+		};
         this.initfunction = function() {
             window.$("#ingredientTypeahead").typeahead({
                 source: this.attr.names,
@@ -56,17 +61,8 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
                     });
                 });
                 window.$("#itemQuantity"+event.index).on("input",function(){
-                    var sum = 0;
-                    window.$(".inputQuantity").each(function( index ) {
-                        //console.log( index +":"+ window.$(this).val());
-                        var p = window.$(this).val();
-                        if(p===null||p===""||isNaN(parseFloat(p)))
-                        {
-                            
-                        }
-                        else {
-				sum+=parseFloat(p);
-			}
+                    window.$("#ingredientComponent").trigger({
+                    	type:"quantitiesChanged"
                     });
                     console.log(sum);
                     
@@ -94,6 +90,7 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
             this.initfunction();
             this.on("newItemAdded", this.itemAdded);
             this.on("itemRemoved",this.itemRemoved);
+            this.on("quantitiesChanged",this.setQuantities);
         });
     }
 });
