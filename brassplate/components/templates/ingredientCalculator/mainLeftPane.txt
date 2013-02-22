@@ -29,7 +29,7 @@
                         <div class="row-fluid itemTopRow">
                             <div class="span9 itemName">Total</div>
                             
-                            <div class="span1 offset1 itemValue">0.00</div>
+                            <div class="span1 offset1 itemValue" id="totalPriceValue">0.00</div>
                         </div>
                     </div>
                     <form>
