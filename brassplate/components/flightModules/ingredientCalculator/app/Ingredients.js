@@ -28,7 +28,7 @@ function(component, typeAhead, Underscore, Mustache, addItemTemplate, nameList) 
 				return 0;
 			else return parseFloat(item.value);
 		}));
-		console.log(removed);
+		console.log(event.removed);
 		var sum = 0;
 		for(var i = 0; i<this.attr.selectedItems.length; i++)
 		{
