@@ -1,4 +1,4 @@
-define(['director','src/modules/Ingredients/boot'], function(Director,Ingredients) {
+define(['director','src/modules/Ingredients/boot','src/modules/sidebar/boot'], function(Director,Ingredients,Sidebar) {
     var initialize = function() {
         var author = function() {
             console.log("author");
@@ -13,6 +13,7 @@ define(['director','src/modules/Ingredients/boot'], function(Director,Ingredient
         var IngredientsRoute = function()
         {
             Ingredients.initialize();
+			Sidebar.toggleNavbar("#nav3");
             console.log("Entered Ingredients");
             //Initialize module
         };

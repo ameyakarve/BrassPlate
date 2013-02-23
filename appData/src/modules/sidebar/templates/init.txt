@@ -1,13 +1,13 @@
 <div class="row-fluid">
     <div class="span12" id="navbar">
-        <ul class="nav nav-tabs nav-stacked">
-            <li class="active">
+        <ul class="nav nav-tabs nav-stacked" id="navbarUl">
+            <li class="active" id="nav1">
                 <a href="#"><i class="icon-home icon-black"></i>&nbsp;&nbsp;Home</a>
             </li>
-            <li>
+            <li id="nav2">
                 <a href="#"><i class="icon-question-sign icon-black"></i>&nbsp;&nbsp;About Us</a>
             </li>
-            <li>
+            <li id="nav3">
                 <a href="#/ingredients"><i class="icon-list-alt icon-black"></i>&nbsp;&nbsp;Ingredients</a>
             </li>
         </ul>

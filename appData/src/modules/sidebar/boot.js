@@ -2,12 +2,20 @@ define([
     'jquery',
     'mustache',
     'text!src/modules/sidebar/templates/init.txt',
-    ],function($,Mustache,Template){
+	'src/modules/sidebar/nav'
+    ],function($,Mustache,Template,NavBar){
         var initialize = function()
         {
             $("#sidebar").html(Mustache.render(Template,{}));
-            //NavBar.attachTo("#navbar");
+			NavBar.navbarComponent.attachTo("#navbar");
             console.log("Sidebar attached");
         };
-        return {initialize:initialize};
+		var toggleNavbar = function(current)
+		{
+			$("li.active").each(function( index ) {
+				$(this).removeClass("active");
+			});
+			$(current).addClass("active");
+		};
+        return {initialize:initialize,toggleNavbar:toggleNavbar};
     });

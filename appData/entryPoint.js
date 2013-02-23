@@ -6,13 +6,7 @@ require.config({
     shim:'assets/js/components/es5-shim/es5-shim',
     sham:'assets/js/components/es5-shim/es5-sham',
     router:'src/router',
-    mustache:'assets/js/components/mustache/mustache',
-    compose:'assets/js/components/flight/lib/compose',
-    registry:'assets/js/components/flight/lib/registry',
-    advice:'assets/js/components/flight/lib/advice',
-    logger:'assets/js/components/flight/lib/logger',
-    debug:'assets/js/components/flight/tools/debug/debug',
-          
+    mustache:'assets/js/components/mustache/mustache'  
   }
 });
 require(
@@ -20,11 +14,11 @@ require(
           'jquery',
           'shim',
           'sham',
-          'compose',
-          'registry',
-          'advice',
-          'logger',
-          'debug',
+          'assets/js/components/flight/lib/compose',
+          'assets/js/components/flight/lib/registry',
+          'assets/js/components/flight/lib/advice',
+          'assets/js/components/flight/lib/logger',
+          'assets/js/components/flight/tools/debug/debug',
           'src/application'
         ],
 

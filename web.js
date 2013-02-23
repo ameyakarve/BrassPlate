@@ -20,7 +20,7 @@ app.get('/api/addIngredient',function(req,res){
     res.send(result);
 });
 
-var port = process.env.PORT;
-app.listen(port, function() {
+var port = process.env.PORT||5000;
+app.listen(5000, function() {
   console.log("Listening on " + port);
 });
