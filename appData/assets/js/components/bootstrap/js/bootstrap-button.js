@@ -1,3 +1,5 @@
+define(['jquery'], function ($) {
+    //Plugin code goes here.
 /* ============================================================
  * bootstrap-button.js v2.3.0
  * http://twitter.github.com/bootstrap/javascript.html#buttons
@@ -103,3 +105,4 @@
   })
 
 }(window.jQuery);
+});

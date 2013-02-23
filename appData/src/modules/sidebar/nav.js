@@ -1,5 +1,5 @@
 define([
-    'assets/js/components/flight/lib/Component',
+    'assets/js/components/flight/lib/component',
     'jquery',
     'mustache'
     ],function(Component,$,Mustache){
@@ -7,12 +7,8 @@ define([
         
 		function NavBar()
         {
-            this.setNavBehaviour = function()
-            {
-                console.log($);
-            };
             this.after("initialize", function() {
-                this.setNavBehaviour();
+			
             });
         }
 		return {navbarComponent:Component(NavBar)};

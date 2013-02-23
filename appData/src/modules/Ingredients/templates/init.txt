@@ -1,4 +1,4 @@
-<div class="row-fluid" id="ingredientsComponent">
+<div class="row-fluid" id="calculatorComponent">
     <h1>Ingredients calculator</h1>
     <div class="row-fluid">
         <div class="row-fluid itemTopRow">
@@ -26,7 +26,7 @@
         </fieldset>
     </form>
 </div>
-<div class="row-fluid" id="addIngredientComponent">
+<div class="row-fluid" id="formComponent">
     <div class="well">
         <a class="btn btn-inverse" id="addNewIngredientButton">
                             <i class="icon-plus-sign icon-white"></i></a>&nbsp;&nbsp;Can't find an item in your list? Why not add another?</div>
@@ -41,13 +41,8 @@
             <form id="addIngredientmodalForm">
                 <fieldset>
                     <div class="row-fluid">
-                        <div class="row-fluid">
-                            <div class="alert alert-block alert-error" id="ingredientBoxErrorAlert">You can haz error
-                                <a class="close" data-dismiss="alert" id="ingredientBoxErrorAlertClose">&times;</a>
-                            </div>
-                            <div class="alert alert-block " id="ingredientBoxSuccessAlert">You can haz succesz
-                                <a class="close" data-dismiss="alert" id="ingredientBoxSuccessAlertClose">&times;</a>
-                            </div>
+                        <div class="row-fluid" id="formAlertArea">
+                            
                         </div>
                         <label>Item Name</label>
                         <input name="NAME" class="input-block-level" placeholder="Item Name"
@@ -61,7 +56,6 @@
                         <label>Unit Cost</label>
                         <input name="PRICE" class="input-block-level" placeholder="Unit Cost"
                         type="number">
-                        <input type="hidden" name="UID" value=0>
                         <input id="formTimeStamp" type="hidden" name="TIMESTAMP" value=0>
                     </div>
                 </fieldset>

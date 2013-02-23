@@ -24,11 +24,7 @@ require(
 
         function($,shim,sham,compose, registry, advice, withLogging, debug,App) {
           debug.enable(true);
-          console.log("Started");
           compose.mixin(registry, [advice.withAdvice, withLogging]);
-          console.log("Compose");
           App.initialize();
-         
-          console.log("Initial config done");
         }
       );

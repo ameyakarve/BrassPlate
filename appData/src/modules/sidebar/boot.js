@@ -8,7 +8,6 @@ define([
         {
             $("#sidebar").html(Mustache.render(Template,{}));
 			NavBar.navbarComponent.attachTo("#navbar");
-            console.log("Sidebar attached");
         };
 		var toggleNavbar = function(current)
 		{

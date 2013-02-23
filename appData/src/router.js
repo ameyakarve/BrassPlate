@@ -14,8 +14,6 @@ define(['director','src/modules/Ingredients/boot','src/modules/sidebar/boot'], f
         {
             Ingredients.initialize();
 			Sidebar.toggleNavbar("#nav3");
-            console.log("Entered Ingredients");
-            //Initialize module
         };
 
         var routes = {
@@ -26,10 +24,8 @@ define(['director','src/modules/Ingredients/boot','src/modules/sidebar/boot'], f
             '/books/view/:bookId': viewBook
         };
 
-        console.log(Director);
         var router = Director.Router(routes);
         router.init();
-        console.log("Router started");
     };
 
     return {

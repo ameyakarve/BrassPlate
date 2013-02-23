@@ -1,3 +1,5 @@
+define(['jquery'], function ($) {
+    //Plugin code goes here.
 /* =========================================================
  * bootstrap-modal.js v2.3.0
  * http://twitter.github.com/bootstrap/javascript.html#modals
@@ -245,3 +247,4 @@
   })
 
 }(window.jQuery);
+});
