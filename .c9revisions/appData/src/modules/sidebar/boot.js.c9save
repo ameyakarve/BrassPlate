@@ -7,3 +7,11 @@
 {"ts":1361617595652,"patch":[[{"diffs":[[0,"efine([\n"],[1,"    'jquery',\n"],[0,"    'mus"]],"start1":1,"start2":1,"length1":16,"length2":30}]],"length":270,"saved":false}
 {"ts":1361617600042,"patch":[[{"diffs":[[0,"unction("],[1,"$,"],[0,"Mustache"]],"start1":96,"start2":96,"length1":16,"length2":18}]],"length":272,"saved":false}
 {"ts":1361617614861,"patch":[[{"diffs":[[0,"        "],[1,"$(\"#sidebar\").html("],[0,"Mustache"]],"start1":176,"start2":176,"length1":16,"length2":35},{"diffs":[[0,"late,{})"],[1,")"],[0,";\n      "]],"start1":223,"start2":223,"length1":16,"length2":17}]],"length":292,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1361628960863,"patch":[[{"diffs":[[0,"nit.txt'"],[1,",\n    'src/modules/sidebar/nav'"],[0,"\n    ],f"]],"start1":80,"start2":80,"length1":16,"length2":47}]],"length":323,"saved":false}
+{"ts":1361628967870,"patch":[[{"diffs":[[0,"Template"],[1,",NavBar"],[0,"){\n     "]],"start1":146,"start2":146,"length1":16,"length2":23}]],"length":330,"saved":false}
+{"ts":1361628992865,"patch":[[{"diffs":[[0,"e,{}));\n"],[1,"            NavBar.attachTo(\"#navbar\");\n"],[0,"        "]],"start1":264,"start2":264,"length1":16,"length2":56}]],"length":370,"saved":false}
+{"ts":1361629391715,"patch":[[{"diffs":[[0,"vbar\");\n"],[1,"            console.log(\"Sidebar attached\");\n"],[0,"        "]],"start1":304,"start2":304,"length1":16,"length2":61}]],"length":415,"saved":false}
+{"ts":1361629411910,"patch":[[{"diffs":[[0,"        "],[1,"//"],[0,"NavBar.a"]],"start1":276,"start2":276,"length1":16,"length2":18}]],"length":417,"saved":false}
+{"ts":1361629429981,"patch":[[{"diffs":[[0,"    "],[-1,"//"],[0,"NavB"]],"start1":280,"start2":280,"length1":10,"length2":8}]],"length":415,"saved":false}
+{"ts":1361629928656,"patch":[[{"diffs":[[0,"t',\n"],[-1,"    'src/modules/sidebar/nav'\n"],[0,"    "]],"start1":86,"start2":86,"length1":38,"length2":8},{"diffs":[[0,"late"],[-1,",NavBar"],[0,"){\n "]],"start1":120,"start2":120,"length1":15,"length2":8}]],"length":378,"saved":false}
+{"ts":1361629932431,"patch":[[{"diffs":[[0,"        "],[1,"//"],[0,"NavBar.a"]],"start1":239,"start2":239,"length1":16,"length2":18}]],"length":380,"saved":false}

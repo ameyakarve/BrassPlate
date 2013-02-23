@@ -1,6 +1,6 @@
 var express = require('express');
 
-var app = express.createServer(express.logger());
+var app = express();
 
 app.configure(function(){
     app.set('views', __dirname + '/views');
@@ -20,7 +20,7 @@ app.get('/api/addIngredient',function(req,res){
     res.send(result);
 });
 
-var port = process.env.PORT || 5000;
+var port = process.env.PORT;
 app.listen(port, function() {
   console.log("Listening on " + port);
 });

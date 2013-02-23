@@ -212,7 +212,7 @@ body {
   background-color: #ffffff;
 }
 a {
-  color: #0088cc;
+  color: #949596;
   text-decoration: none;
 }
 a:hover {
@@ -3129,7 +3129,7 @@ input[type="submit"].btn.btn-mini {
   line-height: 14px;
 }
 .nav-tabs {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 0px solid #ddd;
 }
 .nav-tabs > li {
   margin-bottom: -1px;
@@ -3138,16 +3138,16 @@ input[type="submit"].btn.btn-mini {
   padding-top: 8px;
   padding-bottom: 8px;
   line-height: 20px;
-  border: 1px solid transparent;
+  border: 0px solid transparent;
 }
 .nav-tabs > li > a:hover {
   border-color: #eeeeee #eeeeee #dddddd;
 }
 .nav-tabs > .active > a,
 .nav-tabs > .active > a:hover {
-  color: #555555;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
+  color: #000;
+  background-color: #b2e0e4;
+  border-right:5px solid #F2694E;
   border-bottom-color: transparent;
   cursor: default;
 }
@@ -3171,29 +3171,29 @@ input[type="submit"].btn.btn-mini {
 .nav-tabs.nav-stacked {
   border-bottom: 0;
 }
-.nav-tabs.nav-stacked > li > a {
-  border: 1px solid #ddd;
+.nav-tabs.nav-stacked > li > a.active {
+  border-right:5px solid #F2694E;
 }
 .nav-tabs.nav-stacked > li:first-child > a {
-  -webkit-border-top-right-radius: 4px;
-  -moz-border-radius-topright: 4px;
-  border-top-right-radius: 4px;
-  -webkit-border-top-left-radius: 4px;
-  -moz-border-radius-topleft: 4px;
-  border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 0px;
+  -moz-border-radius-topright: 0px;
+  border-top-right-radius: 0px;
+  -webkit-border-top-left-radius: 0px;
+  -moz-border-radius-topleft: 0px;
+  border-top-left-radius: 0px;
 }
 .nav-tabs.nav-stacked > li:last-child > a {
-  -webkit-border-bottom-right-radius: 4px;
+  -webkit-border-bottom-right-radius: 0px;
   -moz-border-radius-bottomright: 4px;
-  border-bottom-right-radius: 4px;
-  -webkit-border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 0px;
+  -webkit-border-bottom-left-radius: 0px;
   -moz-border-radius-bottomleft: 4px;
-  border-bottom-left-radius: 4px;
+  border-bottom-left-radius: 0px;
 }
 .nav-tabs.nav-stacked > li > a:hover {
-  border-color: #ddd;
-  z-index: 2;
+  border-color: #F2694E;
 }
+
 .nav-pills.nav-stacked > li > a {
   margin-bottom: 3px;
 }

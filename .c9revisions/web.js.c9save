@@ -13,3 +13,5 @@
 {"contributors":[],"silentsave":false,"ts":1361599297171,"patch":[[{"diffs":[[0,"+ '/"],[-1,"brassplate"],[1,"appData"],[0,"/com"]],"start1":229,"start2":229,"length1":18,"length2":15}]],"length":772,"saved":false}
 {"ts":1361599360973,"patch":[[{"diffs":[[0,"('views/"],[-1,"kitchenProfile"],[1,"index"],[0,".html');"]],"start1":378,"start2":378,"length1":30,"length2":21}]],"length":763,"saved":false}
 {"ts":1361599440296,"patch":[[{"diffs":[[0,"Data"],[-1,"/components"],[0,"'));"]],"start1":236,"start2":236,"length1":19,"length2":8},{"diffs":[[0,"s){\n"],[-1,"        //res.render('kitchenProfile', {title:\"Home Page\"});\n"],[0,"    "]],"start1":282,"start2":282,"length1":69,"length2":8}]],"length":691,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1361630164855,"patch":[[{"diffs":[[0,"PORT"],[-1," || 5000"],[0,";\nap"]],"start1":604,"start2":604,"length1":16,"length2":8}]],"length":683,"saved":false}
+{"ts":1361630194774,"patch":[[{"diffs":[[0,"ress"],[-1,".createServer(express.logger()"],[1,"("],[0,");\n\n"]],"start1":48,"start2":48,"length1":38,"length2":9}]],"length":654,"saved":false}

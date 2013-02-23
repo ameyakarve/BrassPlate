@@ -1,13 +1,15 @@
 <div class="row-fluid">
-    <ul class="nav nav-tabs nav-stacked">
-        <li class="active">
-            <a href="#">Home</a>
-        </li>
-        <li>
-            <a href="#">...</a>
-        </li>
-        <li>
-            <a href="#">...</a>
-        </li>
-    </ul>
+    <div class="span12" id="navbar">
+        <ul class="nav nav-tabs nav-stacked">
+            <li class="active">
+                <a href="#"><i class="icon-home icon-black"></i>&nbsp;&nbsp;Home</a>
+            </li>
+            <li>
+                <a href="#"><i class="icon-question-sign icon-black"></i>&nbsp;&nbsp;About Us</a>
+            </li>
+            <li>
+                <a href="#/ingredients"><i class="icon-list-alt icon-black"></i>&nbsp;&nbsp;Ingredients</a>
+            </li>
+        </ul>
+    </div>
 </div>

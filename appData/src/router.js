@@ -13,6 +13,7 @@ define(['director','src/modules/Ingredients/boot'], function(Director,Ingredient
         var IngredientsRoute = function()
         {
             Ingredients.initialize();
+            console.log("Entered Ingredients");
             //Initialize module
         };
 
