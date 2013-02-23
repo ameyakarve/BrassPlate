@@ -1,3 +1,5 @@
+define(['jquery/jquery'], function ($) {
+    //Plugin code goes here.
 /* ==========================================================
  * bootstrap-alert.js v2.3.0
  * http://twitter.github.com/bootstrap/javascript.html#alerts
@@ -97,3 +99,4 @@
   $(document).on('click.alert.data-api', dismiss, Alert.prototype.close)
 
 }(window.jQuery);
+});

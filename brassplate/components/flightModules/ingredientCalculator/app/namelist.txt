@@ -1,13 +1,97 @@
-[{"UID":1,"NAME":"Ameya","PRICE":1,"UNIT":"kg","BRAND":"Brand"},
-{"UID":2,"NAME":"Ball","PRICE":2,"UNIT":"ml","BRAND":"B1"},
-{"UID":3,"NAME":"Cow","PRICE":3,"UNIT":"unit","BRAND":"B2"},
-{"UID":4,"NAME":"Dog","PRICE":4,"UNIT":"liters","BRAND":"B3"},
-{"UID":5,"NAME":"Eagle","PRICE":5,"UNIT":"g","BRAND":"B1"},
-{"UID":6,"NAME":"Fish","PRICE":6,"UNIT":"kg","BRAND":"B2"},
-{"UID":7,"NAME":"Goat","PRICE":5,"UNIT":"ml","BRAND":"B3"},
-{"UID":8,"NAME":"Horse","PRICE":4,"UNIT":"unit","BRAND":"B1"},
-{"UID":9,"NAME":"Igloo","PRICE":3,"UNIT":"liters","BRAND":"B2"},
-{"UID":10,"NAME":"Junk","PRICE":2,"UNIT":"g","BRAND":"B3"},
-{"UID":11,"NAME":"King","PRICE":2,"UNIT":"unit","BRAND":"B1"},
-{"UID":12,"NAME":"Lion","PRICE":3,"UNIT":"liters","BRAND":"B2"},
-{"UID":13,"NAME":"Monkey","PRICE":5,"UNIT":"g","BRAND":"B3"}]
+{
+   "lastTimeStamp":1890987464,
+   "addedStatus":{"success":true,"addedItemUID":12,errorCode:4,errorMsg:"Sample Error Message"}
+   "updatedData":[
+      {
+         "UID":1,
+         "NAME":"Ameya",
+         "PRICE":1,
+         "UNIT":"kg",
+         "BRAND":"Brand"
+      },
+      {
+         "UID":2,
+         "NAME":"Ball",
+         "PRICE":2,
+         "UNIT":"ml",
+         "BRAND":"B1"
+      },
+      {
+         "UID":3,
+         "NAME":"Cow",
+         "PRICE":3,
+         "UNIT":"unit",
+         "BRAND":"B2"
+      },
+      {
+         "UID":4,
+         "NAME":"Dog",
+         "PRICE":4,
+         "UNIT":"liters",
+         "BRAND":"B3"
+      },
+      {
+         "UID":5,
+         "NAME":"Eagle",
+         "PRICE":5,
+         "UNIT":"g",
+         "BRAND":"B1"
+      },
+      {
+         "UID":6,
+         "NAME":"Fish",
+         "PRICE":6,
+         "UNIT":"kg",
+         "BRAND":"B2"
+      },
+      {
+         "UID":7,
+         "NAME":"Goat",
+         "PRICE":5,
+         "UNIT":"ml",
+         "BRAND":"B3"
+      },
+      {
+         "UID":8,
+         "NAME":"Horse",
+         "PRICE":4,
+         "UNIT":"unit",
+         "BRAND":"B1"
+      },
+      {
+         "UID":9,
+         "NAME":"Igloo",
+         "PRICE":3,
+         "UNIT":"liters",
+         "BRAND":"B2"
+      },
+      {
+         "UID":10,
+         "NAME":"Junk",
+         "PRICE":2,
+         "UNIT":"g",
+         "BRAND":"B3"
+      },
+      {
+         "UID":11,
+         "NAME":"King",
+         "PRICE":2,
+         "UNIT":"unit",
+         "BRAND":"B1"
+      },
+      {
+         "UID":12,
+         "NAME":"Lion",
+         "PRICE":3,
+         "UNIT":"liters",
+         "BRAND":"B2"
+      },
+      {
+         "UID":13,
+         "NAME":"Monkey",
+         "PRICE":5,
+         "UNIT":"g",
+         "BRAND":"B3"
+      }
+   ]
+}

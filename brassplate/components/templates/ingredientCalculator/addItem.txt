@@ -7,7 +7,7 @@
     
     <div class="span1 itemRemove">
         <a class="btn btn-danger" id="removeItem{{index}}">
-            <i class="icon-remove-circle"></i>
+            <i class="icon-remove-circle icon-white"></i>
         </a>
     </div>
 </div>

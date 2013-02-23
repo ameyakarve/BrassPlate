@@ -1,6 +1,7 @@
 define(
     [
         'flightModules/ingredientCalculator/app/Ingredients',
+        'flightModules/ingredientCalculator/app/addNewIngredientForm',
         'mustache/mustache',
         'text!templates/ingredientCalculator/mainLeftPane.txt',
         'text!templates/ingredientCalculator/sidebarTemplate.txt',
@@ -10,6 +11,7 @@ define(
     ],
     function(
         Ingredients,
+        Form,
         Mustache,
         mainLeftPaneTemplate,
         sidebarTemplate,
@@ -23,6 +25,7 @@ define(
             window.$("#footer").html(Mustache.render(footerTemplate,{}));    
             window.$("#footer").html(Mustache.render(hiddenStuffTemplate,{}));  
             Ingredients.attachTo("#ingredientsComponent");
+            Form.attachTo("#addIngredientComponent");
         }
         return initialize;
     }

@@ -1,0 +1,2 @@
+{"ts":1361539250216,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":false,"ts":1361539256590,"patch":[[{"diffs":[[1,"<input class=\"input-large\" type=\"text\" id=\"ingredientTypeahead\" placeholder=\"Start typing ingredient name\"\r\n/>\r\n<span class=\"help-inline itemName\" id=\"inputWarning\"></span>"]],"start1":0,"start2":0,"length1":0,"length2":172}]],"length":172,"saved":false}
