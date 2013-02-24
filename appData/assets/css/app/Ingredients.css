@@ -39,13 +39,12 @@
     margin-bottom:11px;
     
 }
+.itemBottomRow
+{
+    background-color:#F8F9F9;
+	border-top:2px solid #fff;
+}
 .itemTopRow
 {
-    
-    border: 1px solid;
-    border-color:#ddd;
-    background-color:#d1d2c6;
-    margin-top:9px;
-    margin-bottom:11px;
-    
+    background-color:#F8F9F9;
 }

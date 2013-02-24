@@ -24,8 +24,8 @@ define([
 	var SubmitForm = function()
 	{
 		var formData = $("#addIngredientmodalForm").serialize();
-		var cachemash = new Date().getTime();
-		formData+="&CACHEMASH="+cachemash;
+		var cachebang = new Date().getTime();
+		formData+="&CACHEBANG="+cahcebang;
 		$.ajax({
 			type:"GET",
 			url:"api/addIngredient",

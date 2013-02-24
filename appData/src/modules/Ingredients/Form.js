@@ -1,13 +1,12 @@
 define(
 	[
 		'assets/js/components/flight/lib/component', 
-		'assets/js/components/underscore/underscore', 
 		'jquery',
 		'mustache', 
 		'src/modules/Ingredients/FormJqueryCalls'
 	],
 
-function(component, Underscore, $, Mustache, jQueryCalls) {
+function(component,  $, Mustache, jQueryCalls) {
     function Form() {
         this.defaultAttrs({
             selectedItems: [],

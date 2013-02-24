@@ -1,5 +1,5 @@
 <div class="row-fluid" id="calculatorComponent">
-    <h1>Ingredients calculator</h1>
+    <h4>Ingredients calculator</h4>
     <div class="row-fluid">
         <div class="row-fluid itemTopRow">
             <div class="span7 itemName">Item Name</div>
@@ -11,7 +11,7 @@
     </div>
     <div class="row-fluid" id="itemList"></div>
     <div class="row-fluid">
-        <div class="row-fluid itemTopRow">
+        <div class="row-fluid itemBottomRow">
             <div class="span9 itemName">Total</div>
             <div class="span1 offset1 itemValue" id="totalPriceValue">0.00</div>
         </div>
