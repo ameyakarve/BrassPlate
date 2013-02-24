@@ -1,4 +1,4 @@
-define(['director','src/modules/Ingredients/boot','src/modules/sidebar/boot','jquery'], function(Director,Ingredients,Sidebar,$) {
+define(['director','src/modules/Ingredients/boot','src/modules/sidebar/boot','jquery','assets/js/components/flight/lib/component'], function(Director,Ingredients,Sidebar,$,component) {
     var initialize = function() {
         var author = function() {
             console.log("author");
@@ -12,7 +12,9 @@ define(['director','src/modules/Ingredients/boot','src/modules/sidebar/boot','jq
         
         var IngredientsRoute = function()
         {
-            Ingredients.initialize();
+            component.teardownAll();
+			console.log("Tore down");
+			Ingredients.initialize();
 			Sidebar.toggleNavbar("#nav3");
         };
 		var HomeRoute = function()

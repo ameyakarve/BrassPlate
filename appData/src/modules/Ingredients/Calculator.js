@@ -69,7 +69,15 @@ function(component, typeAhead, Mustache, jQueryCalls) {
                 jQueryCalls.renderTotalCostChange(event.index,this.attr.allItems[event.index].PRICE);
             }
 		};
+		this.Init = function()
+		{
+			this.attr.selectedItems = [];
+			this.attr.allItems = [];
+			this.attr.quantities=[];
+			this.attr.lastTimeStamp = 0;
+		};
         this.after("initialize", function() {
+			this.Init();
 			this.on("nextDependencyLoaded",jQueryCalls.Init);
 			this.on("dataReceived",this.setData);
 			this.on("newItemAdded",this.addItem);
