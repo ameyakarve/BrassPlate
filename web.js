@@ -108,7 +108,120 @@ app.get('/api/addIngredient',function(req,res){
 	}
 	else
 	{
-		res.send("Fail");
+		console.log(req.query);
+		if(req.query.NAME&&req.query.BRAND&&req.query.PRICE&&req.query.UNIT&&req.query.LASTTIMESTAMP)
+		{
+			//All clear
+			var name = req.query.NAME;
+			var price = parseFloat(req.query.PRICE);
+			if(isNaN(price)||price<0)
+			{
+				var result = 
+				{
+					lastTimeStamp:1890987464,
+					addedStatus:{
+						success:false,
+						addedItemUID:20,
+						errorCode:4,
+						errorMsg:"Price fail"
+					},
+					init:false,
+					updatedData:
+					[
+						{
+							UID:20,
+							NAME:"Wolf",
+							PRICE:25,
+							UNIT:"kg",
+							BRAND:"B1"
+						}
+					]
+				};
+				res.send(result);
+			
+			}
+			else
+			{
+				if(name == "Spoon")
+				{
+					var result = 
+					{
+						lastTimeStamp:1890987464,
+						addedStatus:{
+							success:false,
+							addedItemUID:20,
+							errorCode:4,
+							errorMsg:"Name overlap"
+						},
+						init:false,
+						updatedData:
+						[
+							{
+								UID:20,
+								NAME:"Wolf",
+								PRICE:25,
+								UNIT:"kg",
+								BRAND:"B1"
+							}
+						]
+					};
+					res.send(result);
+				}
+				else
+				{
+					var result = 
+					{
+						lastTimeStamp:1890987464,
+						addedStatus:{
+							success:true,
+							addedItemUID:20,
+							errorCode:4,
+							errorMsg:"some existing error"
+						},
+						init:false,
+						updatedData:
+						[
+							{
+								UID:20,
+								NAME:"Wolf",
+								PRICE:25,
+								UNIT:"kg",
+								BRAND:"B1"
+							}
+						]
+					};
+					res.send(result);
+				}
+			}
+			
+		}
+		else
+		{
+			//Incomplete data
+			var result = 
+			{
+				lastTimeStamp:1890987464,
+				addedStatus:{
+					success:false,
+					addedItemUID:20,
+					errorCode:4,
+					errorMsg:"some existing error"
+				},
+				init:false,
+				updatedData:
+				[
+					{
+						UID:20,
+						NAME:"Wolf",
+						PRICE:25,
+						UNIT:"kg",
+						BRAND:"B1"
+					}
+				]
+			};
+			res.send(result);
+		}
+		
 	}
 	
 	//console.log(req.query);

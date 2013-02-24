@@ -18,12 +18,9 @@
     src: url('../fonts/Rotis Sans Serif Bold 65.ttf'); 
     font-weight: bold; 
 }
-.itemRow
+.inputQuantity
 {
-    border: 1px solid;
-    border-color:#ddd;
-    background-color:#f1f2e6;
-    
+	margin-top:9px;
 }
 .itemName,.itemValue
 {

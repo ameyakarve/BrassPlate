@@ -1,4 +1,4 @@
-define(['director','src/modules/Ingredients/boot','src/modules/sidebar/boot'], function(Director,Ingredients,Sidebar) {
+define(['director','src/modules/Ingredients/boot','src/modules/sidebar/boot','jquery'], function(Director,Ingredients,Sidebar,$) {
     var initialize = function() {
         var author = function() {
             console.log("author");
@@ -15,12 +15,22 @@ define(['director','src/modules/Ingredients/boot','src/modules/sidebar/boot'], f
             Ingredients.initialize();
 			Sidebar.toggleNavbar("#nav3");
         };
-
+		var HomeRoute = function()
+        {
+            Sidebar.toggleNavbar("#nav1");
+			$("#content").html(" ");
+        };
+		var AboutRoute = function()
+        {
+            $("#content").html(" ");
+			Sidebar.toggleNavbar("#nav2");
+        };
+		
         var routes = {
             '/ingredients': IngredientsRoute,
-            '/books': [books, function() {
-                console.log("An inline route handler.");
-            }],
+            '': HomeRoute,
+			'/home':HomeRoute,
+			'/about':AboutRoute,
             '/books/view/:bookId': viewBook
         };
 

@@ -17,22 +17,64 @@ function(component, typeAhead, Mustache, jQueryCalls) {
         this.setData = function(event)
 		{
 			console.log(event.returnData);
-			if(event.returnData.init)
+			this.attr.lastTimeStamp = event.returnData.lastTimeStamp;
+			this.attr.allItems = this.attr.allItems.concat(event.returnData.updatedData);	
+			if(!(event.returnData.init))
 			{
-				//Initial config
-				this.attr.lastTimeStamp = event.returnData.lastTimeStamp;
-				this.attr.allItems = this.attr.allItems.concat(event.returnData.updatedData);
-				console.log(this.attr.allItems);
+				if(event.returnData.addedStatus.success)
+				{
+					//Launch success alert with code
+				}
+				else
+				{
+					//Launch fail alert with code
+				}
+			}
+			
+			jQueryCalls.setTypeAhead(this.attr.lastTimeStamp,this.attr.allItems);
+		};
+		this.addItem = function(event)
+		{
+			if (this.attr.selectedItems.indexOf(event.index) == -1) {
+				var index = event.index;
+				var data = this.attr.allItems[index];
+				this.attr.selectedItems.push(event.index);
+				jQueryCalls.addItem(data,index);
 			}
 			else
 			{
-				//data added
+				jQueryCalls.addItemError()
 			}
-			jQueryCalls.setTypeAhead(this.attr.lastTimeStamp,this.attr.allItems);
+		};
+		this.removeItem = function(event)
+		{
+			var index = this.attr.selectedItems.indexOf(event.index);
+            this.attr.selectedItems.splice(index, 1);
+            jQueryCalls.removeItem(event.index);
+		};
+		this.setQuantities = function(event)
+		{
+			var values = jQueryCalls.getQuantityValues();
+            var sum = 0;
+            for (var i = 0; i < this.attr.selectedItems.length; i++) {
+
+                var index = this.attr.selectedItems[i];
+                var price = this.attr.allItems[index].PRICE;
+                var add = price * values[i];
+                if (!isNaN(add)) sum += add;
+            }
+            console.log(sum);
+			jQueryCalls.renderTotalCost(sum);
+			if(!event.removed) {
+                jQueryCalls.renderTotalCostChange(event.index,this.attr.allItems[event.index].PRICE);
+            }
 		};
         this.after("initialize", function() {
 			this.on("nextDependencyLoaded",jQueryCalls.Init);
 			this.on("dataReceived",this.setData);
+			this.on("newItemAdded",this.addItem);
+			this.on("itemRemoved",this.removeItem);
+			this.on("quantitiesChanged", this.setQuantities);
         });
     }
 	return {calculatorComponent:component(Ingredients)};

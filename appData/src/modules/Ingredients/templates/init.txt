@@ -18,7 +18,7 @@
     </div>
     <form>
         <fieldset>
-            <h3>Add a new Ingredient</h3>
+            <h4>Add a new Ingredient</h4>
             <label>Ingredient Name</label>
             <div class="control-group" id="warningGroup">
                 <div class="controls" id="inputControls"></div>
@@ -27,10 +27,9 @@
     </form>
 </div>
 <div class="row-fluid" id="formComponent">
-    <div class="well">
-        <a class="btn btn-inverse" id="addNewIngredientButton">
-                            <i class="icon-plus-sign icon-white"></i></a>&nbsp;&nbsp;Can't find an item in your list? Why not add another?</div>
-    <div
+        <a class="btn btn-success" id="addNewIngredientButton">
+                            <i class="icon-plus-sign icon-white"></i></a>&nbsp;&nbsp;Can't find an item in your list? Why not add another?
+	<div
     class="modal hide fade" id="addNewIngredientFormModal">
         <div class="modal-header">
             <button id="addIngredientModalClose" type="button" class="close" data-dismiss="modal"
@@ -56,14 +55,12 @@
                         <label>Unit Cost</label>
                         <input name="PRICE" class="input-block-level" placeholder="Unit Cost"
                         type="number">
-                        <input id="formTimeStamp" type="hidden" name="TIMESTAMP" value=0>
+                        <input id="formTimeStamp" type="hidden" name="LASTTIMESTAMP" value=0>
                     </div>
                 </fieldset>
             </form>
         </div>
         <div class="modal-footer">
-            <button id="addIngredientFormClear" type="button" class="btn btn-info"
-            data-loading-text="Reset">Reset</button>
             <button id="addIngredientFormSubmit" type="button" class="btn btn-primary"
             data-loading-text="Adding...">Add</button>
         </div>

@@ -25,7 +25,7 @@ define([
 	{
 		var formData = $("#addIngredientmodalForm").serialize();
 		var cachebang = new Date().getTime();
-		formData+="&CACHEBANG="+cahcebang;
+		formData+="&CACHEBANG="+cachebang;
 		$.ajax({
 			type:"GET",
 			url:"api/addIngredient",
@@ -39,20 +39,36 @@ define([
 			error:function(data){console.log("Error in request")}
 		});
 	};
+	var SetTimeStamp = function(event)
+	{
+		//console.log(event.timestamp);
+		$("#formTimeStamp").val(event.timestamp);
+	};
+	
 	var ReceiveFormData = function(event)
 	{
-		if(event.returnData.success)
+		
+		if(!(event.returnData.init))
 		{
-			var data = event.returnData.data;
+			console.log(event);
 			$("#calculatorComponent").trigger({
-				type:"newDataToBeAdded",
-				returnData:data
+				type:"dataReceived",
+				returnData:event.returnData
 			});
 			$("#addIngredientFormSubmit").button("reset");
 			$("#addIngredientModalClose").button("reset");
 			$("#addIngredientFormClear").button("reset");
-			$("#formAlertArea").html(Mustache.render(formSuccessTemplate));
-			$("#ingredientBoxSuccessAlert").alert();
+			if(event.returnData.addedStatus.success)
+			{
+				$("#formAlertArea").html(Mustache.render(formSuccessTemplate));
+				$("#ingredientBoxSuccessAlert").alert();
+			}
+			else
+			{
+				$("#formAlertArea").html(Mustache.render(formErrorTemplate));
+				$("#ingredientBoxErrorAlert").alert();
+			}
+			
 		}
 		else
 		{
@@ -62,6 +78,7 @@ define([
 	return{
 		Init:Init,
 		SubmitForm:SubmitForm,
-		ReceiveFormData:ReceiveFormData
+		ReceiveFormData:ReceiveFormData,
+		SetTimeStamp:SetTimeStamp
 		};
 });

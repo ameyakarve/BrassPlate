@@ -26,6 +26,7 @@ function(component,  $, Mustache, jQueryCalls) {
 			this.Init();
 			this.on("addFormSubmit",jQueryCalls.SubmitForm);
             this.on("dataReceived",jQueryCalls.ReceiveFormData);    
+			this.on("setTimeStamp",jQueryCalls.SetTimeStamp);
         });
     }
 	return {formComponent:component(Form)};
