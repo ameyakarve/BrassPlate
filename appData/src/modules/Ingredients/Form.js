@@ -1,12 +1,10 @@
 define(
 	[
-		'assets/js/components/flight/lib/component', 
-		'jquery',
-		'mustache', 
-		'src/modules/Ingredients/FormJqueryCalls'
+		'assets/js/components/flight/lib/component',  
+		'src/modules/Ingredients/JqueryCalls'
 	],
 
-function(component,  $, Mustache, jQueryCalls) {
+function(component, jQueryCalls) {
     function Form() {
         this.defaultAttrs({
             selectedItems: [],
@@ -16,17 +14,13 @@ function(component,  $, Mustache, jQueryCalls) {
         });
         this.Init = function()
 		{
-			jQueryCalls.Init();
-			//Set Modals
-			//Set click() for button
-			//Set click() for submit
-			//Send trigger
+			jQueryCalls.FormInit();
 		};
         this.after("initialize", function() {
 			this.Init();
-			this.on("addFormSubmit",jQueryCalls.SubmitForm);
-            this.on("dataReceived",jQueryCalls.ReceiveFormData);    
-			this.on("setTimeStamp",jQueryCalls.SetTimeStamp);
+			this.on("addFormSubmit",jQueryCalls.FormSubmitForm);
+            this.on("dataReceived",jQueryCalls.FormReceiveFormData);    
+			this.on("setTimeStamp",jQueryCalls.FormSetTimeStamp);
         });
     }
 	return {formComponent:component(Form)};

@@ -1,12 +1,12 @@
 define([
     'jquery',
     'mustache',
-    'text!src/modules/sidebar/templates/init.txt',
+    'src/templates',
 	'src/modules/sidebar/nav'
-    ],function($,Mustache,Template,NavBar){
+    ],function($,Mustache,Templates,NavBar){
         var initialize = function()
         {
-            $("#sidebar").html(Mustache.render(Template,{}));
+            $("#sidebar").html(Mustache.render(Templates.sidebarTemplate,{}));
 			NavBar.navbarComponent.attachTo("#navbar");
         };
 		var toggleNavbar = function(current)

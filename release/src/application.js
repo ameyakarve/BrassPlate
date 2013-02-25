@@ -1,0 +1,1 @@
+define(["jquery","router","src/modules/sidebar/boot"],function(e,t,n){var r=function(){n.initialize(),t.initialize()};return{initialize:r}});

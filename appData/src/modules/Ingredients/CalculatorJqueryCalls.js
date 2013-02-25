@@ -8,7 +8,7 @@ define(
 	], function($, Mustache, TypeaheadTemplate,AddItemTemplate,_){
 	
 	
-	var Init = function()
+	var CalculatorInit = function()
 	{
 		var cachebang = new Date().getTime();
 		$.ajax({
@@ -24,7 +24,7 @@ define(
 			error:function(){}
 		});
 	};
-	var setTypeAhead = function(timestamp,data)
+	var CalculatorsetTypeAhead = function(timestamp,data)
 	{
 		$("#formComponent").trigger({
 			type:"setTimeStamp",
@@ -52,7 +52,7 @@ define(
 			}
 		});
 	};
-	var addItem = function(data,index)
+	var CalculatoraddItem = function(data,index)
 	{
 		console.log(data);
 		var id = "addedItem" + index;
@@ -72,12 +72,12 @@ define(
 		});
 		
 	};
-	var addItemError = function()
+	var CalculatoraddItemError = function()
 	{
 		$("#warningGroup").addClass("error");
 		$("#inputWarning").html("This item is already present");
 	};
-	var removeItem = function(index)
+	var CalculatorremoveItem = function(index)
 	{
 		$("#addedItem" + index).remove();
 		$("#calculatorComponent").trigger({
@@ -86,7 +86,7 @@ define(
                 removed: true
             });
 	};
-	var getQuantityValues = function()
+	var CalculatorgetQuantityValues = function()
 	{
 		var dom = $(".inputQuantity");
 		return (_.map(dom, function(item) {
@@ -96,12 +96,12 @@ define(
 		}));
 			
 	};
-	var renderTotalCost = function(cost)
+	var CalculatorrenderTotalCost = function(cost)
 	{
 		console.log(cost);
 		$("#totalPriceValue").html(cost.toFixed(2));
 	};
-	var renderTotalCostChange = function(index,price)
+	var CalculatorrenderTotalCostChange = function(index,price)
 	{
 		var thisVal = parseFloat($("#itemQuantity" + index)[0].value);
 		if (thisVal < 0 || isNaN(thisVal)) thisVal = 0;
@@ -109,14 +109,14 @@ define(
 		$("#itemValue" + index).html(cost.toFixed(2));
 	};
 	return {
-		Init:Init, 
-		setTypeAhead:setTypeAhead,
-		addItem:addItem,
-		addItemError:addItemError,
-		removeItem:removeItem,
-		getQuantityValues:getQuantityValues,
-		renderTotalCost:renderTotalCost,
-		renderTotalCostChange:renderTotalCostChange
+		CalculatorInit:CalculatorInit, 
+		CalculatorsetTypeAhead:CalculatorsetTypeAhead,
+		CalculatoraddItem:CalculatoraddItem,
+		CalculatoraddItemError:CalculatoraddItemError,
+		CalculatorremoveItem:CalculatorremoveItem,
+		CalculatorgetQuantityValues:CalculatorgetQuantityValues,
+		CalculatorrenderTotalCost:CalculatorrenderTotalCost,
+		CalculatorrenderTotalCostChange:CalculatorrenderTotalCostChange
 		};
 	}
 );

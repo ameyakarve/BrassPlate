@@ -14,7 +14,8 @@
     "recess":"latest",
     "connect":"latest",
     "uglify-js":"latest",
-    "jshint":"latest"
+    "jshint":"latest",
+	"gzippo":"latest"
   },
   "engines": {
     "node": "0.8.x",

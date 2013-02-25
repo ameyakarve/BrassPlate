@@ -1,0 +1,5 @@
+// Copyright 2013 Twitter, Inc
+
+// http://opensource.org/licenses/MIT
+
+define(["./compose","./utils"],function(t,e){function n(t){var e=t.tagName?t.tagName.toLowerCase():""+t,n=t.className?"."+t.className:"",i=e+n;return t.tagName?["'","'"].join(i):i}function i(t,e,i){var r,s,a,h,c,u,f,l;"function"==typeof i[i.length-1]&&(a=i.pop(),a=a.unbound||a),"object"==typeof i[i.length-1]&&i.pop(),2==i.length?(s=i[0],r=i[1]):(s=e.$node[0],r=i[0]),window.DEBUG&&(c=DEBUG.events.logFilter,f="all"==c.actions||c.actions.indexOf(t)>-1,u=function(t){return t.test?t:RegExp("^"+t.replace(/\*/g,".*")+"$")},l="all"==c.eventNames||c.eventNames.some(function(t){return u(t).test(r)}),f&&l&&console.info(o[t],t,"["+r+"]",n(s),e.constructor.describe,a&&(h=a.name||a.displayName)&&"->  "+h))}function r(){this.before("trigger",function(){i("trigger",this,e.toArray(arguments))}),this.before("on",function(){i("on",this,e.toArray(arguments))}),this.before("off",function(){i("off",this,e.toArray(arguments))})}var o={on:"<-",trigger:"->",off:"x "};return r});

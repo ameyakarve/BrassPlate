@@ -1,4 +1,12 @@
-define(['director','src/modules/Ingredients/boot','src/modules/sidebar/boot','jquery','assets/js/components/flight/lib/component'], function(Director,Ingredients,Sidebar,$,component) {
+define([
+	'director',
+	'src/modules/Ingredients/boot',
+	'src/modules/sidebar/boot',
+	'jquery',
+	'mustache',
+	'assets/js/components/flight/lib/component',
+	'src/templates'
+	], function(Director,Ingredients,Sidebar,$,Mustache,component,Templates) {
     var initialize = function() {
         var author = function() {
             console.log("author");
@@ -14,6 +22,7 @@ define(['director','src/modules/Ingredients/boot','src/modules/sidebar/boot','jq
         {
             component.teardownAll();
 			console.log("Tore down");
+			$("#content").html(Mustache.render(Templates.IngredientsTemplate));
 			Ingredients.initialize();
 			Sidebar.toggleNavbar("#nav3");
         };

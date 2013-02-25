@@ -1,12 +1,10 @@
 define(
 	[
 		'assets/js/components/flight/lib/component', 
-		'assets/js/components/bootstrap/js/bootstrap-typeahead', 
-		'mustache',
-		'src/modules/Ingredients/CalculatorJqueryCalls'
+		'src/modules/Ingredients/JqueryCalls'
 	],
 
-function(component, typeAhead, Mustache, jQueryCalls) {
+function(component, jQueryCalls) {
     function Ingredients() {
         this.defaultAttrs({
             selectedItems: [],
@@ -31,7 +29,7 @@ function(component, typeAhead, Mustache, jQueryCalls) {
 				}
 			}
 			
-			jQueryCalls.setTypeAhead(this.attr.lastTimeStamp,this.attr.allItems);
+			jQueryCalls.CalculatorsetTypeAhead(this.attr.lastTimeStamp,this.attr.allItems);
 		};
 		this.addItem = function(event)
 		{
@@ -39,22 +37,22 @@ function(component, typeAhead, Mustache, jQueryCalls) {
 				var index = event.index;
 				var data = this.attr.allItems[index];
 				this.attr.selectedItems.push(event.index);
-				jQueryCalls.addItem(data,index);
+				jQueryCalls.CalculatoraddItem(data,index);
 			}
 			else
 			{
-				jQueryCalls.addItemError()
+				jQueryCalls.CalculatoraddItemError()
 			}
 		};
 		this.removeItem = function(event)
 		{
 			var index = this.attr.selectedItems.indexOf(event.index);
             this.attr.selectedItems.splice(index, 1);
-            jQueryCalls.removeItem(event.index);
+            jQueryCalls.CalculatorremoveItem(event.index);
 		};
 		this.setQuantities = function(event)
 		{
-			var values = jQueryCalls.getQuantityValues();
+			var values = jQueryCalls.CalculatorgetQuantityValues();
             var sum = 0;
             for (var i = 0; i < this.attr.selectedItems.length; i++) {
 
@@ -64,9 +62,9 @@ function(component, typeAhead, Mustache, jQueryCalls) {
                 if (!isNaN(add)) sum += add;
             }
             console.log(sum);
-			jQueryCalls.renderTotalCost(sum);
+			jQueryCalls.CalculatorrenderTotalCost(sum);
 			if(!event.removed) {
-                jQueryCalls.renderTotalCostChange(event.index,this.attr.allItems[event.index].PRICE);
+                jQueryCalls.CalculatorrenderTotalCostChange(event.index,this.attr.allItems[event.index].PRICE);
             }
 		};
 		this.Init = function()
@@ -78,7 +76,7 @@ function(component, typeAhead, Mustache, jQueryCalls) {
 		};
         this.after("initialize", function() {
 			this.Init();
-			this.on("nextDependencyLoaded",jQueryCalls.Init);
+			this.on("nextDependencyLoaded",jQueryCalls.CalculatorInit);
 			this.on("dataReceived",this.setData);
 			this.on("newItemAdded",this.addItem);
 			this.on("itemRemoved",this.removeItem);
