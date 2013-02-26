@@ -1,5 +1,234 @@
+// ==========================================
 // Copyright 2013 Twitter, Inc
-
+// Licensed under The MIT License
 // http://opensource.org/licenses/MIT
+// ==========================================
 
-define(["./utils"],function(t){function e(e,n){var i,r,o;return n=t.toArray(n),"function"==typeof n[n.length-1]&&(o=n.pop()),"object"==typeof n[n.length-1]&&n.pop(),2==n.length?(i=n[0],r=n[1]):(i=e.node,r=n[0]),{element:i,type:r,callback:o}}function n(t,e){return t.element==e.element&&t.type==e.type&&(null==e.callback||t.callback==e.callback)}function i(){function i(t){this.component=t,this.instances=[],this.addInstance=function(t){this.throwIfInstanceExistsOnNode(t);var e=new r(t);return this.instances.push(e),e},this.throwIfInstanceExistsOnNode=function(t){this.instances.forEach(function(e){if(e.instance.$node[0]===t.$node[0])throw Error("Instance of "+t.constructor+" already exists on node "+t.$node[0])})},this.removeInstance=function(t){var e=this.instances.filter(function(e){return e.instance==t})[0],n=this.instances.indexOf(e);n>-1&&this.instances.splice(n,1),this.instances.length||o.removeComponentInfo(this)}}function r(t){this.instance=t,this.events=[],this.addTrigger=function(){},this.addBind=function(t){this.events.push(t),o.events.push(t)},this.removeBind=function(t){for(var e,i=0;e=this.events[i];i++)n(e,t)&&this.events.splice(i,1)}}var o=this;(this.reset=function(){this.components=[],this.allInstances=[],this.events=[]}).call(this),this.addInstance=function(t){var e=this.findComponentInfo(t);e||(e=new i(t.constructor),this.components.push(e));var n=e.addInstance(t);return this.allInstances.push(n),e},this.removeInstance=function(t){var e,n=this.findInstanceInfo(t),i=this.findComponentInfo(t);i.removeInstance(t);var e=this.allInstances.indexOf(n);e>-1&&this.allInstances.splice(e,1)},this.removeComponentInfo=function(t){var e=this.components.indexOf(t);e>-1&&this.components.splice(e,1)},this.findComponentInfo=function(t){for(var e,n=t.attachTo?t:t.constructor,i=0;e=this.components[i];i++)if(e.component===n)return e;return null},this.findInstanceInfo=function(t){var e;e=t.node?function(e){return e.instance===t}:function(e){return e.instance.node===t};var n=this.allInstances.filter(e);return n.length?t.node?n[0]:n:t.node?null:[]},this.trigger=function(){var t=e(this,arguments),n=o.findInstanceInfo(this);n&&n.addTrigger(t)},this.on=function(n){var i,r=t.toArray(arguments,1),s=o.findInstanceInfo(this);if(s){i=n.apply(null,r),i&&(r[r.length-1]=i);var a=e(this,r);s.addBind(a)}},this.off=function(){var t=e(this,arguments),n=o.findInstanceInfo(this);n&&n.removeBind(t)},this.teardown=function(){o.removeInstance(this)},this.withRegistration=function(){this.before("initialize",function(){o.addInstance(this)}),this.after("trigger",o.trigger),this.around("on",o.on),this.after("off",o.off),this.after("teardown",{obj:o,fnName:"teardown"})}}return new i});
+
+
+define(
+
+  [
+    './utils'
+  ],
+
+  function (util) {
+
+    function parseEventArgs(instance, args) {
+      var element, type, callback;
+
+      args = util.toArray(args);
+
+      if (typeof args[args.length-1] === 'function') {
+        callback = args.pop();
+      }
+
+      if (typeof args[args.length-1] === 'object') {
+        args.pop();
+      }
+
+      if (args.length == 2) {
+        element = args[0];
+        type = args[1];
+      } else {
+        element = instance.node;
+        type = args[0];
+      }
+
+      return {
+        element: element,
+        type: type,
+        callback: callback
+      };
+    }
+
+    function matchEvent(a, b) {
+      return (
+        (a.element == b.element) &&
+        (a.type == b.type) &&
+        (b.callback == null || (a.callback == b.callback))
+      );
+    }
+
+    function Registry() {
+
+      var registry = this;
+
+      (this.reset = function() {
+        this.components = [];
+        this.allInstances = [];
+        this.events = [];
+      }).call(this);
+
+      function ComponentInfo(component) {
+        this.component = component;
+        this.instances = [];
+
+        this.addInstance = function(instance) {
+          this.throwIfInstanceExistsOnNode(instance);
+
+          var instanceInfo = new InstanceInfo(instance);
+          this.instances.push(instanceInfo);
+
+          return instanceInfo;
+        }
+
+        this.throwIfInstanceExistsOnNode = function(instance) {
+          this.instances.forEach(function (instanceInfo) {
+            if (instanceInfo.instance.$node[0] === instance.$node[0]) {
+              throw new Error('Instance of ' + instance.constructor + ' already exists on node ' + instance.$node[0]);
+            }
+          });
+        }
+
+        this.removeInstance = function(instance) {
+          var instanceInfo = this.instances.filter(function(instanceInfo) {
+            return instanceInfo.instance == instance;
+          })[0];
+
+          var index = this.instances.indexOf(instanceInfo);
+
+          (index > -1)  && this.instances.splice(index, 1);
+
+          if (!this.instances.length) {
+            //if I hold no more instances remove me from registry
+            registry.removeComponentInfo(this);
+          }
+        }
+      }
+
+      function InstanceInfo(instance) {
+        this.instance = instance;
+        this.events = [];
+
+        this.addTrigger = function() {};
+
+        this.addBind = function(event) {
+          this.events.push(event);
+          registry.events.push(event);
+        };
+
+        this.removeBind = function(event) {
+          for (var i = 0, e; e = this.events[i]; i++) {
+            if (matchEvent(e, event)) {
+              this.events.splice(i, 1);
+            }
+          }
+        }
+      }
+
+      this.addInstance = function(instance) {
+        var component = this.findComponentInfo(instance);
+
+        if (!component) {
+          component = new ComponentInfo(instance.constructor);
+          this.components.push(component);
+        }
+
+        var inst = component.addInstance(instance);
+
+        this.allInstances.push(inst);
+
+        return component;
+      };
+
+      this.removeInstance = function(instance) {
+        var index, instInfo = this.findInstanceInfo(instance);
+
+        //remove from component info
+        var componentInfo = this.findComponentInfo(instance);
+        componentInfo.removeInstance(instance);
+
+        //remove from registry
+        var index = this.allInstances.indexOf(instInfo);
+        (index > -1)  && this.allInstances.splice(index, 1);
+      };
+
+      this.removeComponentInfo = function(componentInfo) {
+        var index = this.components.indexOf(componentInfo);
+        (index > -1)  && this.components.splice(index, 1);
+      };
+
+      this.findComponentInfo = function(which) {
+        var component = which.attachTo ? which : which.constructor;
+
+        for (var i = 0, c; c = this.components[i]; i++) {
+          if (c.component === component) {
+            return c;
+          }
+        }
+
+        return null;
+      };
+
+      this.findInstanceInfo = function(which) {
+        var testFn;
+
+        if (which.node) {
+          //by instance (returns matched instance)
+          testFn = function(inst) {return inst.instance === which};
+        } else {
+          //by node (returns array of matches)
+          testFn = function(inst) {return inst.instance.node === which};
+        }
+
+        var matches = this.allInstances.filter(testFn);
+        if (!matches.length) {
+          return which.node ? null : [];
+        }
+        return which.node ? matches[0] : matches;
+      };
+
+      this.trigger = function() {
+        var event = parseEventArgs(this, arguments),
+            instance = registry.findInstanceInfo(this);
+
+        if (instance) {
+          instance.addTrigger(event);
+        }
+      };
+
+      this.on = function(componentOn) {
+        var otherArgs = util.toArray(arguments, 1);
+        var instance = registry.findInstanceInfo(this);
+        var boundCallback;
+
+        if (instance) {
+          boundCallback = componentOn.apply(null, otherArgs);
+          if(boundCallback) {
+            otherArgs[otherArgs.length-1] = boundCallback;
+          }
+          var event = parseEventArgs(this, otherArgs);
+          instance.addBind(event);
+        }
+      };
+
+      this.off = function(el, type, callback) {
+        var event = parseEventArgs(this, arguments),
+            instance = registry.findInstanceInfo(this);
+
+        if (instance) {
+          instance.removeBind(event);
+        }
+      };
+
+      this.teardown = function() {
+        registry.removeInstance(this);
+      };
+
+      this.withRegistration = function() {
+        this.before('initialize', function() {
+          registry.addInstance(this);
+        });
+
+        this.after('trigger', registry.trigger);
+        this.around('on', registry.on);
+        this.after('off', registry.off);
+        this.after('teardown', {obj:registry, fnName:'teardown'});
+      };
+
+    }
+
+    return new Registry;
+  }
+);

@@ -1,3 +1,5 @@
+define(['jquery'], function ($) {
+    //Plugin code goes here.
 /* ==========================================================
  * bootstrap-alert.js v2.3.0
  * http://twitter.github.com/bootstrap/javascript.html#alerts
@@ -17,4 +19,84 @@
  * limitations under the License.
  * ========================================================== */
 
-define(["jquery"],function(){!function(t){var o='[data-dismiss="alert"]',i=function(i){t(i).on("click",o,this.close)};i.prototype.close=function(o){function i(){n.trigger("closed").remove()}var n,f=t(this),e=f.attr("data-target");e||(e=f.attr("href"),e=e&&e.replace(/.*(?=#[^\s]*$)/,"")),n=t(e),o&&o.preventDefault(),n.length||(n=f.hasClass("alert")?f:f.parent()),n.trigger(o=t.Event("close")),o.isDefaultPrevented()||(n.removeClass("in"),t.support.transition&&n.hasClass("fade")?n.on(t.support.transition.end,i):i())};var n=t.fn.alert;t.fn.alert=function(o){return this.each(function(){var n=t(this),f=n.data("alert");f||n.data("alert",f=new i(this)),"string"==typeof o&&f[o].call(n)})},t.fn.alert.Constructor=i,t.fn.alert.noConflict=function(){return t.fn.alert=n,this},t(document).on("click.alert.data-api",o,i.prototype.close)}(window.jQuery)});
+
+!function ($) {
+
+   // jshint ;_;
+
+
+ /* ALERT CLASS DEFINITION
+  * ====================== */
+
+  var dismiss = '[data-dismiss="alert"]'
+    , Alert = function (el) {
+        $(el).on('click', dismiss, this.close)
+      }
+
+  Alert.prototype.close = function (e) {
+    var $this = $(this)
+      , selector = $this.attr('data-target')
+      , $parent
+
+    if (!selector) {
+      selector = $this.attr('href')
+      selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') //strip for ie7
+    }
+
+    $parent = $(selector)
+
+    e && e.preventDefault()
+
+    $parent.length || ($parent = $this.hasClass('alert') ? $this : $this.parent())
+
+    $parent.trigger(e = $.Event('close'))
+
+    if (e.isDefaultPrevented()) return
+
+    $parent.removeClass('in')
+
+    function removeElement() {
+      $parent
+        .trigger('closed')
+        .remove()
+    }
+
+    $.support.transition && $parent.hasClass('fade') ?
+      $parent.on($.support.transition.end, removeElement) :
+      removeElement()
+  }
+
+
+ /* ALERT PLUGIN DEFINITION
+  * ======================= */
+
+  var old = $.fn.alert
+
+  $.fn.alert = function (option) {
+    return this.each(function () {
+      var $this = $(this)
+        , data = $this.data('alert')
+      if (!data) $this.data('alert', (data = new Alert(this)))
+      if (typeof option == 'string') data[option].call($this)
+    })
+  }
+
+  $.fn.alert.Constructor = Alert
+
+
+ /* ALERT NO CONFLICT
+  * ================= */
+
+  $.fn.alert.noConflict = function () {
+    $.fn.alert = old
+    return this
+  }
+
+
+ /* ALERT DATA-API
+  * ============== */
+
+  $(document).on('click.alert.data-api', dismiss, Alert.prototype.close)
+
+}(window.jQuery);
+});

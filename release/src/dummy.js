@@ -1,1 +1,2 @@
-define("src/dummy",[],function(){return 0});
+
+define('src/dummy',[],function(){return 0;});

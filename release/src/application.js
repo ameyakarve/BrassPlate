@@ -1,1 +1,9 @@
-define(["jquery","router","src/modules/sidebar/boot"],function(e,t,n){var r=function(){n.initialize(),t.initialize()};return{initialize:r}});
+define(['jquery', 'router','src/modules/sidebar/boot'], function($, Router, Sidebar) {
+    var initialize = function() {
+        Sidebar.initialize();
+        Router.initialize();
+    };
+    return {
+        initialize: initialize
+    };
+});

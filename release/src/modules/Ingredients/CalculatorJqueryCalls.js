@@ -1,1 +1,122 @@
-define(["jquery","mustache","text!src/modules/Ingredients/templates/typeahead.txt","text!src/modules/Ingredients/templates/addItem.txt","underscore"],function(e,t,n,r,i){var o=function(){var t=(new Date).getTime();e.ajax({type:"GET",url:"api/addIngredient",data:"LASTTIMESTAMP=0&CACHEBANG="+t,success:function(t){e("#calculatorComponent").trigger({type:"dataReceived",returnData:t})},error:function(){}})},a=function(r,o){e("#formComponent").trigger({type:"setTimeStamp",timestamp:r}),e("#ingredientTypeahead").remove(),e("#inputWarning").remove(),e("#inputControls").html(t.render(n,{}));var a=i.map(o,function(e){return e.NAME});e("#ingredientTypeahead").typeahead({source:a,updater:function(t){var n=this.source.indexOf(t);return e("#calculatorComponent").trigger({type:"newItemAdded",item:t,index:n}),t},matcher:function(){return window.$("#warningGroup").removeClass("error"),window.$("#inputWarning").html(" "),!0}})},s=function(n,i){console.log(n),e("#itemList").append(t.render(r,{data:n,index:i})),e("#removeItem"+i).click(function(){e("#calculatorComponent").trigger({type:"itemRemoved",index:i})}),e("#itemQuantity"+i).on("input",function(){e("#calculatorComponent").trigger({type:"quantitiesChanged",index:i,removed:!1})})},u=function(){e("#warningGroup").addClass("error"),e("#inputWarning").html("This item is already present")},c=function(t){e("#addedItem"+t).remove(),e("#calculatorComponent").trigger({type:"quantitiesChanged",index:t,removed:!0})},l=function(){var t=e(".inputQuantity");return i.map(t,function(e){return isNaN(parseFloat(e.value))?0:0>parseFloat(e.value)?0:parseFloat(e.value)})},f=function(t){console.log(t),e("#totalPriceValue").html(t.toFixed(2))},p=function(t,n){var r=parseFloat(e("#itemQuantity"+t)[0].value);(0>r||isNaN(r))&&(r=0);var i=r*n;e("#itemValue"+t).html(i.toFixed(2))};return{CalculatorInit:o,CalculatorsetTypeAhead:a,CalculatoraddItem:s,CalculatoraddItemError:u,CalculatorremoveItem:c,CalculatorgetQuantityValues:l,CalculatorrenderTotalCost:f,CalculatorrenderTotalCostChange:p}});
+define(
+	[
+		'jquery',
+		'mustache',
+		'text!src/modules/Ingredients/templates/typeahead.txt',
+		'text!src/modules/Ingredients/templates/addItem.txt',
+		'underscore'
+	], function($, Mustache, TypeaheadTemplate,AddItemTemplate,_){
+	
+	
+	var CalculatorInit = function()
+	{
+		var cachebang = new Date().getTime();
+		$.ajax({
+			type:"GET",
+			url:"api/addIngredient",
+			data:"LASTTIMESTAMP=0&CACHEBANG="+cachebang,
+			success:function(data){
+				$("#calculatorComponent").trigger({
+					type:"dataReceived",
+					returnData:data
+				});
+			},
+			error:function(){}
+		});
+	};
+	var CalculatorsetTypeAhead = function(timestamp,data)
+	{
+		$("#formComponent").trigger({
+			type:"setTimeStamp",
+			timestamp:timestamp
+		});
+		$("#ingredientTypeahead").remove();
+        $("#inputWarning").remove();
+        $("#inputControls").html(Mustache.render(TypeaheadTemplate,{}));
+        var names = _.map(data,function(num){return num.NAME;});
+		$("#ingredientTypeahead").typeahead({
+			source: names,
+			updater: function(item) {
+				var index = this.source.indexOf(item);
+				$("#calculatorComponent").trigger({
+					type: "newItemAdded",
+					item: item,
+					index: index
+				});
+				return item;
+			},
+			matcher: function(item) {
+				window.$("#warningGroup").removeClass("error");
+				window.$("#inputWarning").html(" ");
+				return true;
+			}
+		});
+	};
+	var CalculatoraddItem = function(data,index)
+	{
+		console.log(data);
+		var id = "addedItem" + index;
+		$("#itemList").append(Mustache.render(AddItemTemplate,{data:data,index:index}));		
+		$("#removeItem" + index).click(function() {
+			$("#calculatorComponent").trigger({
+				type: "itemRemoved",
+				index: index
+			});
+		});
+		$("#itemQuantity" + index).on("input", function() {
+			$("#calculatorComponent").trigger({
+				type: "quantitiesChanged",
+				index: index,
+				removed: false
+			});
+		});
+		
+	};
+	var CalculatoraddItemError = function()
+	{
+		$("#warningGroup").addClass("error");
+		$("#inputWarning").html("This item is already present");
+	};
+	var CalculatorremoveItem = function(index)
+	{
+		$("#addedItem" + index).remove();
+		$("#calculatorComponent").trigger({
+                type: "quantitiesChanged",
+                index: index,
+                removed: true
+            });
+	};
+	var CalculatorgetQuantityValues = function()
+	{
+		var dom = $(".inputQuantity");
+		return (_.map(dom, function(item) {
+			if (isNaN(parseFloat(item.value))) return 0;
+			else if (parseFloat(item.value) < 0) return 0;
+			else return parseFloat(item.value);
+		}));
+			
+	};
+	var CalculatorrenderTotalCost = function(cost)
+	{
+		console.log(cost);
+		$("#totalPriceValue").html(cost.toFixed(2));
+	};
+	var CalculatorrenderTotalCostChange = function(index,price)
+	{
+		var thisVal = parseFloat($("#itemQuantity" + index)[0].value);
+		if (thisVal < 0 || isNaN(thisVal)) thisVal = 0;
+		var cost = thisVal * price;
+		$("#itemValue" + index).html(cost.toFixed(2));
+	};
+	return {
+		CalculatorInit:CalculatorInit, 
+		CalculatorsetTypeAhead:CalculatorsetTypeAhead,
+		CalculatoraddItem:CalculatoraddItem,
+		CalculatoraddItemError:CalculatoraddItemError,
+		CalculatorremoveItem:CalculatorremoveItem,
+		CalculatorgetQuantityValues:CalculatorgetQuantityValues,
+		CalculatorrenderTotalCost:CalculatorrenderTotalCost,
+		CalculatorrenderTotalCostChange:CalculatorrenderTotalCostChange
+		};
+	}
+);

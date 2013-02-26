@@ -1,1 +1,125 @@
-define(["../../lib/registry","../../lib/utils"],function(){function t(e,n,i){var i=i||{},o=i.obj||window,r=i.path||(o==window?"window":""),s=Object.keys(o);s.forEach(function(i){(p[e]||e)(n,o,i)&&console.log([r,".",i].join(""),"->",["(",typeof o[i],")"].join(""),o[i]),"[object Object]"==Object.prototype.toString.call(o[i])&&o[i]!=o&&-1==r.split(".").indexOf(i)&&t(e,n,{obj:o[i],path:[r,i].join(".")})})}function e(e,n,i,o){n&&typeof i!=n?console.error([i,"must be",n].join(" ")):t(e,i,o)}function n(t,n){e("name","string",t,n)}function i(t,n){e("nameContains","string",t,n)}function o(t,n){e("type","function",t,n)}function r(t,n){e("value",null,t,n)}function s(t,n){e("valueCoerced",null,t,n)}function a(e,n){t(e,null,n)}function h(){var t=[].slice.call(arguments,0);l.eventNames.length||(l.eventNames="all"),l.actions=t.length?t:"all"}function c(){var t=[].slice.call(arguments,0);l.actions.length||(l.actions="all"),l.eventNames=t.length?t:"all"}function u(){l.actions=[],l.eventNames=[]}function f(){l.actions="all",l.eventNames="all"}var l,p={name:function(t,e,n){return t==n},nameContains:function(t,e,n){return n.indexOf(t)>-1},type:function(t,e,n){return e[n]instanceof t},value:function(t,e,n){return e[n]===t},valueCoerced:function(t,e,n){return e[n]==t}},d="all";return l={actions:d,eventNames:d},{enable:function(t){this.enabled=!!t,t&&window.console&&(console.info("Booting in DEBUG mode"),console.info("You can filter event logging with DEBUG.events.logAll/logNone/logByName/logByAction")),window.DEBUG=this},find:{byName:n,byNameContains:i,byType:o,byValue:r,byValueCoerced:s,custom:a},events:{logFilter:l,logByAction:h,logByName:c,logAll:f,logNone:u}}});
+
+
+define(
+
+  [
+    '../../lib/registry',
+    '../../lib/utils'
+  ],
+
+  function(registry, utils) {
+
+    var logFilter;
+
+    //******************************************************************************************
+    // Search object model
+    //******************************************************************************************
+
+    function traverse(util, searchTerm, options) {
+      var options = options || {};
+      var obj = options.obj || window;
+      var path = options.path || ((obj==window) ? "window" : "");
+      var props = Object.keys(obj);
+      props.forEach(function(prop) {
+        if ((tests[util] || util)(searchTerm, obj, prop)){
+          console.log([path, ".", prop].join(""), "->",["(", typeof obj[prop], ")"].join(""), obj[prop]);
+        }
+        if(Object.prototype.toString.call(obj[prop])=="[object Object]" && (obj[prop] != obj) && path.split(".").indexOf(prop) == -1) {
+          traverse(util, searchTerm, {obj: obj[prop], path: [path,prop].join(".")});
+        }
+      });
+    }
+
+    function search(util, expected, searchTerm, options) {
+      if (!expected || typeof searchTerm == expected) {
+        traverse(util, searchTerm, options);
+      } else {
+        console.error([searchTerm, 'must be', expected].join(' '))
+      }
+    }
+
+    var tests = {
+      'name': function(searchTerm, obj, prop) {return searchTerm == prop},
+      'nameContains': function(searchTerm, obj, prop) {return prop.indexOf(searchTerm)>-1},
+      'type': function(searchTerm, obj, prop) {return obj[prop] instanceof searchTerm},
+      'value': function(searchTerm, obj, prop) {return obj[prop] === searchTerm},
+      'valueCoerced': function(searchTerm, obj, prop) {return obj[prop] == searchTerm}
+    }
+
+    function byName(searchTerm, options) {search('name', 'string', searchTerm, options);};
+    function byNameContains(searchTerm, options) {search('nameContains', 'string', searchTerm, options);};
+    function byType(searchTerm, options) {search('type', 'function', searchTerm, options);};
+    function byValue(searchTerm, options) {search('value', null, searchTerm, options);};
+    function byValueCoerced(searchTerm, options) {search('valueCoerced', null, searchTerm, options);};
+    function custom(fn, options) {traverse(fn, null, options);};
+
+    //******************************************************************************************
+    // Event logging
+    //******************************************************************************************
+    var logLevel = 'all';
+    logFilter = {actions: logLevel, eventNames: logLevel}; //no filter by default
+
+    function filterEventLogsByAction(/*actions*/) {
+      var actions = [].slice.call(arguments, 0);
+
+      logFilter.eventNames.length || (logFilter.eventNames = 'all');
+      logFilter.actions = actions.length ? actions : 'all';
+    }
+
+    function filterEventLogsByName(/*eventNames*/) {
+      var eventNames = [].slice.call(arguments, 0);
+
+      logFilter.actions.length || (logFilter.actions = 'all');
+      logFilter.eventNames = eventNames.length ? eventNames : 'all';
+    }
+
+    function hideAllEventLogs() {
+      logFilter.actions = [];
+      logFilter.eventNames = [];
+    }
+
+    function showAllEventLogs() {
+      logFilter.actions = 'all';
+      logFilter.eventNames = 'all';
+    }
+
+    return {
+
+      enable: function(enable) {
+        this.enabled = !!enable;
+
+        if (enable && window.console) {
+          console.info('Booting in DEBUG mode');
+          console.info('You can filter event logging with DEBUG.events.logAll/logNone/logByName/logByAction');
+        }
+
+        window.DEBUG = this;
+      },
+
+      find: {
+        byName: byName,
+        byNameContains: byNameContains,
+        byType: byType,
+        byValue: byValue,
+        byValueCoerced: byValueCoerced,
+        custom: custom
+      },
+
+      events: {
+        logFilter: logFilter,
+
+        // Accepts any number of action args
+        // e.g. DEBUG.events.logByAction("on", "off")
+        logByAction: filterEventLogsByAction,
+
+        // Accepts any number of event name args (inc. regex or wildcards)
+        // e.g. DEBUG.events.logByName(/ui.*/, "*Thread*");
+        logByName: filterEventLogsByName,
+
+        logAll: showAllEventLogs,
+        logNone: hideAllEventLogs
+      }
+    };
+  }
+);
+

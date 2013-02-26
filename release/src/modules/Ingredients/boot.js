@@ -1,1 +1,12 @@
-define(["src/modules/Ingredients/Calculator","src/modules/Ingredients/Form"],function(e,t){var n=function(){e.calculatorComponent.attachTo("#calculatorComponent"),t.formComponent.attachTo("#formComponent")};return{initialize:n}});
+define([
+	'src/modules/Ingredients/Calculator',
+	'src/modules/Ingredients/Form'
+], function(Calculator,Form) {
+    var Initialize = function() {
+        Calculator.calculatorComponent.attachTo("#calculatorComponent");
+		Form.formComponent.attachTo("#formComponent");
+    };
+    return {
+        initialize: Initialize
+    };
+});

@@ -17,4 +17,98 @@
  * limitations under the License.
  * =========================================================== */
 
-!function(t){var e=function(t,e){this.init("popover",t,e)};e.prototype=t.extend({},t.fn.tooltip.Constructor.prototype,{constructor:e,setContent:function(){var t=this.tip(),e=this.getTitle(),n=this.getContent();t.find(".popover-title")[this.options.html?"html":"text"](e),t.find(".popover-content")[this.options.html?"html":"text"](n),t.removeClass("fade top bottom left right in")},hasContent:function(){return this.getTitle()||this.getContent()},getContent:function(){var t,e=this.$element,n=this.options;return t=("function"==typeof n.content?n.content.call(e[0]):n.content)||e.attr("data-content")},tip:function(){return this.$tip||(this.$tip=t(this.options.template)),this.$tip},destroy:function(){this.hide().$element.off("."+this.type).removeData(this.type)}});var n=t.fn.popover;t.fn.popover=function(n){return this.each(function(){var i=t(this),s=i.data("popover"),o="object"==typeof n&&n;s||i.data("popover",s=new e(this,o)),"string"==typeof n&&s[n]()})},t.fn.popover.Constructor=e,t.fn.popover.defaults=t.extend({},t.fn.tooltip.defaults,{placement:"right",trigger:"click",content:"",template:'<div class="popover"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'}),t.fn.popover.noConflict=function(){return t.fn.popover=n,this}}(window.jQuery);
+
+!function ($) {
+
+   // jshint ;_;
+
+
+ /* POPOVER PUBLIC CLASS DEFINITION
+  * =============================== */
+
+  var Popover = function (element, options) {
+    this.init('popover', element, options)
+  }
+
+
+  /* NOTE: POPOVER EXTENDS BOOTSTRAP-TOOLTIP.js
+     ========================================== */
+
+  Popover.prototype = $.extend({}, $.fn.tooltip.Constructor.prototype, {
+
+    constructor: Popover
+
+  , setContent: function () {
+      var $tip = this.tip()
+        , title = this.getTitle()
+        , content = this.getContent()
+
+      $tip.find('.popover-title')[this.options.html ? 'html' : 'text'](title)
+      $tip.find('.popover-content')[this.options.html ? 'html' : 'text'](content)
+
+      $tip.removeClass('fade top bottom left right in')
+    }
+
+  , hasContent: function () {
+      return this.getTitle() || this.getContent()
+    }
+
+  , getContent: function () {
+      var content
+        , $e = this.$element
+        , o = this.options
+
+      content = (typeof o.content == 'function' ? o.content.call($e[0]) :  o.content)
+        || $e.attr('data-content')
+
+      return content
+    }
+
+  , tip: function () {
+      if (!this.$tip) {
+        this.$tip = $(this.options.template)
+      }
+      return this.$tip
+    }
+
+  , destroy: function () {
+      this.hide().$element.off('.' + this.type).removeData(this.type)
+    }
+
+  })
+
+
+ /* POPOVER PLUGIN DEFINITION
+  * ======================= */
+
+  var old = $.fn.popover
+
+  $.fn.popover = function (option) {
+    return this.each(function () {
+      var $this = $(this)
+        , data = $this.data('popover')
+        , options = typeof option == 'object' && option
+      if (!data) $this.data('popover', (data = new Popover(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  $.fn.popover.Constructor = Popover
+
+  $.fn.popover.defaults = $.extend({} , $.fn.tooltip.defaults, {
+    placement: 'right'
+  , trigger: 'click'
+  , content: ''
+  , template: '<div class="popover"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+  })
+
+
+ /* POPOVER NO CONFLICT
+  * =================== */
+
+  $.fn.popover.noConflict = function () {
+    $.fn.popover = old
+    return this
+  }
+
+}(window.jQuery);

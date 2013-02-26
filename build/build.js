@@ -2,7 +2,7 @@
     baseUrl:"../appData",
     mainConfigFile:'../appData/entryPoint.js',
     dir: "../release",
-    optimize:"uglify2",
+    optimize:"none",
     modules: [
         { name: "src/dummy"}
     ],

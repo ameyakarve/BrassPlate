@@ -17,4 +17,191 @@
  * limitations under the License.
  * ========================================================== */
 
-!function(t){var e=function(e,i){this.$element=t(e),this.$indicators=this.$element.find(".carousel-indicators"),this.options=i,"hover"==this.options.pause&&this.$element.on("mouseenter",t.proxy(this.pause,this)).on("mouseleave",t.proxy(this.cycle,this))};e.prototype={cycle:function(e){return e||(this.paused=!1),this.interval&&clearInterval(this.interval),this.options.interval&&!this.paused&&(this.interval=setInterval(t.proxy(this.next,this),this.options.interval)),this},getActiveIndex:function(){return this.$active=this.$element.find(".item.active"),this.$items=this.$active.parent().children(),this.$items.index(this.$active)},to:function(e){var i=this.getActiveIndex(),n=this;if(!(e>this.$items.length-1||0>e))return this.sliding?this.$element.one("slid",function(){n.to(e)}):i==e?this.pause().cycle():this.slide(e>i?"next":"prev",t(this.$items[e]))},pause:function(e){return e||(this.paused=!0),this.$element.find(".next, .prev").length&&t.support.transition.end&&(this.$element.trigger(t.support.transition.end),this.cycle()),clearInterval(this.interval),this.interval=null,this},next:function(){return this.sliding?void 0:this.slide("next")},prev:function(){return this.sliding?void 0:this.slide("prev")},slide:function(e,i){var n,s=this.$element.find(".item.active"),o=i||s[e](),a=this.interval,r="next"==e?"left":"right",l="next"==e?"first":"last",f=this;if(this.sliding=!0,a&&this.pause(),o=o.length?o:this.$element.find(".item")[l](),n=t.Event("slide",{relatedTarget:o[0],direction:r}),!o.hasClass("active")){if(this.$indicators.length&&(this.$indicators.find(".active").removeClass("active"),this.$element.one("slid",function(){var e=t(f.$indicators.children()[f.getActiveIndex()]);e&&e.addClass("active")})),t.support.transition&&this.$element.hasClass("slide")){if(this.$element.trigger(n),n.isDefaultPrevented())return;o.addClass(e),o[0].offsetWidth,s.addClass(r),o.addClass(r),this.$element.one(t.support.transition.end,function(){o.removeClass([e,r].join(" ")).addClass("active"),s.removeClass(["active",r].join(" ")),f.sliding=!1,setTimeout(function(){f.$element.trigger("slid")},0)})}else{if(this.$element.trigger(n),n.isDefaultPrevented())return;s.removeClass("active"),o.addClass("active"),this.sliding=!1,this.$element.trigger("slid")}return a&&this.cycle(),this}}};var i=t.fn.carousel;t.fn.carousel=function(i){return this.each(function(){var n=t(this),s=n.data("carousel"),o=t.extend({},t.fn.carousel.defaults,"object"==typeof i&&i),a="string"==typeof i?i:o.slide;s||n.data("carousel",s=new e(this,o)),"number"==typeof i?s.to(i):a?s[a]():o.interval&&s.pause().cycle()})},t.fn.carousel.defaults={interval:5e3,pause:"hover"},t.fn.carousel.Constructor=e,t.fn.carousel.noConflict=function(){return t.fn.carousel=i,this},t(document).on("click.carousel.data-api","[data-slide], [data-slide-to]",function(e){var i,n,s=t(this),o=t(s.attr("data-target")||(i=s.attr("href"))&&i.replace(/.*(?=#[^\s]+$)/,"")),a=t.extend({},o.data(),s.data());o.carousel(a),(n=s.attr("data-slide-to"))&&o.data("carousel").pause().to(n).cycle(),e.preventDefault()})}(window.jQuery);
+
+!function ($) {
+
+   // jshint ;_;
+
+
+ /* CAROUSEL CLASS DEFINITION
+  * ========================= */
+
+  var Carousel = function (element, options) {
+    this.$element = $(element)
+    this.$indicators = this.$element.find('.carousel-indicators')
+    this.options = options
+    this.options.pause == 'hover' && this.$element
+      .on('mouseenter', $.proxy(this.pause, this))
+      .on('mouseleave', $.proxy(this.cycle, this))
+  }
+
+  Carousel.prototype = {
+
+    cycle: function (e) {
+      if (!e) this.paused = false
+      if (this.interval) clearInterval(this.interval);
+      this.options.interval
+        && !this.paused
+        && (this.interval = setInterval($.proxy(this.next, this), this.options.interval))
+      return this
+    }
+
+  , getActiveIndex: function () {
+      this.$active = this.$element.find('.item.active')
+      this.$items = this.$active.parent().children()
+      return this.$items.index(this.$active)
+    }
+
+  , to: function (pos) {
+      var activeIndex = this.getActiveIndex()
+        , that = this
+
+      if (pos > (this.$items.length - 1) || pos < 0) return
+
+      if (this.sliding) {
+        return this.$element.one('slid', function () {
+          that.to(pos)
+        })
+      }
+
+      if (activeIndex == pos) {
+        return this.pause().cycle()
+      }
+
+      return this.slide(pos > activeIndex ? 'next' : 'prev', $(this.$items[pos]))
+    }
+
+  , pause: function (e) {
+      if (!e) this.paused = true
+      if (this.$element.find('.next, .prev').length && $.support.transition.end) {
+        this.$element.trigger($.support.transition.end)
+        this.cycle()
+      }
+      clearInterval(this.interval)
+      this.interval = null
+      return this
+    }
+
+  , next: function () {
+      if (this.sliding) return
+      return this.slide('next')
+    }
+
+  , prev: function () {
+      if (this.sliding) return
+      return this.slide('prev')
+    }
+
+  , slide: function (type, next) {
+      var $active = this.$element.find('.item.active')
+        , $next = next || $active[type]()
+        , isCycling = this.interval
+        , direction = type == 'next' ? 'left' : 'right'
+        , fallback  = type == 'next' ? 'first' : 'last'
+        , that = this
+        , e
+
+      this.sliding = true
+
+      isCycling && this.pause()
+
+      $next = $next.length ? $next : this.$element.find('.item')[fallback]()
+
+      e = $.Event('slide', {
+        relatedTarget: $next[0]
+      , direction: direction
+      })
+
+      if ($next.hasClass('active')) return
+
+      if (this.$indicators.length) {
+        this.$indicators.find('.active').removeClass('active')
+        this.$element.one('slid', function () {
+          var $nextIndicator = $(that.$indicators.children()[that.getActiveIndex()])
+          $nextIndicator && $nextIndicator.addClass('active')
+        })
+      }
+
+      if ($.support.transition && this.$element.hasClass('slide')) {
+        this.$element.trigger(e)
+        if (e.isDefaultPrevented()) return
+        $next.addClass(type)
+        $next[0].offsetWidth // force reflow
+        $active.addClass(direction)
+        $next.addClass(direction)
+        this.$element.one($.support.transition.end, function () {
+          $next.removeClass([type, direction].join(' ')).addClass('active')
+          $active.removeClass(['active', direction].join(' '))
+          that.sliding = false
+          setTimeout(function () { that.$element.trigger('slid') }, 0)
+        })
+      } else {
+        this.$element.trigger(e)
+        if (e.isDefaultPrevented()) return
+        $active.removeClass('active')
+        $next.addClass('active')
+        this.sliding = false
+        this.$element.trigger('slid')
+      }
+
+      isCycling && this.cycle()
+
+      return this
+    }
+
+  }
+
+
+ /* CAROUSEL PLUGIN DEFINITION
+  * ========================== */
+
+  var old = $.fn.carousel
+
+  $.fn.carousel = function (option) {
+    return this.each(function () {
+      var $this = $(this)
+        , data = $this.data('carousel')
+        , options = $.extend({}, $.fn.carousel.defaults, typeof option == 'object' && option)
+        , action = typeof option == 'string' ? option : options.slide
+      if (!data) $this.data('carousel', (data = new Carousel(this, options)))
+      if (typeof option == 'number') data.to(option)
+      else if (action) data[action]()
+      else if (options.interval) data.pause().cycle()
+    })
+  }
+
+  $.fn.carousel.defaults = {
+    interval: 5000
+  , pause: 'hover'
+  }
+
+  $.fn.carousel.Constructor = Carousel
+
+
+ /* CAROUSEL NO CONFLICT
+  * ==================== */
+
+  $.fn.carousel.noConflict = function () {
+    $.fn.carousel = old
+    return this
+  }
+
+ /* CAROUSEL DATA-API
+  * ================= */
+
+  $(document).on('click.carousel.data-api', '[data-slide], [data-slide-to]', function (e) {
+    var $this = $(this), href
+      , $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
+      , options = $.extend({}, $target.data(), $this.data())
+      , slideIndex
+
+    $target.carousel(options)
+
+    if (slideIndex = $this.attr('data-slide-to')) {
+      $target.data('carousel').pause().to(slideIndex).cycle()
+    }
+
+    e.preventDefault()
+  })
+
+}(window.jQuery);

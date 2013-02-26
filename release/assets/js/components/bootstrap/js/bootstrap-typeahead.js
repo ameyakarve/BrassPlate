@@ -1,3 +1,6 @@
+define(['jquery'], function ($) {
+    //Plugin code goes here.
+
 /* =============================================================
  * bootstrap-typeahead.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#typeahead
@@ -17,4 +20,311 @@
  * limitations under the License.
  * ============================================================ */
 
-define(["jquery"],function(){!function(t){var e=function(e,i){this.$element=t(e),this.options=t.extend({},t.fn.typeahead.defaults,i),this.matcher=this.options.matcher||this.matcher,this.sorter=this.options.sorter||this.sorter,this.highlighter=this.options.highlighter||this.highlighter,this.updater=this.options.updater||this.updater,this.source=this.options.source,this.$menu=t(this.options.menu),this.shown=!1,this.listen()};e.prototype={constructor:e,select:function(){var t=this.$menu.find(".active").attr("data-value");return this.$element.val(this.updater(t)).change(),this.hide()},updater:function(t){return t},show:function(){var e=t.extend({},this.$element.position(),{height:this.$element[0].offsetHeight});return this.$menu.insertAfter(this.$element).css({top:e.top+e.height,left:e.left}).show(),this.shown=!0,this},hide:function(){return this.$menu.hide(),this.shown=!1,this},lookup:function(){var e;return this.query=this.$element.val(),!this.query||this.query.length<this.options.minLength?this.shown?this.hide():this:(e=t.isFunction(this.source)?this.source(this.query,t.proxy(this.process,this)):this.source,e?this.process(e):this)},process:function(e){var i=this;return e=t.grep(e,function(t){return i.matcher(t)}),e=this.sorter(e),e.length?this.render(e.slice(0,this.options.items)).show():this.shown?this.hide():this},matcher:function(t){return~t.toLowerCase().indexOf(this.query.toLowerCase())},sorter:function(t){for(var e,i=[],n=[],s=[];e=t.shift();)e.toLowerCase().indexOf(this.query.toLowerCase())?~e.indexOf(this.query)?n.push(e):s.push(e):i.push(e);return i.concat(n,s)},highlighter:function(t){var e=this.query.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g,"\\$&");return t.replace(RegExp("("+e+")","ig"),function(t,e){return"<strong>"+e+"</strong>"})},render:function(e){var i=this;return e=t(e).map(function(e,n){return e=t(i.options.item).attr("data-value",n),e.find("a").html(i.highlighter(n)),e[0]}),e.first().addClass("active"),this.$menu.html(e),this},next:function(){var e=this.$menu.find(".active").removeClass("active"),i=e.next();i.length||(i=t(this.$menu.find("li")[0])),i.addClass("active")},prev:function(){var t=this.$menu.find(".active").removeClass("active"),e=t.prev();e.length||(e=this.$menu.find("li").last()),e.addClass("active")},listen:function(){this.$element.on("blur",t.proxy(this.blur,this)).on("keypress",t.proxy(this.keypress,this)).on("keyup",t.proxy(this.keyup,this)),this.eventSupported("keydown")&&this.$element.on("keydown",t.proxy(this.keydown,this)),this.$menu.on("click",t.proxy(this.click,this)).on("mouseenter","li",t.proxy(this.mouseenter,this))},eventSupported:function(t){var e=t in this.$element;return e||(this.$element.setAttribute(t,"return;"),e="function"==typeof this.$element[t]),e},move:function(t){if(this.shown){switch(t.keyCode){case 9:case 13:case 27:t.preventDefault();break;case 38:t.preventDefault(),this.prev();break;case 40:t.preventDefault(),this.next()}t.stopPropagation()}},keydown:function(e){this.suppressKeyPressRepeat=~t.inArray(e.keyCode,[40,38,9,13,27]),this.move(e)},keypress:function(t){this.suppressKeyPressRepeat||this.move(t)},keyup:function(t){switch(t.keyCode){case 40:case 38:case 16:case 17:case 18:break;case 9:case 13:if(!this.shown)return;this.select();break;case 27:if(!this.shown)return;this.hide();break;default:this.lookup()}t.stopPropagation(),t.preventDefault()},blur:function(){var t=this;setTimeout(function(){t.hide()},150)},click:function(t){t.stopPropagation(),t.preventDefault(),this.select()},mouseenter:function(e){this.$menu.find(".active").removeClass("active"),t(e.currentTarget).addClass("active")}};var i=t.fn.typeahead;t.fn.typeahead=function(i){return this.each(function(){var n=t(this),s=n.data("typeahead"),o="object"==typeof i&&i;s||n.data("typeahead",s=new e(this,o)),"string"==typeof i&&s[i]()})},t.fn.typeahead.defaults={source:[],items:8,menu:'<ul class="typeahead dropdown-menu"></ul>',item:'<li><a href="#"></a></li>',minLength:1},t.fn.typeahead.Constructor=e,t.fn.typeahead.noConflict=function(){return t.fn.typeahead=i,this},t(document).on("focus.typeahead.data-api",'[data-provide="typeahead"]',function(e){var i=t(this);i.data("typeahead")||(e.preventDefault(),i.typeahead(i.data()))})}(window.jQuery)});
+
+!function($){
+
+   // jshint ;_;
+
+
+ /* TYPEAHEAD PUBLIC CLASS DEFINITION
+  * ================================= */
+
+  var Typeahead = function (element, options) {
+    this.$element = $(element)
+    this.options = $.extend({}, $.fn.typeahead.defaults, options)
+    this.matcher = this.options.matcher || this.matcher
+    this.sorter = this.options.sorter || this.sorter
+    this.highlighter = this.options.highlighter || this.highlighter
+    this.updater = this.options.updater || this.updater
+    this.source = this.options.source
+    this.$menu = $(this.options.menu)
+    this.shown = false
+    this.listen()
+  }
+
+  Typeahead.prototype = {
+
+    constructor: Typeahead
+
+  , select: function () {
+      var val = this.$menu.find('.active').attr('data-value')
+      this.$element
+        .val(this.updater(val))
+        .change()
+      return this.hide()
+    }
+
+  , updater: function (item) {
+      //this.$element.trigger("TriggeredEventFromBootstrap");
+      //console.log(this);
+      //$("#searchBox").trigger("click",[item]);
+      return item
+    }
+
+  , show: function () {
+      var pos = $.extend({}, this.$element.position(), {
+        height: this.$element[0].offsetHeight
+      })
+
+      this.$menu
+        .insertAfter(this.$element)
+        .css({
+          top: pos.top + pos.height
+        , left: pos.left
+        })
+        .show()
+
+      this.shown = true
+      return this
+    }
+
+  , hide: function () {
+      this.$menu.hide()
+      this.shown = false
+      return this
+    }
+
+  , lookup: function (event) {
+      var items
+
+      this.query = this.$element.val()
+
+      if (!this.query || this.query.length < this.options.minLength) {
+        return this.shown ? this.hide() : this
+      }
+
+      items = $.isFunction(this.source) ? this.source(this.query, $.proxy(this.process, this)) : this.source
+
+      return items ? this.process(items) : this
+    }
+
+  , process: function (items) {
+      var that = this
+
+      items = $.grep(items, function (item) {
+        return that.matcher(item)
+      })
+
+      items = this.sorter(items)
+
+      if (!items.length) {
+        return this.shown ? this.hide() : this
+      }
+
+      return this.render(items.slice(0, this.options.items)).show()
+    }
+
+  , matcher: function (item) {
+      return ~item.toLowerCase().indexOf(this.query.toLowerCase())
+    }
+
+  , sorter: function (items) {
+      var beginswith = []
+        , caseSensitive = []
+        , caseInsensitive = []
+        , item
+
+      while (item = items.shift()) {
+        if (!item.toLowerCase().indexOf(this.query.toLowerCase())) beginswith.push(item)
+        else if (~item.indexOf(this.query)) caseSensitive.push(item)
+        else caseInsensitive.push(item)
+      }
+
+      return beginswith.concat(caseSensitive, caseInsensitive)
+    }
+
+  , highlighter: function (item) {
+      var query = this.query.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&')
+      return item.replace(new RegExp('(' + query + ')', 'ig'), function ($1, match) {
+        return '<strong>' + match + '</strong>'
+      })
+    }
+
+  , render: function (items) {
+      var that = this
+
+      items = $(items).map(function (i, item) {
+        i = $(that.options.item).attr('data-value', item)
+        i.find('a').html(that.highlighter(item))
+        return i[0]
+      })
+
+      items.first().addClass('active')
+      this.$menu.html(items)
+      return this
+    }
+
+  , next: function (event) {
+      var active = this.$menu.find('.active').removeClass('active')
+        , next = active.next()
+
+      if (!next.length) {
+        next = $(this.$menu.find('li')[0])
+      }
+
+      next.addClass('active')
+    }
+
+  , prev: function (event) {
+      var active = this.$menu.find('.active').removeClass('active')
+        , prev = active.prev()
+
+      if (!prev.length) {
+        prev = this.$menu.find('li').last()
+      }
+
+      prev.addClass('active')
+    }
+
+  , listen: function () {
+      this.$element
+        .on('blur',     $.proxy(this.blur, this))
+        .on('keypress', $.proxy(this.keypress, this))
+        .on('keyup',    $.proxy(this.keyup, this))
+
+      if (this.eventSupported('keydown')) {
+        this.$element.on('keydown', $.proxy(this.keydown, this))
+      }
+
+      this.$menu
+        .on('click', $.proxy(this.click, this))
+        .on('mouseenter', 'li', $.proxy(this.mouseenter, this))
+    }
+
+  , eventSupported: function(eventName) {
+      var isSupported = eventName in this.$element
+      if (!isSupported) {
+        this.$element.setAttribute(eventName, 'return;')
+        isSupported = typeof this.$element[eventName] === 'function'
+      }
+      return isSupported
+    }
+
+  , move: function (e) {
+      if (!this.shown) return
+
+      switch(e.keyCode) {
+        case 9: // tab
+        case 13: // enter
+        case 27: // escape
+          e.preventDefault()
+          break
+
+        case 38: // up arrow
+          e.preventDefault()
+          this.prev()
+          break
+
+        case 40: // down arrow
+          e.preventDefault()
+          this.next()
+          break
+      }
+
+      e.stopPropagation()
+    }
+
+  , keydown: function (e) {
+      this.suppressKeyPressRepeat = ~$.inArray(e.keyCode, [40,38,9,13,27])
+      this.move(e)
+    }
+
+  , keypress: function (e) {
+      if (this.suppressKeyPressRepeat) return
+      this.move(e)
+    }
+
+  , keyup: function (e) {
+      switch(e.keyCode) {
+        case 40: // down arrow
+        case 38: // up arrow
+        case 16: // shift
+        case 17: // ctrl
+        case 18: // alt
+          break
+
+        case 9: // tab
+        case 13: // enter
+          if (!this.shown) return
+          this.select()
+          break
+
+        case 27: // escape
+          if (!this.shown) return
+          this.hide()
+          break
+
+        default:
+          this.lookup()
+      }
+
+      e.stopPropagation()
+      e.preventDefault()
+  }
+
+  , blur: function (e) {
+      var that = this
+      setTimeout(function () { that.hide() }, 150)
+    }
+
+  , click: function (e) {
+      e.stopPropagation()
+      e.preventDefault()
+      this.select()
+    }
+
+  , mouseenter: function (e) {
+      this.$menu.find('.active').removeClass('active')
+      $(e.currentTarget).addClass('active')
+    }
+
+  }
+
+
+  /* TYPEAHEAD PLUGIN DEFINITION
+   * =========================== */
+
+  var old = $.fn.typeahead
+
+  $.fn.typeahead = function (option) {
+    return this.each(function () {
+      var $this = $(this)
+        , data = $this.data('typeahead')
+        , options = typeof option == 'object' && option
+      if (!data) $this.data('typeahead', (data = new Typeahead(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  $.fn.typeahead.defaults = {
+    source: []
+  , items: 8
+  , menu: '<ul class="typeahead dropdown-menu"></ul>'
+  , item: '<li><a href="#"></a></li>'
+  , minLength: 1
+  }
+
+  $.fn.typeahead.Constructor = Typeahead
+
+
+ /* TYPEAHEAD NO CONFLICT
+  * =================== */
+
+  $.fn.typeahead.noConflict = function () {
+    $.fn.typeahead = old
+    return this
+  }
+
+
+ /* TYPEAHEAD DATA-API
+  * ================== */
+
+  $(document).on('focus.typeahead.data-api', '[data-provide="typeahead"]', function (e) {
+    var $this = $(this)
+    if ($this.data('typeahead')) return
+    e.preventDefault()
+    $this.typeahead($this.data())
+  })
+
+}(window.jQuery);
+});

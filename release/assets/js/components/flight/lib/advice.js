@@ -1,5 +1,75 @@
+// ==========================================
 // Copyright 2013 Twitter, Inc
-
+// Licensed under The MIT License
 // http://opensource.org/licenses/MIT
+// ==========================================
 
-define(["./utils","./compose"],function(t,e){var n={around:function(e,n){return function(){var i=t.toArray(arguments);return n.apply(this,[e.bind(this)].concat(i))}},before:function(e,n){return this.around(e,function(){var e,i=t.toArray(arguments),r=i.shift();return e="function"==typeof n?n:n.obj[n.fnName],e.apply(this,i),r.apply(this,i)})},after:function(e,n){return this.around(e,function(){var e,i=t.toArray(arguments),r=i.shift(),o=(r.unbound||r).apply(this,i);return e="function"==typeof n?n:n.obj[n.fnName],e.apply(this,i),o})},withAdvice:function(){["before","after","around"].forEach(function(t){this[t]=function(i,r){e.unlockProperty(this,i,function(){return this[i]="function"==typeof this[i]?n[t](this[i],r):r})}},this)}};return n});
+
+
+define(
+
+  [
+    './utils',
+    './compose'
+  ],
+
+  function (util, compose) {
+
+    var advice = {
+
+      around: function(base, wrapped) {
+        return function() {
+          var args = util.toArray(arguments);
+          return wrapped.apply(this, [base.bind(this)].concat(args));
+        }
+      },
+
+      before: function(base, before) {
+        return this.around(base, function() {
+          var args = util.toArray(arguments),
+              orig = args.shift(),
+              beforeFn;
+
+          beforeFn = (typeof before == 'function') ? before : before.obj[before.fnName];
+          beforeFn.apply(this, args);
+          return (orig).apply(this, args);
+        });
+      },
+
+      after: function(base, after) {
+        return this.around(base, function() {
+          var args = util.toArray(arguments),
+              orig = args.shift(),
+              afterFn;
+
+          // this is a separate statement for debugging purposes.
+          var res = (orig.unbound || orig).apply(this, args);
+
+          afterFn = (typeof after == 'function') ? after : after.obj[after.fnName];
+          afterFn.apply(this, args);
+          return res;
+        });
+      },
+
+      // a mixin that allows other mixins to augment existing functions by adding additional
+      // code before, after or around.
+      withAdvice: function() {
+        ['before', 'after', 'around'].forEach(function(m) {
+          this[m] = function(method, fn) {
+
+            compose.unlockProperty(this, method, function() {
+              if (typeof this[method] == 'function') {
+                return this[method] = advice[m](this[method], fn);
+              } else {
+                return this[method] = fn;
+              }
+            });
+
+          };
+        }, this);
+      }
+    };
+
+    return advice;
+  }
+);

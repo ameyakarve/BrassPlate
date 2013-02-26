@@ -1,9 +1,10 @@
 define([
 	'jquery',
 	'assets/js/components/bootstrap/js/bootstrap-combined',
+	'assets/js/typeahead/dist/typeahead',
 	'mustache',
 	'underscore'
-	],function($,Combined,Mustache,_){
+	],function($,Combined,Typeahead,Mustache,_){
 	var FormInit = function()
 	{
 		$("#addNewIngredientFormModal").modal({show:false,keyboard:false});
@@ -96,8 +97,10 @@ define([
 		$("#ingredientTypeahead").remove();
         $("#inputWarning").remove();
         $("#inputControls").html(Mustache.render(Combined.typeAhead,{}));
+		console.log("Here");
+		console.log("Here too");
         var names = _.map(data,function(num){return num.NAME;});
-		$("#ingredientTypeahead").typeahead({
+		/*$("#ingredientTypeahead").typeahead({
 			source: names,
 			updater: function(item) {
 				var index = this.source.indexOf(item);
@@ -113,7 +116,9 @@ define([
 				window.$("#inputWarning").html(" ");
 				return true;
 			}
-		});
+		});*/
+		$("#ingredientTypeahead").typeahead({local:names});
+		console.log(names);
 	};
 	var CalculatoraddItem = function(data,index)
 	{

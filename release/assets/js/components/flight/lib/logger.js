@@ -1,5 +1,93 @@
+// ==========================================
 // Copyright 2013 Twitter, Inc
-
+// Licensed under The MIT License
 // http://opensource.org/licenses/MIT
+// ==========================================
 
-define(["./compose","./utils"],function(t,e){function n(t){var e=t.tagName?t.tagName.toLowerCase():""+t,n=t.className?"."+t.className:"",i=e+n;return t.tagName?["'","'"].join(i):i}function i(t,e,i){var r,s,a,h,c,u,f,l;"function"==typeof i[i.length-1]&&(a=i.pop(),a=a.unbound||a),"object"==typeof i[i.length-1]&&i.pop(),2==i.length?(s=i[0],r=i[1]):(s=e.$node[0],r=i[0]),window.DEBUG&&(c=DEBUG.events.logFilter,f="all"==c.actions||c.actions.indexOf(t)>-1,u=function(t){return t.test?t:RegExp("^"+t.replace(/\*/g,".*")+"$")},l="all"==c.eventNames||c.eventNames.some(function(t){return u(t).test(r)}),f&&l&&console.info(o[t],t,"["+r+"]",n(s),e.constructor.describe,a&&(h=a.name||a.displayName)&&"->  "+h))}function r(){this.before("trigger",function(){i("trigger",this,e.toArray(arguments))}),this.before("on",function(){i("on",this,e.toArray(arguments))}),this.before("off",function(){i("off",this,e.toArray(arguments))})}var o={on:"<-",trigger:"->",off:"x "};return r});
+
+
+define(
+
+  [
+    './compose',
+    './utils'
+  ],
+
+  function (compose, util) {
+
+    var actionSymbols = {
+      on:'<-',
+      trigger: '->',
+      off: 'x '
+    };
+
+    function elemToString(elem) {
+      var tagStr = elem.tagName ? elem.tagName.toLowerCase() : elem.toString();
+      var classStr = elem.className ? "." + (elem.className) : "";
+      var result = tagStr + classStr;
+      return elem.tagName ? ['\'', '\''].join(result) : result;
+    }
+
+    function log(action, component, eventArgs) {
+
+      var name, elem, fn, fnName, logFilter, toRegExp, actionLoggable, nameLoggable;
+
+      if (typeof eventArgs[eventArgs.length-1] == 'function') {
+        fn = eventArgs.pop();
+        fn = fn.unbound || fn; //use unbound version if any (better info)
+      }
+
+      if (typeof eventArgs[eventArgs.length - 1] == 'object') {
+        eventArgs.pop(); //trigger data arg - not logged right now
+      }
+
+      if (eventArgs.length == 2) {
+        elem = eventArgs[0];
+        name = eventArgs[1];
+      } else {
+        elem = component.$node[0];
+        name = eventArgs[0];
+      }
+
+      if (window.DEBUG) {
+        logFilter = DEBUG.events.logFilter;
+
+        // no regex for you, actions...
+        actionLoggable = logFilter.actions=="all" || (logFilter.actions.indexOf(action) > -1);
+        // event name filter allow wildcards or regex...
+        toRegExp = function(expr) {
+          return expr.test ? expr : new RegExp("^" + expr.replace(/\*/g, ".*") + "$");
+        };
+        nameLoggable =
+          logFilter.eventNames=="all" ||
+          logFilter.eventNames.some(function(e) {return toRegExp(e).test(name)});
+
+        if (actionLoggable && nameLoggable) {
+          console.info(
+            actionSymbols[action],
+            action,
+            '[' + name + ']',
+            elemToString(elem),
+            component.constructor.describe,
+            fn && (fnName = fn.name || fn.displayName) && '->  ' + fnName
+          );
+        }
+      }
+    }
+
+
+    function withLogging() {
+      this.before('trigger', function() {
+        log('trigger', this, util.toArray(arguments));
+      });
+      this.before('on', function() {
+        log('on', this, util.toArray(arguments));
+      });
+      this.before('off', function(eventArgs) {
+        log('off', this, util.toArray(arguments));
+      });
+    }
+
+    return withLogging;
+  }
+);

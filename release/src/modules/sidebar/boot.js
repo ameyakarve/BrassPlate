@@ -1,1 +1,20 @@
-define(["jquery","mustache","src/templates","src/modules/sidebar/nav"],function(e,t,n,r){var i=function(){e("#sidebar").html(t.render(n.sidebarTemplate,{})),r.navbarComponent.attachTo("#navbar")},o=function(t){e("li.active").each(function(){e(this).removeClass("active")}),e(t).addClass("active")};return{initialize:i,toggleNavbar:o}});
+define([
+    'jquery',
+    'mustache',
+    'src/templates',
+	'src/modules/sidebar/nav'
+    ],function($,Mustache,Templates,NavBar){
+        var initialize = function()
+        {
+            $("#sidebar").html(Mustache.render(Templates.sidebarTemplate,{}));
+			NavBar.navbarComponent.attachTo("#navbar");
+        };
+		var toggleNavbar = function(current)
+		{
+			$("li.active").each(function( index ) {
+				$(this).removeClass("active");
+			});
+			$(current).addClass("active");
+		};
+        return {initialize:initialize,toggleNavbar:toggleNavbar};
+    });

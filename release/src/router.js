@@ -1,1 +1,56 @@
-define(["director","src/modules/Ingredients/boot","src/modules/sidebar/boot","jquery","mustache","assets/js/components/flight/lib/component","src/templates"],function(e,t,n,r,i,o,a){var s=function(){var s=function(e){console.log("viewBook: bookId is populated: "+e)},u=function(){o.teardownAll(),console.log("Tore down"),r("#content").html(i.render(a.IngredientsTemplate)),t.initialize(),n.toggleNavbar("#nav3")},c=function(){n.toggleNavbar("#nav1"),r("#content").html(" ")},l=function(){r("#content").html(" "),n.toggleNavbar("#nav2")},f={"/ingredients":u,"":c,"/home":c,"/about":l,"/books/view/:bookId":s},p=e.Router(f);p.init()};return{initialize:s}});
+define([
+	'director',
+	'src/modules/Ingredients/boot',
+	'src/modules/sidebar/boot',
+	'jquery',
+	'mustache',
+	'assets/js/components/flight/lib/component',
+	'src/templates'
+	], function(Director,Ingredients,Sidebar,$,Mustache,component,Templates) {
+    var initialize = function() {
+        var author = function() {
+            console.log("author");
+        },
+        books = function() {
+            console.log("books");
+        },
+        viewBook = function(bookId) {
+            console.log("viewBook: bookId is populated: " + bookId);
+        };
+        
+        var IngredientsRoute = function()
+        {
+            component.teardownAll();
+			console.log("Tore down");
+			$("#content").html(Mustache.render(Templates.IngredientsTemplate));
+			Ingredients.initialize();
+			Sidebar.toggleNavbar("#nav3");
+        };
+		var HomeRoute = function()
+        {
+            Sidebar.toggleNavbar("#nav1");
+			$("#content").html(" ");
+        };
+		var AboutRoute = function()
+        {
+            $("#content").html(" ");
+			Sidebar.toggleNavbar("#nav2");
+        };
+		
+        var routes = {
+            '/ingredients': IngredientsRoute,
+            '': HomeRoute,
+			'/home':HomeRoute,
+			'/about':AboutRoute,
+            '/books/view/:bookId': viewBook
+        };
+
+        var router = Director.Router(routes);
+        router.init();
+    };
+
+    return {
+        initialize: initialize
+    };
+
+});

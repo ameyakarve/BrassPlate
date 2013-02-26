@@ -1,1 +1,758 @@
-define([],function(){function t(){return""===h.hash||"#"===h.hash}function e(t,e){for(var i=0;t.length>i;i+=1)if(e(t[i],i,t)===!1)return}function i(t){for(var e=[],i=0,n=t.length;n>i;i++)e=e.concat(t[i]);return e}function n(t,e,i){if(!t.length)return i();var n=0;(function o(){e(t[n],function(e){e||e===!1?(i(e),i=function(){}):(n+=1,n===t.length?i():o())})})()}function o(t,e,i){i=t;for(var n in e)if(e.hasOwnProperty(n)&&(i=e[n](t),i!==t))break;return i===t?"([._a-zA-Z0-9-]+)":i}function r(t,e){for(var i,n=0,s="";i=t.substr(n).match(/[^\w\d\- %@&]*\*[^\w\d\- %@&]*/);)n=i.index+i[0].length,i[0]=i[0].replace(/^\*/,"([_.()!\\ %@&a-zA-Z0-9-]+)"),s+=t.substr(0,i.index)+i[0];t=s+=t.substr(n);var r,a=t.match(/:([^\/]+)/gi);if(a){r=a.length;for(var h=0;r>h;h++)t=t.replace(a[h],o(a[h],e))}return t}function a(t,e,i,n){var o,s=0,r=0,a=0,i=""+(i||"("),n=""+(n||")");for(o=0;t.length>o;o++){var h=t[o];if(h.indexOf(i,s)>h.indexOf(n,s)||~h.indexOf(i,s)&&!~h.indexOf(n,s)||!~h.indexOf(i,s)&&~h.indexOf(n,s)){if(r=h.indexOf(i,s),a=h.indexOf(n,s),~r&&!~a||!~r&&~a){var c=t.slice(0,(o||1)+1).join(e);t=[c].concat(t.slice((o||1)+1))}s=(a>r?a:r)+1,o=0}else s=0}return t}Array.prototype.filter||(Array.prototype.filter=function(t,e){for(var i,n=[],o=0,s=this.length;s>o;o++)o in this&&t.call(e,i=this[o],o,this)&&n.push(i);return n}),Array.isArray||(Array.isArray=function(t){return"[object Array]"===Object.prototype.toString.call(t)});var h=document.location,c={mode:"modern",hash:h.hash,history:!1,check:function(){var t=h.hash;t!=this.hash&&(this.hash=t,this.onHashChanged())},fire:function(){"modern"===this.mode?this.history===!0?window.onpopstate():window.onhashchange():this.onHashChanged()},init:function(t,e){function i(t){for(var e=0,i=l.listeners.length;i>e;e++)l.listeners[e](t)}var n=this;if(this.history=e,l.listeners||(l.listeners=[]),"onhashchange"in window&&(void 0===document.documentMode||document.documentMode>7))this.history===!0?setTimeout(function(){window.onpopstate=i},500):window.onhashchange=i,this.mode="modern";else{var o=document.createElement("iframe");o.id="state-frame",o.style.display="none",document.body.appendChild(o),this.writeFrame(""),"onpropertychange"in document&&"attachEvent"in document&&document.attachEvent("onpropertychange",function(){"location"===event.propertyName&&n.check()}),window.setInterval(function(){n.check()},50),this.onHashChanged=i,this.mode="legacy"}return l.listeners.push(t),this.mode},destroy:function(t){if(l&&l.listeners)for(var e=l.listeners,i=e.length-1;i>=0;i--)e[i]===t&&e.splice(i,1)},setHash:function(t){return"legacy"===this.mode&&this.writeFrame(t),this.history===!0?(window.history.pushState({},document.title,t),this.fire()):h.hash="/"===t[0]?t:"/"+t,this},writeFrame:function(t){var e=document.getElementById("state-frame"),i=e.contentDocument||e.contentWindow.document;i.open(),i.write("<script>_hash = '"+t+"'; onload = parent.listener.syncHash;<script>"),i.close()},syncHash:function(){var t=this._hash;return t!=h.hash&&(h.hash=t),this},onHashChanged:function(){}},l=l=function(t){return this instanceof l?(this.params={},this.routes={},this.methods=["on","once","after","before"],this.scope=[],this._methods={},this._insert=this.insert,this.insert=this.insertEx,this.historySupport=null!=(null!=window.history?window.history.pushState:null),this.configure(),this.mount(t||{}),void 0):new l(t)};return l.prototype.init=function(e){var i=this;if(this.handler=function(t){var e=t&&t.newURL||window.location.hash,n=i.history===!0?i.getPath():e.replace(/.*#/,"");i.dispatch("on",n)},c.init(this.handler,this.history),this.history===!1)t()&&e?h.hash=e:t()||i.dispatch("on",h.hash.replace(/^#/,""));else{var n=t()&&e?e:t()?null:h.hash.replace(/^#/,"");n&&window.history.replaceState({},document.title,n),(n||this.run_in_init===!0)&&this.handler()}return this},l.prototype.explode=function(){var t=this.history===!0?this.getPath():h.hash;return"/"===t.charAt(1)&&(t=t.slice(1)),t.slice(1,t.length).split("/")},l.prototype.setRoute=function(t,e,i){var n=this.explode();return"number"==typeof t&&"string"==typeof e?n[t]=e:"string"==typeof i?n.splice(t,e,s):n=[t],c.setHash(n.join("/")),n},l.prototype.insertEx=function(t,e,i,n){return"once"===t&&(t="on",i=function(t){var e=!1;return function(){return e?void 0:(e=!0,t.apply(this,arguments))}}(i)),this._insert(t,e,i,n)},l.prototype.getRoute=function(t){var e=t;if("number"==typeof t)e=this.explode()[t];else if("string"==typeof t){var i=this.explode();e=i.indexOf(t)}else e=this.explode();return e},l.prototype.destroy=function(){return c.destroy(this.handler),this},l.prototype.getPath=function(){var t=window.location.pathname;return"/"!==t.substr(0,1)&&(t="/"+t),t},l.prototype.configure=function(t){t=t||{};for(var e=0;this.methods.length>e;e++)this._methods[this.methods[e]]=!0;return this.recurse=t.recurse||this.recurse||!1,this.async=t.async||!1,this.delimiter=t.delimiter||"/",this.strict=t.strict===void 0?!0:t.strict,this.notfound=t.notfound,this.resource=t.resource,this.history=t.html5history&&this.historySupport||!1,this.run_in_init=this.history===!0&&t.run_handler_in_init!==!1,this.every={after:t.after||null,before:t.before||null,on:t.on||null},this},l.prototype.param=function(t,e){":"!==t[0]&&(t=":"+t);var i=RegExp(t,"g");this.params[t]=function(t){return t.replace(i,e.source||e)}},l.prototype.on=l.prototype.route=function(t,e,i){var n=this;return i||"function"!=typeof e||(i=e,e=t,t="on"),Array.isArray(e)?e.forEach(function(e){n.on(t,e,i)}):(e.source&&(e=e.source.replace(/\\\//gi,"/")),Array.isArray(t)?t.forEach(function(t){n.on(t.toLowerCase(),e,i)}):(e=e.split(RegExp(this.delimiter)),e=a(e,this.delimiter),this.insert(t,this.scope.concat(e),i),void 0))},l.prototype.dispatch=function(t,e,i){function n(){s.last=r.after,s.invoke(s.runlist(r),s,i)}var o,s=this,r=this.traverse(t,e,this.routes,""),a=this._invoked;return this._invoked=!0,r&&0!==r.length?("forward"===this.recurse&&(r=r.reverse()),o=this.every&&this.every.after?[this.every.after].concat(this.last):[this.last],o&&o.length>0&&a?(this.async?this.invoke(o,this,n):(this.invoke(o,this),n()),!0):(n(),!0)):(this.last=[],"function"==typeof this.notfound&&this.invoke([this.notfound],{method:t,path:e},i),!1)},l.prototype.invoke=function(t,i,o){var s=this;this.async?n(t,function r(e,o){return Array.isArray(e)?n(e,r,o):("function"==typeof e&&e.apply(i,t.captures.concat(o)),void 0)},function(){o&&o.apply(i,arguments)}):e(t,function r(n){return Array.isArray(n)?e(n,r):"function"==typeof n?n.apply(i,t.captures||[]):("string"==typeof n&&s.resource&&s.resource[n].apply(i,t.captures||[]),void 0)})},l.prototype.traverse=function(t,e,i,n,o){function s(t){function e(t){for(var i=[],n=0;t.length>n;n++)i[n]=Array.isArray(t[n])?e(t[n]):t[n];return i}function i(t){for(var e=t.length-1;e>=0;e--)Array.isArray(t[e])?(i(t[e]),0===t[e].length&&t.splice(e,1)):o(t[e])||t.splice(e,1)}if(!o)return t;var n=e(t);return n.matched=t.matched,n.captures=t.captures,n.after=t.after.filter(o),i(n),n}var r,a,h,c,l=[];if(e===this.delimiter&&i[t])return c=[[i.before,i[t]].filter(Boolean)],c.after=[i.after].filter(Boolean),c.matched=!0,c.captures=[],s(c);for(var u in i)if(i.hasOwnProperty(u)&&(!this._methods[u]||this._methods[u]&&"object"==typeof i[u]&&!Array.isArray(i[u]))){if(r=a=n+this.delimiter+u,this.strict||(a+="["+this.delimiter+"]?"),h=e.match(RegExp("^"+a)),!h)continue;if(h[0]&&h[0]==e&&i[u][t])return c=[[i[u].before,i[u][t]].filter(Boolean)],c.after=[i[u].after].filter(Boolean),c.matched=!0,c.captures=h.slice(1),this.recurse&&i===this.routes&&(c.push([i.before,i.on].filter(Boolean)),c.after=c.after.concat([i.after].filter(Boolean))),s(c);if(c=this.traverse(t,e,i[u],r),c.matched)return c.length>0&&(l=l.concat(c)),this.recurse&&(l.push([i[u].before,i[u].on].filter(Boolean)),c.after=c.after.concat([i[u].after].filter(Boolean)),i===this.routes&&(l.push([i.before,i.on].filter(Boolean)),c.after=c.after.concat([i.after].filter(Boolean)))),l.matched=!0,l.captures=c.captures,l.after=c.after,s(l)}return!1},l.prototype.insert=function(t,e,i,n){var o,s,a,h,c;if(e=e.filter(function(t){return t&&t.length>0}),n=n||this.routes,c=e.shift(),/\:|\*/.test(c)&&!/\\d|\\w/.test(c)&&(c=r(c,this.params)),e.length>0)return n[c]=n[c]||{},this.insert(t,e,i,n[c]);if(c||e.length||n!==this.routes){if(s=typeof n[c],a=Array.isArray(n[c]),n[c]&&!a&&"object"==s)switch(o=typeof n[c][t]){case"function":return n[c][t]=[n[c][t],i],void 0;case"object":return n[c][t].push(i),void 0;case"undefined":return n[c][t]=i,void 0}else if("undefined"==s)return h={},h[t]=i,n[c]=h,void 0;throw Error("Invalid route context: "+s)}switch(o=typeof n[t]){case"function":return n[t]=[n[t],i],void 0;case"object":return n[t].push(i),void 0;case"undefined":return n[t]=i,void 0}},l.prototype.extend=function(t){function e(t){n._methods[t]=!0,n[t]=function(){var e=1===arguments.length?[t,""]:[t];n.on.apply(n,e.concat(Array.prototype.slice.call(arguments)))}}var i,n=this,o=t.length;for(i=0;o>i;i++)e(t[i])},l.prototype.runlist=function(t){var e=this.every&&this.every.before?[this.every.before].concat(i(t)):i(t);return this.every&&this.every.on&&e.push(this.every.on),e.captures=t.captures,e.source=t.source,e},l.prototype.mount=function(t,e){function i(e,i){var o=e,s=e.split(n.delimiter),r=typeof t[e],h=""===s[0]||!n._methods[s[0]],c=h?"on":o;return h&&(o=o.slice((o.match(RegExp(n.delimiter))||[""])[0].length),s.shift()),h&&"object"===r&&!Array.isArray(t[e])?(i=i.concat(s),n.mount(t[e],i),void 0):(h&&(i=i.concat(o.split(n.delimiter)),i=a(i,n.delimiter)),n.insert(c,i,t[e]),void 0)}if(t&&"object"==typeof t&&!Array.isArray(t)){var n=this;e=e||[],Array.isArray(e)||(e=e.split(n.delimiter));for(var o in t)t.hasOwnProperty(o)&&i(o,e.slice(0))}},{Router:l}});
+define([], function() {
+
+
+    //
+    // Generated on Sun Dec 16 2012 22:47:05 GMT-0500 (EST) by Nodejitsu, Inc (Using Codesurgeon).
+    // Version 1.1.9
+    //
+
+    
+
+
+        /*
+         * browser.js: Browser specific functionality for director.
+         *
+         * (C) 2011, Nodejitsu Inc.
+         * MIT LICENSE
+         *
+         */
+
+        if (!Array.prototype.filter) {
+            Array.prototype.filter = function(filter, that) {
+                var other = [],
+                    v;
+                for (var i = 0, n = this.length; i < n; i++) {
+                    if (i in this && filter.call(that, v = this[i], i, this)) {
+                        other.push(v);
+                    }
+                }
+                return other;
+            };
+        }
+
+        if (!Array.isArray) {
+            Array.isArray = function(obj) {
+                return Object.prototype.toString.call(obj) === '[object Array]';
+            };
+        }
+
+        var dloc = document.location;
+
+        function dlocHashEmpty() {
+            // Non-IE browsers return '' when the address bar shows '#'; Director's logic
+            // assumes both mean empty.
+            return dloc.hash === '' || dloc.hash === '#';
+        }
+
+        var listener = {
+            mode: 'modern',
+            hash: dloc.hash,
+            history: false,
+
+            check: function() {
+                var h = dloc.hash;
+                if (h != this.hash) {
+                    this.hash = h;
+                    this.onHashChanged();
+                }
+            },
+
+            fire: function() {
+                if (this.mode === 'modern') {
+                    this.history === true ? window.onpopstate() : window.onhashchange();
+                }
+                else {
+                    this.onHashChanged();
+                }
+            },
+
+            init: function(fn, history) {
+                var self = this;
+                this.history = history;
+
+                if (!Router.listeners) {
+                    Router.listeners = [];
+                }
+
+                function onchange(onChangeEvent) {
+                    for (var i = 0, l = Router.listeners.length; i < l; i++) {
+                        Router.listeners[i](onChangeEvent);
+                    }
+                }
+
+                //note IE8 is being counted as 'modern' because it has the hashchange event
+                if ('onhashchange' in window && (document.documentMode === undefined || document.documentMode > 7)) {
+                    // At least for now HTML5 history is available for 'modern' browsers only
+                    if (this.history === true) {
+                        // There is an old bug in Chrome that causes onpopstate to fire even
+                        // upon initial page load. Since the handler is run manually in init(),
+                        // this would cause Chrome to run it twise. Currently the only
+                        // workaround seems to be to set the handler after the initial page load
+                        // http://code.google.com/p/chromium/issues/detail?id=63040
+                        setTimeout(function() {
+                            window.onpopstate = onchange;
+                        }, 500);
+                    }
+                    else {
+                        window.onhashchange = onchange;
+                    }
+                    this.mode = 'modern';
+                }
+                else {
+                    //
+                    // IE support, based on a concept by Erik Arvidson ...
+                    //
+                    var frame = document.createElement('iframe');
+                    frame.id = 'state-frame';
+                    frame.style.display = 'none';
+                    document.body.appendChild(frame);
+                    this.writeFrame('');
+
+                    if ('onpropertychange' in document && 'attachEvent' in document) {
+                        document.attachEvent('onpropertychange', function() {
+                            if (event.propertyName === 'location') {
+                                self.check();
+                            }
+                        });
+                    }
+
+                    window.setInterval(function() {
+                        self.check();
+                    }, 50);
+
+                    this.onHashChanged = onchange;
+                    this.mode = 'legacy';
+                }
+
+                Router.listeners.push(fn);
+
+                return this.mode;
+            },
+
+            destroy: function(fn) {
+                if (!Router || !Router.listeners) {
+                    return;
+                }
+
+                var listeners = Router.listeners;
+
+                for (var i = listeners.length - 1; i >= 0; i--) {
+                    if (listeners[i] === fn) {
+                        listeners.splice(i, 1);
+                    }
+                }
+            },
+
+            setHash: function(s) {
+                // Mozilla always adds an entry to the history
+                if (this.mode === 'legacy') {
+                    this.writeFrame(s);
+                }
+
+                if (this.history === true) {
+                    window.history.pushState({}, document.title, s);
+                    // Fire an onpopstate event manually since pushing does not obviously
+                    // trigger the pop event.
+                    this.fire();
+                }
+                else {
+                    dloc.hash = (s[0] === '/') ? s : '/' + s;
+                }
+                return this;
+            },
+
+            writeFrame: function(s) {
+                // IE support...
+                var f = document.getElementById('state-frame');
+                var d = f.contentDocument || f.contentWindow.document;
+                d.open();
+                d.write("<script>_hash = '" + s + "'; onload = parent.listener.syncHash;<script>");
+                d.close();
+            },
+
+            syncHash: function() {
+                // IE support...
+                var s = this._hash;
+                if (s != dloc.hash) {
+                    dloc.hash = s;
+                }
+                return this;
+            },
+
+            onHashChanged: function() {}
+        };
+
+        var Router = Router = function(routes) {
+            if (!(this instanceof Router)) return new Router(routes);
+
+            this.params = {};
+            this.routes = {};
+            this.methods = ['on', 'once', 'after', 'before'];
+            this.scope = [];
+            this._methods = {};
+
+            this._insert = this.insert;
+            this.insert = this.insertEx;
+
+            this.historySupport = (window.history != null ? window.history.pushState : null) != null
+
+            this.configure();
+            this.mount(routes || {});
+        };
+
+        Router.prototype.init = function(r) {
+            var self = this;
+            this.handler = function(onChangeEvent) {
+                var newURL = onChangeEvent && onChangeEvent.newURL || window.location.hash;
+                var url = self.history === true ? self.getPath() : newURL.replace(/.*#/, '');
+                self.dispatch('on', url);
+            };
+
+            listener.init(this.handler, this.history);
+
+            if (this.history === false) {
+                if (dlocHashEmpty() && r) {
+                    dloc.hash = r;
+                }
+                else if (!dlocHashEmpty()) {
+                    self.dispatch('on', dloc.hash.replace(/^#/, ''));
+                }
+            }
+            else {
+                var routeTo = dlocHashEmpty() && r ? r : !dlocHashEmpty() ? dloc.hash.replace(/^#/, '') : null;
+                if (routeTo) {
+                    window.history.replaceState({}, document.title, routeTo);
+                }
+
+                // Router has been initialized, but due to the chrome bug it will not
+                // yet actually route HTML5 history state changes. Thus, decide if should route.
+                if (routeTo || this.run_in_init === true) {
+                    this.handler();
+                }
+            }
+
+            return this;
+        };
+
+        Router.prototype.explode = function() {
+            var v = this.history === true ? this.getPath() : dloc.hash;
+            if (v.charAt(1) === '/') {
+                v = v.slice(1)
+            }
+            return v.slice(1, v.length).split("/");
+        };
+
+        Router.prototype.setRoute = function(i, v, val) {
+            var url = this.explode();
+
+            if (typeof i === 'number' && typeof v === 'string') {
+                url[i] = v;
+            }
+            else if (typeof val === 'string') {
+                url.splice(i, v, s);
+            }
+            else {
+                url = [i];
+            }
+
+            listener.setHash(url.join('/'));
+            return url;
+        };
+
+        //
+        // ### function insertEx(method, path, route, parent)
+        // #### @method {string} Method to insert the specific `route`.
+        // #### @path {Array} Parsed path to insert the `route` at.
+        // #### @route {Array|function} Route handlers to insert.
+        // #### @parent {Object} **Optional** Parent "routes" to insert into.
+        // insert a callback that will only occur once per the matched route.
+        //
+        Router.prototype.insertEx = function(method, path, route, parent) {
+            if (method === "once") {
+                method = "on";
+                route = function(route) {
+                    var once = false;
+                    return function() {
+                        if (once) return;
+                        once = true;
+                        return route.apply(this, arguments);
+                    };
+                }(route);
+            }
+            return this._insert(method, path, route, parent);
+        };
+
+        Router.prototype.getRoute = function(v) {
+            var ret = v;
+
+            if (typeof v === "number") {
+                ret = this.explode()[v];
+            }
+            else if (typeof v === "string") {
+                var h = this.explode();
+                ret = h.indexOf(v);
+            }
+            else {
+                ret = this.explode();
+            }
+
+            return ret;
+        };
+
+        Router.prototype.destroy = function() {
+            listener.destroy(this.handler);
+            return this;
+        };
+
+        Router.prototype.getPath = function() {
+            var path = window.location.pathname;
+            if (path.substr(0, 1) !== '/') {
+                path = '/' + path;
+            }
+            return path;
+        };
+
+        function _every(arr, iterator) {
+            for (var i = 0; i < arr.length; i += 1) {
+                if (iterator(arr[i], i, arr) === false) {
+                    return;
+                }
+            }
+        }
+
+        function _flatten(arr) {
+            var flat = [];
+            for (var i = 0, n = arr.length; i < n; i++) {
+                flat = flat.concat(arr[i]);
+            }
+            return flat;
+        }
+
+        function _asyncEverySeries(arr, iterator, callback) {
+            if (!arr.length) {
+                return callback();
+            }
+            var completed = 0;
+            (function iterate() {
+                iterator(arr[completed], function(err) {
+                    if (err || err === false) {
+                        callback(err);
+                        callback = function() {};
+                    }
+                    else {
+                        completed += 1;
+                        if (completed === arr.length) {
+                            callback();
+                        }
+                        else {
+                            iterate();
+                        }
+                    }
+                });
+            })();
+        }
+
+        function paramifyString(str, params, mod) {
+            mod = str;
+            for (var param in params) {
+                if (params.hasOwnProperty(param)) {
+                    mod = params[param](str);
+                    if (mod !== str) {
+                        break;
+                    }
+                }
+            }
+            return mod === str ? "([._a-zA-Z0-9-]+)" : mod;
+        }
+
+        function regifyString(str, params) {
+            var matches, last = 0,
+                out = "";
+            while (matches = str.substr(last).match(/[^\w\d\- %@&]*\*[^\w\d\- %@&]*/)) {
+                last = matches.index + matches[0].length;
+                matches[0] = matches[0].replace(/^\*/, "([_.()!\\ %@&a-zA-Z0-9-]+)");
+                out += str.substr(0, matches.index) + matches[0];
+            }
+            str = out += str.substr(last);
+            var captures = str.match(/:([^\/]+)/ig),
+                length;
+            if (captures) {
+                length = captures.length;
+                for (var i = 0; i < length; i++) {
+                    str = str.replace(captures[i], paramifyString(captures[i], params));
+                }
+            }
+            return str;
+        }
+
+        function terminator(routes, delimiter, start, stop) {
+            var last = 0,
+                left = 0,
+                right = 0,
+                start = (start || "(").toString(),
+                stop = (stop || ")").toString(),
+                i;
+            for (i = 0; i < routes.length; i++) {
+                var chunk = routes[i];
+                if (chunk.indexOf(start, last) > chunk.indexOf(stop, last) || ~chunk.indexOf(start, last) && !~chunk.indexOf(stop, last) || !~chunk.indexOf(start, last) && ~chunk.indexOf(stop, last)) {
+                    left = chunk.indexOf(start, last);
+                    right = chunk.indexOf(stop, last);
+                    if (~left && !~right || !~left && ~right) {
+                        var tmp = routes.slice(0, (i || 1) + 1).join(delimiter);
+                        routes = [tmp].concat(routes.slice((i || 1) + 1));
+                    }
+                    last = (right > left ? right : left) + 1;
+                    i = 0;
+                }
+                else {
+                    last = 0;
+                }
+            }
+            return routes;
+        }
+
+        Router.prototype.configure = function(options) {
+            options = options || {};
+            for (var i = 0; i < this.methods.length; i++) {
+                this._methods[this.methods[i]] = true;
+            }
+            this.recurse = options.recurse || this.recurse || false;
+            this.async = options.async || false;
+            this.delimiter = options.delimiter || "/";
+            this.strict = typeof options.strict === "undefined" ? true : options.strict;
+            this.notfound = options.notfound;
+            this.resource = options.resource;
+            this.history = options.html5history && this.historySupport || false;
+            this.run_in_init = this.history === true && options.run_handler_in_init !== false;
+            this.every = {
+                after: options.after || null,
+                before: options.before || null,
+                on: options.on || null
+            };
+            return this;
+        };
+
+        Router.prototype.param = function(token, matcher) {
+            if (token[0] !== ":") {
+                token = ":" + token;
+            }
+            var compiled = new RegExp(token, "g");
+            this.params[token] = function(str) {
+                return str.replace(compiled, matcher.source || matcher);
+            };
+        };
+
+        Router.prototype.on = Router.prototype.route = function(method, path, route) {
+            var self = this;
+            if (!route && typeof path == "function") {
+                route = path;
+                path = method;
+                method = "on";
+            }
+            if (Array.isArray(path)) {
+                return path.forEach(function(p) {
+                    self.on(method, p, route);
+                });
+            }
+            if (path.source) {
+                path = path.source.replace(/\\\//ig, "/");
+            }
+            if (Array.isArray(method)) {
+                return method.forEach(function(m) {
+                    self.on(m.toLowerCase(), path, route);
+                });
+            }
+            path = path.split(new RegExp(this.delimiter));
+            path = terminator(path, this.delimiter);
+            this.insert(method, this.scope.concat(path), route);
+        };
+
+        Router.prototype.dispatch = function(method, path, callback) {
+            var self = this,
+                fns = this.traverse(method, path, this.routes, ""),
+                invoked = this._invoked,
+                after;
+            this._invoked = true;
+            if (!fns || fns.length === 0) {
+                this.last = [];
+                if (typeof this.notfound === "function") {
+                    this.invoke([this.notfound], {
+                        method: method,
+                        path: path
+                    }, callback);
+                }
+                return false;
+            }
+            if (this.recurse === "forward") {
+                fns = fns.reverse();
+            }
+
+            function updateAndInvoke() {
+                self.last = fns.after;
+                self.invoke(self.runlist(fns), self, callback);
+            }
+            after = this.every && this.every.after ? [this.every.after].concat(this.last) : [this.last];
+            if (after && after.length > 0 && invoked) {
+                if (this.async) {
+                    this.invoke(after, this, updateAndInvoke);
+                }
+                else {
+                    this.invoke(after, this);
+                    updateAndInvoke();
+                }
+                return true;
+            }
+            updateAndInvoke();
+            return true;
+        };
+
+        Router.prototype.invoke = function(fns, thisArg, callback) {
+            var self = this;
+            if (this.async) {
+                _asyncEverySeries(fns, function apply(fn, next) {
+                    if (Array.isArray(fn)) {
+                        return _asyncEverySeries(fn, apply, next);
+                    }
+                    else if (typeof fn == "function") {
+                        fn.apply(thisArg, fns.captures.concat(next));
+                    }
+                }, function() {
+                    if (callback) {
+                        callback.apply(thisArg, arguments);
+                    }
+                });
+            }
+            else {
+                _every(fns, function apply(fn) {
+                    if (Array.isArray(fn)) {
+                        return _every(fn, apply);
+                    }
+                    else if (typeof fn === "function") {
+                        return fn.apply(thisArg, fns.captures || []);
+                    }
+                    else if (typeof fn === "string" && self.resource) {
+                        self.resource[fn].apply(thisArg, fns.captures || []);
+                    }
+                });
+            }
+        };
+
+        Router.prototype.traverse = function(method, path, routes, regexp, filter) {
+            var fns = [],
+                current, exact, match, next, that;
+
+            function filterRoutes(routes) {
+                if (!filter) {
+                    return routes;
+                }
+
+                function deepCopy(source) {
+                    var result = [];
+                    for (var i = 0; i < source.length; i++) {
+                        result[i] = Array.isArray(source[i]) ? deepCopy(source[i]) : source[i];
+                    }
+                    return result;
+                }
+
+                function applyFilter(fns) {
+                    for (var i = fns.length - 1; i >= 0; i--) {
+                        if (Array.isArray(fns[i])) {
+                            applyFilter(fns[i]);
+                            if (fns[i].length === 0) {
+                                fns.splice(i, 1);
+                            }
+                        }
+                        else {
+                            if (!filter(fns[i])) {
+                                fns.splice(i, 1);
+                            }
+                        }
+                    }
+                }
+                var newRoutes = deepCopy(routes);
+                newRoutes.matched = routes.matched;
+                newRoutes.captures = routes.captures;
+                newRoutes.after = routes.after.filter(filter);
+                applyFilter(newRoutes);
+                return newRoutes;
+            }
+            if (path === this.delimiter && routes[method]) {
+                next = [
+                    [routes.before, routes[method]].filter(Boolean)];
+                next.after = [routes.after].filter(Boolean);
+                next.matched = true;
+                next.captures = [];
+                return filterRoutes(next);
+            }
+            for (var r in routes) {
+                if (routes.hasOwnProperty(r) && (!this._methods[r] || this._methods[r] && typeof routes[r] === "object" && !Array.isArray(routes[r]))) {
+                    current = exact = regexp + this.delimiter + r;
+                    if (!this.strict) {
+                        exact += "[" + this.delimiter + "]?";
+                    }
+                    match = path.match(new RegExp("^" + exact));
+                    if (!match) {
+                        continue;
+                    }
+                    if (match[0] && match[0] == path && routes[r][method]) {
+                        next = [
+                            [routes[r].before, routes[r][method]].filter(Boolean)];
+                        next.after = [routes[r].after].filter(Boolean);
+                        next.matched = true;
+                        next.captures = match.slice(1);
+                        if (this.recurse && routes === this.routes) {
+                            next.push([routes.before, routes.on].filter(Boolean));
+                            next.after = next.after.concat([routes.after].filter(Boolean));
+                        }
+                        return filterRoutes(next);
+                    }
+                    next = this.traverse(method, path, routes[r], current);
+                    if (next.matched) {
+                        if (next.length > 0) {
+                            fns = fns.concat(next);
+                        }
+                        if (this.recurse) {
+                            fns.push([routes[r].before, routes[r].on].filter(Boolean));
+                            next.after = next.after.concat([routes[r].after].filter(Boolean));
+                            if (routes === this.routes) {
+                                fns.push([routes["before"], routes["on"]].filter(Boolean));
+                                next.after = next.after.concat([routes["after"]].filter(Boolean));
+                            }
+                        }
+                        fns.matched = true;
+                        fns.captures = next.captures;
+                        fns.after = next.after;
+                        return filterRoutes(fns);
+                    }
+                }
+            }
+            return false;
+        };
+
+        Router.prototype.insert = function(method, path, route, parent) {
+            var methodType, parentType, isArray, nested, part;
+            path = path.filter(function(p) {
+                return p && p.length > 0;
+            });
+            parent = parent || this.routes;
+            part = path.shift();
+            if (/\:|\*/.test(part) && !/\\d|\\w/.test(part)) {
+                part = regifyString(part, this.params);
+            }
+            if (path.length > 0) {
+                parent[part] = parent[part] || {};
+                return this.insert(method, path, route, parent[part]);
+            }
+            if (!part && !path.length && parent === this.routes) {
+                methodType = typeof parent[method];
+                switch (methodType) {
+                case "function":
+                    parent[method] = [parent[method], route];
+                    return;
+                case "object":
+                    parent[method].push(route);
+                    return;
+                case "undefined":
+                    parent[method] = route;
+                    return;
+                }
+                return;
+            }
+            parentType = typeof parent[part];
+            isArray = Array.isArray(parent[part]);
+            if (parent[part] && !isArray && parentType == "object") {
+                methodType = typeof parent[part][method];
+                switch (methodType) {
+                case "function":
+                    parent[part][method] = [parent[part][method], route];
+                    return;
+                case "object":
+                    parent[part][method].push(route);
+                    return;
+                case "undefined":
+                    parent[part][method] = route;
+                    return;
+                }
+            }
+            else if (parentType == "undefined") {
+                nested = {};
+                nested[method] = route;
+                parent[part] = nested;
+                return;
+            }
+            throw new Error("Invalid route context: " + parentType);
+        };
+
+
+
+        Router.prototype.extend = function(methods) {
+            var self = this,
+                len = methods.length,
+                i;
+
+            function extend(method) {
+                self._methods[method] = true;
+                self[method] = function() {
+                    var extra = arguments.length === 1 ? [method, ""] : [method];
+                    self.on.apply(self, extra.concat(Array.prototype.slice.call(arguments)));
+                };
+            }
+            for (i = 0; i < len; i++) {
+                extend(methods[i]);
+            }
+        };
+
+        Router.prototype.runlist = function(fns) {
+            var runlist = this.every && this.every.before ? [this.every.before].concat(_flatten(fns)) : _flatten(fns);
+            if (this.every && this.every.on) {
+                runlist.push(this.every.on);
+            }
+            runlist.captures = fns.captures;
+            runlist.source = fns.source;
+            return runlist;
+        };
+
+        Router.prototype.mount = function(routes, path) {
+            if (!routes || typeof routes !== "object" || Array.isArray(routes)) {
+                return;
+            }
+            var self = this;
+            path = path || [];
+            if (!Array.isArray(path)) {
+                path = path.split(self.delimiter);
+            }
+
+            function insertOrMount(route, local) {
+                var rename = route,
+                    parts = route.split(self.delimiter),
+                    routeType = typeof routes[route],
+                    isRoute = parts[0] === "" || !self._methods[parts[0]],
+                    event = isRoute ? "on" : rename;
+                if (isRoute) {
+                    rename = rename.slice((rename.match(new RegExp(self.delimiter)) || [""])[0].length);
+                    parts.shift();
+                }
+                if (isRoute && routeType === "object" && !Array.isArray(routes[route])) {
+                    local = local.concat(parts);
+                    self.mount(routes[route], local);
+                    return;
+                }
+                if (isRoute) {
+                    local = local.concat(rename.split(self.delimiter));
+                    local = terminator(local, self.delimiter);
+                }
+                self.insert(event, local, routes[route]);
+            }
+            for (var route in routes) {
+                if (routes.hasOwnProperty(route)) {
+                    insertOrMount(route, path.slice(0));
+                }
+            }
+        };
+
+        
+
+    
+    return {
+            Router: Router
+        };});

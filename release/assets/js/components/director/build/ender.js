@@ -1,1 +1,3 @@
-$.ender({router:Router});
+$.ender({
+  router: Router
+});

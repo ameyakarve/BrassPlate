@@ -1,1 +1,88 @@
-define(["assets/js/components/flight/lib/component","src/modules/Ingredients/JqueryCalls"],function(e,t){function n(){this.defaultAttrs({selectedItems:[],allItems:[],quantities:[],lastTimeStamp:0}),this.setData=function(e){console.log(e.returnData),this.attr.lastTimeStamp=e.returnData.lastTimeStamp,this.attr.allItems=this.attr.allItems.concat(e.returnData.updatedData),e.returnData.init||e.returnData.addedStatus.success,t.CalculatorsetTypeAhead(this.attr.lastTimeStamp,this.attr.allItems)},this.addItem=function(e){if(-1==this.attr.selectedItems.indexOf(e.index)){var n=e.index,r=this.attr.allItems[n];this.attr.selectedItems.push(e.index),t.CalculatoraddItem(r,n)}else t.CalculatoraddItemError()},this.removeItem=function(e){var n=this.attr.selectedItems.indexOf(e.index);this.attr.selectedItems.splice(n,1),t.CalculatorremoveItem(e.index)},this.setQuantities=function(e){for(var n=t.CalculatorgetQuantityValues(),r=0,i=0;this.attr.selectedItems.length>i;i++){var o=this.attr.selectedItems[i],a=this.attr.allItems[o].PRICE,s=a*n[i];isNaN(s)||(r+=s)}console.log(r),t.CalculatorrenderTotalCost(r),e.removed||t.CalculatorrenderTotalCostChange(e.index,this.attr.allItems[e.index].PRICE)},this.Init=function(){this.attr.selectedItems=[],this.attr.allItems=[],this.attr.quantities=[],this.attr.lastTimeStamp=0},this.after("initialize",function(){this.Init(),this.on("nextDependencyLoaded",t.CalculatorInit),this.on("dataReceived",this.setData),this.on("newItemAdded",this.addItem),this.on("itemRemoved",this.removeItem),this.on("quantitiesChanged",this.setQuantities)})}return{calculatorComponent:e(n)}});
+define(
+	[
+		'assets/js/components/flight/lib/component', 
+		'src/modules/Ingredients/JqueryCalls'
+	],
+
+function(component, jQueryCalls) {
+    function Ingredients() {
+        this.defaultAttrs({
+            selectedItems: [],
+            allItems: [],
+            quantities: [],
+            lastTimeStamp:0
+        });
+        this.setData = function(event)
+		{
+			console.log(event.returnData);
+			this.attr.lastTimeStamp = event.returnData.lastTimeStamp;
+			this.attr.allItems = this.attr.allItems.concat(event.returnData.updatedData);	
+			if(!(event.returnData.init))
+			{
+				if(event.returnData.addedStatus.success)
+				{
+					//Launch success alert with code
+				}
+				else
+				{
+					//Launch fail alert with code
+				}
+			}
+			
+			jQueryCalls.CalculatorsetTypeAhead(this.attr.lastTimeStamp,this.attr.allItems);
+		};
+		this.addItem = function(event)
+		{
+			if (this.attr.selectedItems.indexOf(event.index) == -1) {
+				var index = event.index;
+				var data = this.attr.allItems[index];
+				this.attr.selectedItems.push(event.index);
+				jQueryCalls.CalculatoraddItem(data,index);
+			}
+			else
+			{
+				jQueryCalls.CalculatoraddItemError()
+			}
+		};
+		this.removeItem = function(event)
+		{
+			var index = this.attr.selectedItems.indexOf(event.index);
+            this.attr.selectedItems.splice(index, 1);
+            jQueryCalls.CalculatorremoveItem(event.index);
+		};
+		this.setQuantities = function(event)
+		{
+			var values = jQueryCalls.CalculatorgetQuantityValues();
+            var sum = 0;
+            for (var i = 0; i < this.attr.selectedItems.length; i++) {
+
+                var index = this.attr.selectedItems[i];
+                var price = this.attr.allItems[index].PRICE;
+                var add = price * values[i];
+                if (!isNaN(add)) sum += add;
+            }
+            console.log(sum);
+			jQueryCalls.CalculatorrenderTotalCost(sum);
+			if(!event.removed) {
+                jQueryCalls.CalculatorrenderTotalCostChange(event.index,this.attr.allItems[event.index].PRICE);
+            }
+		};
+		this.Init = function()
+		{
+			this.attr.selectedItems = [];
+			this.attr.allItems = [];
+			this.attr.quantities=[];
+			this.attr.lastTimeStamp = 0;
+		};
+        this.after("initialize", function() {
+			this.Init();
+			this.on("nextDependencyLoaded",jQueryCalls.CalculatorInit);
+			this.on("dataReceived",this.setData);
+			this.on("newItemAdded",this.addItem);
+			this.on("itemRemoved",this.removeItem);
+			this.on("quantitiesChanged", this.setQuantities);
+        });
+    }
+	return {calculatorComponent:component(Ingredients)};
+
+});

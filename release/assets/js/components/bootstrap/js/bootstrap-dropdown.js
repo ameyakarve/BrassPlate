@@ -17,4 +17,149 @@
  * limitations under the License.
  * ============================================================ */
 
-!function(t){function e(){t(n).each(function(){i(t(this)).removeClass("open")})}function i(e){var i,n=e.attr("data-target");return n||(n=e.attr("href"),n=n&&/#/.test(n)&&n.replace(/.*(?=#[^\s]*$)/,"")),i=n&&t(n),i&&i.length||(i=e.parent()),i}var n="[data-toggle=dropdown]",s=function(e){var i=t(e).on("click.dropdown.data-api",this.toggle);t("html").on("click.dropdown.data-api",function(){i.parent().removeClass("open")})};s.prototype={constructor:s,toggle:function(){var n,s,o=t(this);if(!o.is(".disabled, :disabled"))return n=i(o),s=n.hasClass("open"),e(),s||n.toggleClass("open"),o.focus(),!1},keydown:function(e){var s,o,a,r,l;if(/(38|40|27)/.test(e.keyCode)&&(s=t(this),e.preventDefault(),e.stopPropagation(),!s.is(".disabled, :disabled"))){if(a=i(s),r=a.hasClass("open"),!r||r&&27==e.keyCode)return 27==e.which&&a.find(n).focus(),s.click();o=t("[role=menu] li:not(.divider):visible a",a),o.length&&(l=o.index(o.filter(":focus")),38==e.keyCode&&l>0&&l--,40==e.keyCode&&o.length-1>l&&l++,~l||(l=0),o.eq(l).focus())}}};var o=t.fn.dropdown;t.fn.dropdown=function(e){return this.each(function(){var i=t(this),n=i.data("dropdown");n||i.data("dropdown",n=new s(this)),"string"==typeof e&&n[e].call(i)})},t.fn.dropdown.Constructor=s,t.fn.dropdown.noConflict=function(){return t.fn.dropdown=o,this},t(document).on("click.dropdown.data-api",e).on("click.dropdown.data-api",".dropdown form",function(t){t.stopPropagation()}).on(".dropdown-menu",function(t){t.stopPropagation()}).on("click.dropdown.data-api",n,s.prototype.toggle).on("keydown.dropdown.data-api",n+", [role=menu]",s.prototype.keydown)}(window.jQuery);
+
+!function ($) {
+
+   // jshint ;_;
+
+
+ /* DROPDOWN CLASS DEFINITION
+  * ========================= */
+
+  var toggle = '[data-toggle=dropdown]'
+    , Dropdown = function (element) {
+        var $el = $(element).on('click.dropdown.data-api', this.toggle)
+        $('html').on('click.dropdown.data-api', function () {
+          $el.parent().removeClass('open')
+        })
+      }
+
+  Dropdown.prototype = {
+
+    constructor: Dropdown
+
+  , toggle: function (e) {
+      var $this = $(this)
+        , $parent
+        , isActive
+
+      if ($this.is('.disabled, :disabled')) return
+
+      $parent = getParent($this)
+
+      isActive = $parent.hasClass('open')
+
+      clearMenus()
+
+      if (!isActive) {
+        $parent.toggleClass('open')
+      }
+
+      $this.focus()
+
+      return false
+    }
+
+  , keydown: function (e) {
+      var $this
+        , $items
+        , $active
+        , $parent
+        , isActive
+        , index
+
+      if (!/(38|40|27)/.test(e.keyCode)) return
+
+      $this = $(this)
+
+      e.preventDefault()
+      e.stopPropagation()
+
+      if ($this.is('.disabled, :disabled')) return
+
+      $parent = getParent($this)
+
+      isActive = $parent.hasClass('open')
+
+      if (!isActive || (isActive && e.keyCode == 27)) {
+        if (e.which == 27) $parent.find(toggle).focus()
+        return $this.click()
+      }
+
+      $items = $('[role=menu] li:not(.divider):visible a', $parent)
+
+      if (!$items.length) return
+
+      index = $items.index($items.filter(':focus'))
+
+      if (e.keyCode == 38 && index > 0) index--                                        // up
+      if (e.keyCode == 40 && index < $items.length - 1) index++                        // down
+      if (!~index) index = 0
+
+      $items
+        .eq(index)
+        .focus()
+    }
+
+  }
+
+  function clearMenus() {
+    $(toggle).each(function () {
+      getParent($(this)).removeClass('open')
+    })
+  }
+
+  function getParent($this) {
+    var selector = $this.attr('data-target')
+      , $parent
+
+    if (!selector) {
+      selector = $this.attr('href')
+      selector = selector && /#/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') //strip for ie7
+    }
+
+    $parent = selector && $(selector)
+
+    if (!$parent || !$parent.length) $parent = $this.parent()
+
+    return $parent
+  }
+
+
+  /* DROPDOWN PLUGIN DEFINITION
+   * ========================== */
+
+  var old = $.fn.dropdown
+
+  $.fn.dropdown = function (option) {
+    return this.each(function () {
+      var $this = $(this)
+        , data = $this.data('dropdown')
+      if (!data) $this.data('dropdown', (data = new Dropdown(this)))
+      if (typeof option == 'string') data[option].call($this)
+    })
+  }
+
+  $.fn.dropdown.Constructor = Dropdown
+
+
+ /* DROPDOWN NO CONFLICT
+  * ==================== */
+
+  $.fn.dropdown.noConflict = function () {
+    $.fn.dropdown = old
+    return this
+  }
+
+
+  /* APPLY TO STANDARD DROPDOWN ELEMENTS
+   * =================================== */
+
+  $(document)
+    .on('click.dropdown.data-api', clearMenus)
+    .on('click.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
+    .on('.dropdown-menu', function (e) { e.stopPropagation() })
+    .on('click.dropdown.data-api'  , toggle, Dropdown.prototype.toggle)
+    .on('keydown.dropdown.data-api', toggle + ', [role=menu]' , Dropdown.prototype.keydown)
+
+}(window.jQuery);

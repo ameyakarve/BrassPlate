@@ -17,4 +17,146 @@
  * limitations under the License.
  * ============================================================== */
 
-!function(t){function e(e,i){var n,s=t.proxy(this.process,this),o=t(e).is("body")?t(window):t(e);this.options=t.extend({},t.fn.scrollspy.defaults,i),this.$scrollElement=o.on("scroll.scroll-spy.data-api",s),this.selector=(this.options.target||(n=t(e).attr("href"))&&n.replace(/.*(?=#[^\s]+$)/,"")||"")+" .nav li > a",this.$body=t("body"),this.refresh(),this.process()}e.prototype={constructor:e,refresh:function(){var e,i=this;this.offsets=t([]),this.targets=t([]),e=this.$body.find(this.selector).map(function(){var e=t(this),n=e.data("target")||e.attr("href"),s=/^#\w/.test(n)&&t(n);return s&&s.length&&[[s.position().top+(!t.isWindow(i.$scrollElement.get(0))&&i.$scrollElement.scrollTop()),n]]||null}).sort(function(t,e){return t[0]-e[0]}).each(function(){i.offsets.push(this[0]),i.targets.push(this[1])})},process:function(){var t,e=this.$scrollElement.scrollTop()+this.options.offset,i=this.$scrollElement[0].scrollHeight||this.$body[0].scrollHeight,n=i-this.$scrollElement.height(),s=this.offsets,o=this.targets,a=this.activeTarget;if(e>=n)return a!=(t=o.last()[0])&&this.activate(t);for(t=s.length;t--;)a!=o[t]&&e>=s[t]&&(!s[t+1]||s[t+1]>=e)&&this.activate(o[t])},activate:function(e){var i,n;this.activeTarget=e,t(this.selector).parent(".active").removeClass("active"),n=this.selector+'[data-target="'+e+'"],'+this.selector+'[href="'+e+'"]',i=t(n).parent("li").addClass("active"),i.parent(".dropdown-menu").length&&(i=i.closest("li.dropdown").addClass("active")),i.trigger("activate")}};var i=t.fn.scrollspy;t.fn.scrollspy=function(i){return this.each(function(){var n=t(this),s=n.data("scrollspy"),o="object"==typeof i&&i;s||n.data("scrollspy",s=new e(this,o)),"string"==typeof i&&s[i]()})},t.fn.scrollspy.Constructor=e,t.fn.scrollspy.defaults={offset:10},t.fn.scrollspy.noConflict=function(){return t.fn.scrollspy=i,this},t(window).on("load",function(){t('[data-spy="scroll"]').each(function(){var e=t(this);e.scrollspy(e.data())})})}(window.jQuery);
+
+!function ($) {
+
+   // jshint ;_;
+
+
+ /* SCROLLSPY CLASS DEFINITION
+  * ========================== */
+
+  function ScrollSpy(element, options) {
+    var process = $.proxy(this.process, this)
+      , $element = $(element).is('body') ? $(window) : $(element)
+      , href
+    this.options = $.extend({}, $.fn.scrollspy.defaults, options)
+    this.$scrollElement = $element.on('scroll.scroll-spy.data-api', process)
+    this.selector = (this.options.target
+      || ((href = $(element).attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
+      || '') + ' .nav li > a'
+    this.$body = $('body')
+    this.refresh()
+    this.process()
+  }
+
+  ScrollSpy.prototype = {
+
+      constructor: ScrollSpy
+
+    , refresh: function () {
+        var self = this
+          , $targets
+
+        this.offsets = $([])
+        this.targets = $([])
+
+        $targets = this.$body
+          .find(this.selector)
+          .map(function () {
+            var $el = $(this)
+              , href = $el.data('target') || $el.attr('href')
+              , $href = /^#\w/.test(href) && $(href)
+            return ( $href
+              && $href.length
+              && [[ $href.position().top + (!$.isWindow(self.$scrollElement.get(0)) && self.$scrollElement.scrollTop()), href ]] ) || null
+          })
+          .sort(function (a, b) { return a[0] - b[0] })
+          .each(function () {
+            self.offsets.push(this[0])
+            self.targets.push(this[1])
+          })
+      }
+
+    , process: function () {
+        var scrollTop = this.$scrollElement.scrollTop() + this.options.offset
+          , scrollHeight = this.$scrollElement[0].scrollHeight || this.$body[0].scrollHeight
+          , maxScroll = scrollHeight - this.$scrollElement.height()
+          , offsets = this.offsets
+          , targets = this.targets
+          , activeTarget = this.activeTarget
+          , i
+
+        if (scrollTop >= maxScroll) {
+          return activeTarget != (i = targets.last()[0])
+            && this.activate ( i )
+        }
+
+        for (i = offsets.length; i--;) {
+          activeTarget != targets[i]
+            && scrollTop >= offsets[i]
+            && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+            && this.activate( targets[i] )
+        }
+      }
+
+    , activate: function (target) {
+        var active
+          , selector
+
+        this.activeTarget = target
+
+        $(this.selector)
+          .parent('.active')
+          .removeClass('active')
+
+        selector = this.selector
+          + '[data-target="' + target + '"],'
+          + this.selector + '[href="' + target + '"]'
+
+        active = $(selector)
+          .parent('li')
+          .addClass('active')
+
+        if (active.parent('.dropdown-menu').length)  {
+          active = active.closest('li.dropdown').addClass('active')
+        }
+
+        active.trigger('activate')
+      }
+
+  }
+
+
+ /* SCROLLSPY PLUGIN DEFINITION
+  * =========================== */
+
+  var old = $.fn.scrollspy
+
+  $.fn.scrollspy = function (option) {
+    return this.each(function () {
+      var $this = $(this)
+        , data = $this.data('scrollspy')
+        , options = typeof option == 'object' && option
+      if (!data) $this.data('scrollspy', (data = new ScrollSpy(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  $.fn.scrollspy.Constructor = ScrollSpy
+
+  $.fn.scrollspy.defaults = {
+    offset: 10
+  }
+
+
+ /* SCROLLSPY NO CONFLICT
+  * ===================== */
+
+  $.fn.scrollspy.noConflict = function () {
+    $.fn.scrollspy = old
+    return this
+  }
+
+
+ /* SCROLLSPY DATA-API
+  * ================== */
+
+  $(window).on('load', function () {
+    $('[data-spy="scroll"]').each(function () {
+      var $spy = $(this)
+      $spy.scrollspy($spy.data())
+    })
+  })
+
+}(window.jQuery);
