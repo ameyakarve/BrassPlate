@@ -123,7 +123,7 @@ define([
 		});*/
 		$("#ingredientTypeahead").typeahead(
             {
-                local:names
+                prefetch:"api/typeaheadHackInit"
             });
 	};
 	var CalculatoraddItem = function(data,index)
