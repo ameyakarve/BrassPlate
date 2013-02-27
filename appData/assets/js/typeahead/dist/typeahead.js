@@ -718,6 +718,7 @@ define(['jquery'], function($){
                 return $suggestion.length > 0 ? formatDataForSuggestion($suggestion) : null;
             },
             renderSuggestions: function(query, dataset, suggestions) {
+                
                 var datasetClassName = "tt-dataset-" + dataset.name, $dataset = this.$menu.find("." + datasetClassName), elBuilder, fragment, el;
                 if ($dataset.length === 0) {
                     $dataset = $('<li><ol class="tt-suggestions"></ol></li>').addClass(datasetClassName).appendTo(this.$menu);
@@ -736,7 +737,8 @@ define(['jquery'], function($){
                 }
                 $dataset.find("> .tt-suggestions").data({
                     query: query,
-                    dataset: dataset.name
+                    dataset: dataset.name,
+                    suggestions:suggestions[0]
                 }).append(fragment);
                 this.trigger("suggestionsRender");
             },
@@ -752,7 +754,8 @@ define(['jquery'], function($){
             return {
                 value: $suggestion.data("value"),
                 query: $suggestions.data("query"),
-                dataset: $suggestions.data("dataset")
+                dataset: $suggestions.data("dataset"),
+                data:$suggestions.data("suggestions")
             };
         }
     }();
@@ -852,7 +855,7 @@ define(['jquery'], function($){
                     this.inputView.setInputValue(suggestionData.value);
                     byClick ? this.inputView.focus() : e.data.preventDefault();
                     byClick && utils.isMsie() ? setTimeout(this.dropdownView.hide, 0) : this.dropdownView.hide();
-					console.log(suggestionData);
+                    console.log(suggestionData);
                 }
             },
             _getSuggestions: function() {
@@ -938,7 +941,6 @@ define(['jquery'], function($){
                             ranker: datasetDef.ranker,
                             transport: transport
                         });
-						console.log(dataset);
                     }
                     datasets[name] = {
                         name: datasetDef.name,

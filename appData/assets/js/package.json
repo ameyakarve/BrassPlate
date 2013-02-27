@@ -2,7 +2,8 @@
   "volo": {
     "dependencies": {
       "typeahead": "github:twitter/typeahead.js/v0.8.1",
-      "jquery": "github:jquery/jquery/1.9.1"
+      "jquery": "github:jquery/jquery/1.9.1",
+      "hogan": "github:natsume23/hogan/master"
     }
   }
 }

@@ -94,7 +94,7 @@ app.get('/api/addIngredient',function(req,res){
 				},
 				{
 					UID:10,
-					NAME:"Junk",
+					NAME:"Aunk",
 					PRICE:25,
 					UNIT:"kg",
 					BRAND:"B1"
@@ -130,7 +130,7 @@ app.get('/api/addIngredient',function(req,res){
 					[
 						{
 							UID:20,
-							NAME:"Wolf",
+							NAME:"Aolf",
 							PRICE:25,
 							UNIT:"kg",
 							BRAND:"B1"
@@ -230,6 +230,6 @@ app.get('/api/addIngredient',function(req,res){
 });
 
 var port = process.env.PORT||5000;
-app.listen(5000, function() {
+app.listen(port, function() {
   console.log("Listening on " + port);
 });
