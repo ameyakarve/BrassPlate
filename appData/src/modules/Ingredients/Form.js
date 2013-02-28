@@ -4,7 +4,10 @@ define(
 		'src/modules/Ingredients/JqueryCalls'
 	],
 
-function(component, jQueryCalls) {
+function(
+        component, 
+        jQueryCalls
+    ) {
     function Form() {
         this.defaultAttrs({
             selectedItems: [],

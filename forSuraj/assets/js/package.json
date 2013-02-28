@@ -1,0 +1,7 @@
+{
+  "volo": {
+    "dependencies": {
+      "director": "github:flatiron/director/v1.1.10"
+    }
+  }
+}

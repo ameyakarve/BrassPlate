@@ -6,43 +6,40 @@ define([
 	'mustache',
 	'assets/js/components/flight/lib/component',
 	'src/templates'
-	], function(Director,Ingredients,Sidebar,$,Mustache,component,Templates) {
+	], function(
+        Director,
+        Ingredients,
+        Sidebar,
+        $,
+        Mustache,
+        component,
+        Templates
+    ) {
     var initialize = function() {
-        var author = function() {
-            console.log("author");
-        },
-        books = function() {
-            console.log("books");
-        },
-        viewBook = function(bookId) {
-            console.log("viewBook: bookId is populated: " + bookId);
-        };
-        
         var IngredientsRoute = function()
         {
             component.teardownAll();
-			console.log("Tore down");
 			$("#content").html(Mustache.render(Templates.IngredientsTemplate));
 			Ingredients.initialize();
 			Sidebar.toggleNavbar("#nav3");
         };
 		var HomeRoute = function()
         {
+            component.teardownAll();
+            $("#content").html(" ");
             Sidebar.toggleNavbar("#nav1");
-			$("#content").html(" ");
         };
 		var AboutRoute = function()
         {
-            $("#content").html(" ");
+            component.teardownAll();
 			Sidebar.toggleNavbar("#nav2");
+            $("#content").html(" ");
         };
 		
         var routes = {
             '/ingredients': IngredientsRoute,
             '': HomeRoute,
-			'/home':HomeRoute,
-			'/about':AboutRoute,
-            '/books/view/:bookId': viewBook
+			'/home':HomeRoute
         };
 
         var router = Director.Router(routes);

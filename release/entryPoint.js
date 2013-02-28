@@ -6,7 +6,7 @@ require.config({
     shim:'assets/js/components/es5-shim/es5-shim.min',
     sham:'assets/js/components/es5-shim/es5-sham.min',
     router:'src/router',
-    mustache:'assets/js/components/mustache/mustache'  
+    mustache:'assets/js/components/mustache/mustache'
   }
 });
 require(

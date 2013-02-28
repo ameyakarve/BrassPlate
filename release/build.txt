@@ -19,41 +19,33 @@ assets/js/components/flatstrap/assets/css/bootstrap-responsive.css
 ----------------
 assets/js/components/flatstrap/assets/css/bootstrap-responsive.css
 
-assets/js/hogan/web/stylesheets/layout.css
+assets/js/components/typeahead/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/node_modules/underscore.string/test/test_underscore/vendor/qunit.css
 ----------------
-assets/js/hogan/web/stylesheets/layout.css
+assets/js/components/typeahead/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/node_modules/underscore.string/test/test_underscore/vendor/qunit.css
 
-assets/js/hogan/web/stylesheets/skeleton.css
+assets/js/components/typeahead/node_modules/grunt/node_modules/underscore.string/test/test_underscore/vendor/qunit.css
 ----------------
-assets/js/hogan/web/stylesheets/skeleton.css
+assets/js/components/typeahead/node_modules/grunt/node_modules/underscore.string/test/test_underscore/vendor/qunit.css
 
-assets/js/typeahead/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/node_modules/underscore.string/test/test_underscore/vendor/qunit.css
+assets/js/components/typeahead/node_modules/grunt/test/fixtures/expand/css/qux.css
 ----------------
-assets/js/typeahead/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/node_modules/underscore.string/test/test_underscore/vendor/qunit.css
+assets/js/components/typeahead/node_modules/grunt/test/fixtures/expand/css/qux.css
 
-assets/js/typeahead/node_modules/grunt/node_modules/underscore.string/test/test_underscore/vendor/qunit.css
+assets/js/components/typeahead/node_modules/grunt/test/fixtures/expand/css/baz.css
 ----------------
-assets/js/typeahead/node_modules/grunt/node_modules/underscore.string/test/test_underscore/vendor/qunit.css
+assets/js/components/typeahead/node_modules/grunt/test/fixtures/expand/css/baz.css
 
-assets/js/typeahead/node_modules/grunt/test/fixtures/expand/css/qux.css
+assets/js/components/typeahead/src/css/typeahead.css
 ----------------
-assets/js/typeahead/node_modules/grunt/test/fixtures/expand/css/qux.css
+assets/js/components/typeahead/src/css/typeahead.css
 
-assets/js/typeahead/node_modules/grunt/test/fixtures/expand/css/baz.css
+assets/js/components/typeahead/dist/typeahead.css
 ----------------
-assets/js/typeahead/node_modules/grunt/test/fixtures/expand/css/baz.css
+assets/js/components/typeahead/dist/typeahead.css
 
-assets/js/typeahead/src/css/typeahead.css
+assets/js/components/typeahead/dist/typeahead.min.css
 ----------------
-assets/js/typeahead/src/css/typeahead.css
-
-assets/js/typeahead/dist/typeahead.css
-----------------
-assets/js/typeahead/dist/typeahead.css
-
-assets/js/typeahead/dist/typeahead.min.css
-----------------
-assets/js/typeahead/dist/typeahead.min.css
+assets/js/components/typeahead/dist/typeahead.min.css
 
 assets/css/app/Ingredients.css
 ----------------

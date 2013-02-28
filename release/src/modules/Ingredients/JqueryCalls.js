@@ -1,7 +1,7 @@
 define([
 	'jquery',
 	'assets/js/components/bootstrap/js/bootstrap-combined',
-	'assets/js/typeahead/dist/typeahead',
+	'assets/js/components/typeahead/dist/typeahead',
 	'mustache',
 	'underscore',
     ],function($,Combined,Typeahead,Mustache,_){
@@ -72,59 +72,16 @@ define([
 			
 		}
 	};
-	var CalculatorInit = function()
+	var CalculatorsetTypeAhead = function()
 	{
-		var cachebang = new Date().getTime();
-		$.ajax({
-			type:"GET",
-			url:"api/addIngredient",
-			data:"LASTTIMESTAMP=0&CACHEBANG="+cachebang,
-			success:function(data){
-				$("#calculatorComponent").trigger({
-					type:"dataReceived",
-					returnData:data
-				});
-			},
-			error:function(){}
-		});
-	};
-	var CalculatorsetTypeAhead = function(timestamp,data)
-	{
-		$("#formComponent").trigger({
-			type:"setTimeStamp",
-			timestamp:timestamp
-		});
 		$("#ingredientTypeahead").remove();
         $("#inputWarning").remove();
         $("#inputControls").html(Mustache.render(Combined.typeAhead,{}));
-		var names = _.map(data,function(num){
-            return {
-                value:num.NAME,
-                tokens:[num.NAME],
-                callback:"Test"
-            };
+        $("#ingredientTypeahead").typeahead(
+        {
+            prefetch:"api/typeaheadHackInit"
+            //moar stuff to be added here
         });
-		/*$("#ingredientTypeahead").typeahead({
-			source: names,
-			updater: function(item) {
-				var index = this.source.indexOf(item);
-				$("#calculatorComponent").trigger({
-					type: "newItemAdded",
-					item: item,
-					index: index
-				});
-				return item;
-			},
-			matcher: function(item) {
-				window.$("#warningGroup").removeClass("error");
-				window.$("#inputWarning").html(" ");
-				return true;
-			}
-		});*/
-		$("#ingredientTypeahead").typeahead(
-            {
-                prefetch:"api/typeaheadHackInit"
-            });
 	};
 	var CalculatoraddItem = function(data,index)
 	{
@@ -188,7 +145,6 @@ define([
 		FormSubmitForm:FormSubmitForm,
 		FormReceiveFormData:FormReceiveFormData,
 		FormSetTimeStamp:FormSetTimeStamp,
-		CalculatorInit:CalculatorInit, 
 		CalculatorsetTypeAhead:CalculatorsetTypeAhead,
 		CalculatoraddItem:CalculatoraddItem,
 		CalculatoraddItemError:CalculatoraddItemError,

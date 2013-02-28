@@ -1,86 +1,52 @@
+//Lots of surgery needed here
 define(
 	[
 		'assets/js/components/flight/lib/component', 
-		'src/modules/Ingredients/JqueryCalls'
+		'src/modules/Ingredients/JqueryCalls',
+        'underscore'
 	],
 
-function(component, jQueryCalls) {
+function(
+    component, 
+    jQueryCalls,
+    _
+    ){
     function Ingredients() {
         this.defaultAttrs({
             selectedItems: [],
-            allItems: [],
-            quantities: [],
-            lastTimeStamp:0
+            quantities: []
         });
-        this.setData = function(event)
-		{
-			console.log(event.returnData);
-			this.attr.lastTimeStamp = event.returnData.lastTimeStamp;
-			this.attr.allItems = this.attr.allItems.concat(event.returnData.updatedData);	
-			if(!(event.returnData.init))
-			{
-				if(event.returnData.addedStatus.success)
-				{
-					//Launch success alert with code
-				}
-				else
-				{
-					//Launch fail alert with code
-				}
-			}
-			
-			jQueryCalls.CalculatorsetTypeAhead(this.attr.lastTimeStamp,this.attr.allItems);
-		};
-		this.addItem = function(event)
-		{
-			if (this.attr.selectedItems.indexOf(event.index) == -1) {
-				var index = event.index;
-				var data = this.attr.allItems[index];
-				this.attr.selectedItems.push(event.index);
-				jQueryCalls.CalculatoraddItem(data,index);
-			}
-			else
-			{
-				jQueryCalls.CalculatoraddItemError()
-			}
-		};
-		this.removeItem = function(event)
-		{
-			var index = this.attr.selectedItems.indexOf(event.index);
-            this.attr.selectedItems.splice(index, 1);
-            jQueryCalls.CalculatorremoveItem(event.index);
-		};
-		this.setQuantities = function(event)
-		{
-			var values = jQueryCalls.CalculatorgetQuantityValues();
-            var sum = 0;
-            for (var i = 0; i < this.attr.selectedItems.length; i++) {
-
-                var index = this.attr.selectedItems[i];
-                var price = this.attr.allItems[index].PRICE;
-                var add = price * values[i];
-                if (!isNaN(add)) sum += add;
-            }
-            console.log(sum);
-			jQueryCalls.CalculatorrenderTotalCost(sum);
-			if(!event.removed) {
-                jQueryCalls.CalculatorrenderTotalCostChange(event.index,this.attr.allItems[event.index].PRICE);
-            }
-		};
 		this.Init = function()
 		{
 			this.attr.selectedItems = [];
-			this.attr.allItems = [];
 			this.attr.quantities=[];
-			this.attr.lastTimeStamp = 0;
 		};
+        this.addData = function(event)
+        {
+            console.log(event);
+            var data = event.originalEvent.detail.data.returnData;
+            var value = event.originalEvent.detail.value;
+            var values = _.pluck(data,'value');
+            console.log(values);
+            /*var UID = data.uid;
+            var UIDs = _.pluck(this.attr.selectedItems,'uid');
+            console.log(UIDs,UID);
+            if(_.contains(UIDs,UID))
+            {
+                console.log("Value found!");
+                
+            }
+            else
+            {
+                this.attr.selectedItems.push(data);
+                console.log(data,"pushed");
+            }*/
+            //If Data is already present, send fail; else send data to selectedItems
+        };
         this.after("initialize", function() {
 			this.Init();
-			this.on("nextDependencyLoaded",jQueryCalls.CalculatorInit);
-			this.on("dataReceived",this.setData);
-			this.on("newItemAdded",this.addItem);
-			this.on("itemRemoved",this.removeItem);
-			this.on("quantitiesChanged", this.setQuantities);
+			this.on("nextDependencyLoaded",jQueryCalls.CalculatorsetTypeAhead);
+            this.on("dataAdded",this.addData);
         });
     }
 	return {calculatorComponent:component(Ingredients)};
