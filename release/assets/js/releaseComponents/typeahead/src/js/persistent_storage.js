@@ -1,0 +1,7 @@
+/*
+ * typeahead.js
+ * https://github.com/twitter/typeahead
+ * Copyright 2013 Twitter, Inc. and other contributors; Licensed MIT
+ */
+
+var PersistentStorage=function(){function e(e){this.prefix=["__",e,"__"].join(""),this.ttlKey="__ttl__",this.keyMatcher=RegExp("^"+this.prefix)}function t(){return(new Date).getTime()}function n(e){return JSON.stringify(utils.isUndefined(e)?null:e)}function r(e){return JSON.parse(e)}var i,o=window.localStorage;return i=window.localStorage&&window.JSON?{_prefix:function(e){return this.prefix+e},_ttlKey:function(e){return this._prefix(e)+this.ttlKey},get:function(e){return this.isExpired(e)&&this.remove(e),r(o.getItem(this._prefix(e)))},set:function(e,r,i){return utils.isNumber(i)?o.setItem(this._ttlKey(e),n(t()+i)):o.removeItem(this._ttlKey(e)),o.setItem(this._prefix(e),n(r))},remove:function(e){return o.removeItem(this._ttlKey(e)),o.removeItem(this._prefix(e)),this},clear:function(){var e,t,n=[],r=o.length;for(e=0;r>e;e++)(t=o.key(e)).match(this.keyMatcher)&&n.push(t.replace(this.keyMatcher,""));for(e=n.length;e--;)this.remove(n[e]);return this},isExpired:function(e){var n=r(o.getItem(this._ttlKey(e)));return utils.isNumber(n)&&t()>n?!0:!1}}:{get:utils.noop,set:utils.noop,remove:utils.noop,clear:utils.noop,isExpired:utils.noop},utils.mixin(e.prototype,i),e}();

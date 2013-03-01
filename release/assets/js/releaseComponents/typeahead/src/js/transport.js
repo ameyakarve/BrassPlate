@@ -1,0 +1,7 @@
+/*
+ * typeahead.js
+ * https://github.com/twitter/typeahead
+ * Copyright 2013 Twitter, Inc. and other contributors; Licensed MIT
+ */
+
+var Transport=function(){function e(e){var t;utils.bindAll(this),e=e||{},t=/^throttle$/i.test(e.rateLimitFn)?utils.throttle:utils.debounce,this.wait=e.wait||300,this.wildcard=e.wildcard||"%QUERY",this.maxConcurrentRequests=e.maxConcurrentRequests||6,this.concurrentRequests=0,this.onDeckRequestArgs=null,this.cache=new RequestCache,this.get=t(this.get,this.wait)}return utils.mixin(e.prototype,{_incrementConcurrentRequests:function(){this.concurrentRequests++},_decrementConcurrentRequests:function(){this.concurrentRequests--},_belowConcurrentRequestsThreshold:function(){return this.concurrentRequests<this.maxConcurrentRequests},get:function(e,t,n){var r,i=this;e=e.replace(this.wildcard,encodeURIComponent(t||"")),(r=this.cache.get(e))?n&&n(r):this._belowConcurrentRequestsThreshold()?$.ajax({url:e,type:"GET",dataType:"json",beforeSend:function(){i._incrementConcurrentRequests()},success:function(t){n&&n(t),i.cache.set(e,t)},complete:function(){i._decrementConcurrentRequests(),i.onDeckRequestArgs&&(i.get.apply(i,i.onDeckRequestArgs),i.onDeckRequestArgs=null)}}):this.onDeckRequestArgs=[].slice.call(arguments,0)}}),e}();
