@@ -1,10 +1,9 @@
-define([
-	'src/modules/Ingredients/Calculator',
-	'src/modules/Ingredients/Form'
-], function(Calculator,Form) {
+define([], function() {
     var Initialize = function() {
-        Calculator.calculatorComponent.attachTo("#calculatorComponent");
-		Form.formComponent.attachTo("#formComponent");
+        require(['src/modules/Ingredients/Calculator', 'src/modules/Ingredients/Form'], function(Calculator, Form) {
+            Calculator.calculatorComponent.attachTo("#calculatorComponent");
+            Form.formComponent.attachTo("#formComponent");
+        });
     };
     return {
         initialize: Initialize

@@ -23,11 +23,26 @@ function(
 		};
         this.addData = function(event)
         {
-            console.log(event);
-            var data = event.originalEvent.detail.data.returnData;
-            var value = event.originalEvent.detail.value;
+            var detail = event.originalEvent.detail.returnData;
+            var data = detail.data;
+            var value = detail.value;
             var values = _.pluck(data,'value');
-            console.log(values);
+            var index = values.indexOf(value);
+            if(index!=-1)
+            {
+                var UID = data[index].uid;
+                var UIDs = _.pluck(this.attr.selectedItems,'uid');
+                if(_.contains(UIDs,UID))
+                {
+                    console.log("Value found!");
+                    
+                }
+                else
+                {
+                    this.attr.selectedItems.push(data[index]);
+                    console.log(data[index],"pushed");
+                }
+            }   
             /*var UID = data.uid;
             var UIDs = _.pluck(this.attr.selectedItems,'uid');
             console.log(UIDs,UID);

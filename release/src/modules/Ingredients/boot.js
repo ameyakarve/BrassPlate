@@ -1,0 +1,1 @@
+define([],function(){var t=function(){require(["src/modules/Ingredients/Calculator","src/modules/Ingredients/Form"],function(t,e){t.calculatorComponent.attachTo("#calculatorComponent"),e.formComponent.attachTo("#formComponent")})};return{initialize:t}});

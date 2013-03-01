@@ -2,10 +2,32 @@
     baseUrl:"../appData",
     mainConfigFile:'../appData/entryPoint.js',
     dir: "../release",
-    optimize:"none",
+    optimize:"uglify2",
     modules: [
-        { name: "src/dummy"}
+        { name: "entryPoint",
+            exclude:[
+                'jquery',
+                'mustache'
+            ]
+        },
+        { name: "src/modules/Ingredients/Calculator",
+            exclude:[
+                'jquery',
+                'mustache',
+                'assets/js/components/flight/lib/component',
+                'underscore'
+            ]
+        },
+        { name: "src/modules/Ingredients/Form",
+            excludeShallow:[
+                'jquery',
+                'assets/js/components/flight/lib/component',
+                'mustache',
+                'underscore'
+            ]
+        }
     ],
+    removeCombined:false,
     stubModules:['text'],
     paths: {
     jquery: 'assets/js/components/jquery/jquery',
