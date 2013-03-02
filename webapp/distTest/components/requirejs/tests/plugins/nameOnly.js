@@ -1,0 +1,1 @@
+define({load:function(e,i,u){u({name:"nameOnly"})}});

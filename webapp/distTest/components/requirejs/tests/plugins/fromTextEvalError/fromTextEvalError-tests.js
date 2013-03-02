@@ -1,0 +1,1 @@
+require.config({baseUrl:requirejs.isBrowser?"./":"./plugins/fromTextEvalError",paths:{refine:"../fromText/refine",text:"../../../../text/text"}}),require(["refine!a"],function(){},function(e){var i=e+"";doh.register("pluginsFromTextEvalError",[function(e){e.is(-1,i.indexOf("timeout"))}]),doh.run()});

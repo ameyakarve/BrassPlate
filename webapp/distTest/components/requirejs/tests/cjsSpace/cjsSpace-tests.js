@@ -1,0 +1,1 @@
+require({baseUrl:"./"},["a"],function(e){doh.register("cjsSpace",[function(i){i.is("a",e.name),i.is("b",e.b.name)}]),doh.run()});

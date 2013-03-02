@@ -1,0 +1,1 @@
+define(["require","exports","module"],function(e,i,u){return{food:u.config().id}});

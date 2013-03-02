@@ -1,0 +1,1 @@
+require({baseUrl:"./",map:{"*":{d:"adapter/d"},"adapter/d":{d:"d"}}},["e","adapter/d"],function(e,i){"use strict";doh.register("mapConfigStarAdapter",[function(u){u.is("e",e.name),u.is("d",e.d.name),u.is(!0,e.d.adapted),u.is(!0,i.adapted),u.is("d",i.name)}]),doh.run()});

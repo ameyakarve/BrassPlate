@@ -1,0 +1,1 @@
+require({config:{a:{id:"magic"}}}),require({baseUrl:"./",config:{"b/c":{id:"beans"}}},["a","b/c","plain"],function(e,i,u){doh.register("moduleConfig",[function(s){s.is("magic",e.type),s.is("beans",i.food),s.is("plain",u.id)}]),doh.run()});

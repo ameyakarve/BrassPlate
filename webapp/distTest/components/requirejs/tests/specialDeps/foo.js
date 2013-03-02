@@ -1,0 +1,1 @@
+define(["require","exports","module","exports","require","module"],function(e){e("exports").name="foo",e("require")("exports").related=e("module").config().related});

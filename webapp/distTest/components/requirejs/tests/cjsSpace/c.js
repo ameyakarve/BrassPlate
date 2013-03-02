@@ -1,0 +1,1 @@
+define(["require"],function(){return"undefined"!=typeof obj&&obj.require("bad"),{name:"c"}});

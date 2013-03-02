@@ -1,0 +1,1 @@
+define("plugin",[],{load:function(e,i,u){i([e],function(e){u(e)})}});

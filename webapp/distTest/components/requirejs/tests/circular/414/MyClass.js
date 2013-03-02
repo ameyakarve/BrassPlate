@@ -1,0 +1,1 @@
+define(["exports","./A","./B","./C"],function(e,i,u,s){return e.name="MyClass",e.sayAll=function(){return[e.say(),i.say(),u.say(),s.say()].join(":")},e.say=function(){return[e.name,i.name,u.name,s.name].join(",")},e});

@@ -1,0 +1,1 @@
+define(["require","exports","module"],function(e,i,u){return{id:"plain"+(u.config().foo||"")}});

@@ -5,7 +5,7 @@ var app = express();
 app.configure(function() {
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
-    app.use(gzippo.staticGzip(__dirname + '/release'));
+    app.use(gzippo.staticGzip(__dirname + '/webapp/dist'));
 });
 app.get('/', function(req, res) {
     res.sendfile('views/index.html');
