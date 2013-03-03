@@ -1,1 +1,0 @@
-define(["exports","./MyClass","./B","./C"],function(e,i,u,s){e.name="A",e.say=function(){return[i.name,e.name,u.name,s.name].join(",")}});

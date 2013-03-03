@@ -1,1 +1,0 @@
-Modernizr.addTest("bgpositionxy",function(){return Modernizr.testStyles("#modernizr {background-position: 3px 5px;}",function(e){var t=window.getComputedStyle?getComputedStyle(e,null):e.currentStyle,n="3px"==t.backgroundPositionX||"3px"==t["background-position-x"],r="5px"==t.backgroundPositionY||"5px"==t["background-position-y"];return n&&r})});

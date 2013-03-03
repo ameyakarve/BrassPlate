@@ -1,1 +1,0 @@
-require({baseUrl:"./"},["a"],function(e){doh.register("isBrowser",[function(i){i.is(!0,e.isBrowser),i.is(!0,requirejs.isBrowser)}]),doh.run()});

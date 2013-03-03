@@ -1,1 +1,0 @@
-define({load:function(e,i,u){"use strict";if("broken"===e){var s=Error("broken");s.plugMessage=e,u.error(s)}else u(e)}});

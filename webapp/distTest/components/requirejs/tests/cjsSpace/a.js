@@ -1,1 +1,0 @@
-define(["require","b"],function(e){var i=e("b");return{name:"a",b:i}});

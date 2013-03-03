@@ -1,1 +1,0 @@
-require({map:{"*":{plugin:"plugin/plugin"}}},["plugin!foo"],function(e){doh.register("pluginMapSameName",[function(i){i.is("foo",e)}]),doh.run()});

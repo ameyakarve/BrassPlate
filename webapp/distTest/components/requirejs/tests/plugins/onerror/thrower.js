@@ -1,1 +1,0 @@
-define({load:function(e,i,u){i(["fake"],u,u.error)}});

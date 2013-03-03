@@ -1,0 +1,3 @@
+<div class="alert alert-block " id="ingredientBoxSuccessAlert">You can haz succesz
+	<a class="close" data-dismiss="alert" id="ingredientBoxSuccessAlertClose">&times;</a>
+</div>

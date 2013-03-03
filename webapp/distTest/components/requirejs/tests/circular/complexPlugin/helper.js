@@ -1,1 +1,0 @@
-define(["require","exports","module","main"],function(e,i){e("main"),i.name="helper"});

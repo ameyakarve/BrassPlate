@@ -1,1 +1,0 @@
-require({baseUrl:"./",paths:{a:"a1"},map:{a:{c:"c1"},"a/sub/one":{c:"c2"}}},["a","b","c","a/sub/one"],function(e,i,u,s){doh.register("mapConfig",[function(t){t.is("c1",e.c.name),t.is("c1/sub",e.csub.name),t.is("c2",s.c.name),t.is("c2/sub",s.csub.name),t.is("c",i.c.name),t.is("c/sub",i.csub.name),t.is("c",u.name)}]),doh.run()});

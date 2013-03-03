@@ -1,1 +1,0 @@
-require.config({config:{foo:{related:"bar"}}}),require(["foo"],function(e){doh.register("specialDeps",[function(i){i.is("foo",e.name),i.is("bar",e.related)}]),doh.run()});

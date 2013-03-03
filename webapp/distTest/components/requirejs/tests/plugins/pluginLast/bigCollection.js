@@ -1,1 +1,0 @@
-define(["collection","text!bigCollection.html"],function(e,i){return{name:"bigCollection",html:i,collection:e}});

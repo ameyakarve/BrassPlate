@@ -1,1 +1,0 @@
-require.config({paths:{jquery:"../components/jquery/jquery",bootstrap:"vendor/bootstrap"},shim:{bootstrap:{deps:["jquery"],exports:"jquery"}}}),require(["app","jquery","bootstrap"],function(o,e){"use strict";console.log(o),console.log("Running jQuery %s",e().jquery)});

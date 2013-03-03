@@ -1,1 +1,0 @@
-define("assign",["require","exports","module"],function(e,i,u){u.exports="assign"});

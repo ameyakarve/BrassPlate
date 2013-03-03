@@ -1,0 +1,1 @@
+"use strict";define(["vendor/flight/lib/component"],function(e){function t(){this.after("initialize",function(){})}return{navbarComponent:e(t)}});
