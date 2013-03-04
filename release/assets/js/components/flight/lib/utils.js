@@ -1,9 +1,0 @@
-// ==========================================
-// Copyright 2013 Twitter, Inc
-// Licensed under The MIT License
-// http://opensource.org/licenses/MIT
-// ==========================================
-
-//implementation lifted from underscore.js (c) 2009-2012 Jeremy Ashkenas
-
-define([],function(){var e=[],t=100,n={isDomObj:function(e){return!(!e.nodeType&&e!==window)},toArray:function(t,n){return e.slice.call(t,n)},merge:function(){var e=this.toArray(arguments);return e.unshift({}),e[e.length-1]===!0&&(e.pop(),e.unshift(!0)),$.extend.apply(void 0,e)},push:function(e,t,n){return e&&Object.keys(t||{}).forEach(function(r){if(e[r]&&n)throw Error("utils.push attempted to overwrite '"+r+"' while running in protected mode");"object"==typeof e[r]&&"object"==typeof t[r]?this.push(e[r],t[r]):e[r]=t[r]},this),e},isEnumerable:function(e,t){return Object.keys(e).indexOf(t)>-1},compose:function(){var e=arguments;return function(){for(var t=arguments,n=e.length-1;n>=0;n--)t=[e[n].apply(this,t)];return t[0]}},uniqueArray:function(e){for(var t={},n=[],r=0,i=e.length;i>r;++r)t.hasOwnProperty(e[r])||(n.push(e[r]),t[e[r]]=1);return n},debounce:function(e,n,r){"number"!=typeof n&&(n=t);var i,o;return function(){var t=this,s=arguments,a=function(){i=null,r||(o=e.apply(t,s))},u=r&&!i;return clearTimeout(i),i=setTimeout(a,n),u&&(o=e.apply(t,s)),o}},throttle:function(e,n){"number"!=typeof n&&(n=t);var r,i,o,s,a,u,l=this.debounce(function(){a=s=!1},n);return function(){r=this,i=arguments;var t=function(){o=null,a&&(u=e.apply(r,i)),l()};return o||(o=setTimeout(t,n)),s?a=!0:(s=!0,u=e.apply(r,i)),l(),u}},countThen:function(e,t){return function(){return--e?void 0:t.apply(this,arguments)}},delegate:function(e){return function(t,n){var r,i=$(t.target);Object.keys(e).forEach(function(o){return(r=i.closest(o)).length?(n=n||{},n.el=r[0],e[o].apply(this,[t,n])):void 0},this)}}};return n});

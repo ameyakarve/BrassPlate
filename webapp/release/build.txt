@@ -1,7 +1,15 @@
 
-scripts/vendor/twitter-typeahead/typeahead.css
+styles/flatstrap.css
 ----------------
-scripts/vendor/twitter-typeahead/typeahead.css
+styles/flatstrap.css
+
+styles/app/main.css
+----------------
+styles/app/main.css
+
+styles/app/Ingredients.css
+----------------
+styles/app/Ingredients.css
 
 styles/typeahead.css
 ----------------
@@ -15,17 +23,9 @@ styles/bootstrap.css
 ----------------
 styles/bootstrap.css
 
-styles/app/Ingredients.css
+scripts/vendor/twitter-typeahead/typeahead.css
 ----------------
-styles/app/Ingredients.css
-
-styles/app/main.css
-----------------
-styles/app/main.css
-
-styles/flatstrap.css
-----------------
-styles/flatstrap.css
+scripts/vendor/twitter-typeahead/typeahead.css
 
 scripts/main.js
 ----------------

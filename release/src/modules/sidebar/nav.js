@@ -1,1 +1,0 @@
-define(["assets/js/components/flight/lib/component","jquery","mustache"],function(t){function e(){this.after("initialize",function(){})}return{navbarComponent:t(e)}});

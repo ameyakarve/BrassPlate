@@ -1,3 +1,0 @@
-<div class="alert alert-block alert-error" id="ingredientBoxErrorAlert">You can haz error
-	<a class="close" data-dismiss="alert" id="ingredientBoxErrorAlertClose">&times;</a>
-</div>
