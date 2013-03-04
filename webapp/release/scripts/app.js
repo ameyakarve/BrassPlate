@@ -1,1 +1,0 @@
-(function(){"use strict";define(["jquery","router","modules/sidebar/boot"],function(t,e,n){var i;return i=function(){return n.initialize(),e.initialize()},{initialize:i}})}).call(this);

@@ -1,1 +1,0 @@
-(function(){"use strict";define([],function(){var t;return t=function(){return require(["modules/Ingredients/Calculator","modules/Ingredients/Form"],function(t,e){return t.calculatorComponent.attachTo("#calculatorComponent"),e.formComponent.attachTo("#formComponent")})},{initialize:t}})}).call(this);
