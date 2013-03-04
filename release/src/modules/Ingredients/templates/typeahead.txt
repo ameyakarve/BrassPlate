@@ -1,0 +1,3 @@
+<input class="input-large" type="text" id="ingredientTypeahead" placeholder="Start typing ingredient name"
+/>
+<span class="help-inline itemName" id="inputWarning"></span>

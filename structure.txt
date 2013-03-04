@@ -1,0 +1,46 @@
+root
+--app
+    the raw code goes here
+    --assets
+        third party code goes here
+        --css
+        --coffee
+        --js
+        --less
+        --img
+    --src
+        this is for the code that you write
+        --templates
+        --modules
+            --sampleModule
+                --coffee
+                --js
+--buildtools
+    all scripts for building the code go here. Building to be done:
+    1. Compile coffee and less code. Convert everything into js/css
+    2. minify, uglify
+    3. Concat modules together according to configurations
+    4. Run tests
+    5. Check Linting, standards for js, css files in app/
+    6. Image optimization
+    7. Headless testing?
+--components
+    install bower components here; move whatever files are necessary
+--docs
+    documentation goes here
+--debug
+    code built for debugging goes here
+--production
+    code built for release goes here
+--tests
+    testing files here
+    Run these tests with grunt+jasmine
+
+Maintain a readme.md in every directory
+Global dependency list:
+nodejs, npm (get nodejs v8 or above)
+git
+node modules-global:
+--bower
+--grunt
+--requirejs

@@ -1,0 +1,4 @@
+{"ts":1362041398642,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":false,"ts":1362041427375,"patch":[[{"diffs":[[1,"define(\n[\n    'jquery', \n    'router'\n], function(\n    $, \n    Router, \n    Sidebar\n){\n    var initialize = function() {\n        Sidebar.initialize();\n        Router.initialize();\n    };\n    return {\n        initialize: initialize\n    };\n});"]],"start1":0,"start2":0,"length1":0,"length2":241}]],"length":241,"saved":false}
+{"ts":1362041433679,"patch":[[{"diffs":[[0,"uter"],[-1,", \n    Sidebar"],[0,"\n){\n"]],"start1":65,"start2":65,"length1":22,"length2":8}]],"length":227,"saved":false}
+{"ts":1362041437782,"patch":[[{"diffs":[[0,") {\n"],[-1,"        Sidebar.initialize();\n"],[0,"    "]],"start1":103,"start2":103,"length1":38,"length2":8}]],"length":197,"saved":false}

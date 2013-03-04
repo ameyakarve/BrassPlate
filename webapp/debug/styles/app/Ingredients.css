@@ -1,0 +1,47 @@
+@font-face { 
+    font-family: 'Bebas'; 
+    src: url('../fonts/my_bebas.ttf'); 
+} 
+ 
+@font-face { 
+    font-family: 'RupeeSymbol'; 
+    src: url('../fonts/Rupee_Foradian.ttf'); 
+} 
+ 
+@font-face { 
+    font-family: 'RotisSansSerif'; 
+    src: url('../fonts/Rotis Sans Serif 55.ttf'); 
+} 
+ 
+@font-face { 
+    font-family: 'RotisSansSerif'; 
+    src: url('../fonts/Rotis Sans Serif Bold 65.ttf'); 
+    font-weight: bold; 
+}
+.inputQuantity
+{
+	margin-top:9px;
+}
+.itemName,.itemValue
+{
+    margin-top:9px;
+    margin-bottom:11px;
+    padding-left:7px;
+    padding-top:4px;
+    padding-bottom:4px;
+}
+.itemRemove
+{
+    margin-top:9px;
+    margin-bottom:11px;
+    
+}
+.itemBottomRow
+{
+    background-color:#F8F9F9;
+	border-top:2px solid #fff;
+}
+.itemTopRow
+{
+    background-color:#F8F9F9;
+}
