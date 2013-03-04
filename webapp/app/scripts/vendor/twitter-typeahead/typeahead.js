@@ -3,7 +3,7 @@
  * https://github.com/twitter/typeahead
  * Copyright 2013 Twitter, Inc. and other contributors; Licensed MIT
  */
-define(['jquery'], function($){
+define(['jquery', 'underscore'], function($, _){
 
 
 
@@ -711,6 +711,7 @@ define(['jquery'], function($){
             },
             getSuggestionUnderCursor: function() {
                 var $suggestion = this._getSuggestions().filter(".tt-is-under-cursor").first();
+                console.log($suggestion);
                 return $suggestion.length > 0 ? formatDataForSuggestion($suggestion) : null;
             },
             getFirstSuggestion: function() {
@@ -732,13 +733,14 @@ define(['jquery'], function($){
                         elBuilder.innerHTML = dataset.template.render(suggestion);
                         el = elBuilder.firstChild;
                         el.setAttribute("data-value", suggestion.value);
+                        el.setAttribute("data-set", JSON.stringify(suggestions[i]));
+                        //set some proper stringify attribute here
                         fragment.appendChild(el);
                     });
                 }
                 $dataset.find("> .tt-suggestions").data({
                     query: query,
-                    dataset: dataset.name,
-                    suggestions:suggestions
+                    dataset: dataset.name
                 }).append(fragment);
                 this.trigger("suggestionsRender");
             },
@@ -751,11 +753,11 @@ define(['jquery'], function($){
         return DropdownView;
         function formatDataForSuggestion($suggestion) {
             var $suggestions = $suggestion.parents(".tt-suggestions").first();
+            console.log($suggestion.data("set"));
             return {
                 value: $suggestion.data("value"),
                 query: $suggestions.data("query"),
-                dataset: $suggestions.data("dataset"),
-                data:$suggestions.data("suggestions")
+                data: $suggestion.data("set")
             };
         }
     }();
@@ -850,11 +852,17 @@ define(['jquery'], function($){
                 }
             },
             _handleSelection: function(e) {
+                console.log(this, e);
                 var byClick = e.type === "select", suggestionData = byClick ? e.data : this.dropdownView.getSuggestionUnderCursor();
+                console.log(suggestionData);
                 if (suggestionData) {
                     this.inputView.setInputValue(suggestionData.value);
                     byClick ? this.inputView.focus() : e.data.preventDefault();
                     byClick && utils.isMsie() ? setTimeout(this.dropdownView.hide, 0) : this.dropdownView.hide();
+                    if(suggestionData.data.callback.target && suggestionData.data.callback.type)
+                    {
+                        console.log("Both details found");
+                    }
                     //create an event here
                     /*var myEvent = CustomEvent(suggestionData.data[0].callback.type, {
                         detail: {
