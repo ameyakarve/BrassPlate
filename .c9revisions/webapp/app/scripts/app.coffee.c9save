@@ -1,0 +1,2 @@
+{"ts":1362500381933,"silentsave":true,"restoring":false,"patch":[[{"diffs":[[1,"#global define\n\"use strict\"\ndefine [\"jquery\", \"router\", \"modules/sidebar/boot\"], ($, Router, Sidebar) ->\n  initialize = ->\n    Sidebar.initialize()\n    Router.initialize()\n\n  initialize: initialize\n"]],"start1":0,"start2":0,"length1":0,"length2":198}]],"length":198}
+{"ts":1362501110902,"patch":[[{"diffs":[[0,"alize()\n"],[-1,"\n"],[0,"  initia"]],"start1":164,"start2":164,"length1":17,"length2":16}]],"length":197,"saved":false}

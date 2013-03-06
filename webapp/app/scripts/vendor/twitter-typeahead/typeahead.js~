@@ -856,6 +856,14 @@ define(['jquery', 'underscore'], function($, _){
                     byClick ? this.inputView.focus() : e.data.preventDefault();
                     byClick && utils.isMsie() ? setTimeout(this.dropdownView.hide, 0) : this.dropdownView.hide();
                     this.inputView.trigger("twitterTypeaheadEvent",suggestionData.data);
+                    /*var myEvent = new CustomEvent("twitterTypeaheadEvent", {
+                        detail: {
+                            returnData: suggestionData.data
+                        },
+                        canBubble: true
+                    });
+                    e.data.currentTarget.dispatchEvent(myEvent);
+                    */
                 }
             },
             _getSuggestions: function() {

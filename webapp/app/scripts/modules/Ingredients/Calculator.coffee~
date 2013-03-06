@@ -9,9 +9,6 @@ define ["vendor/flight/lib/component", "modules/Ingredients/JqueryCalls", "under
     @Init = ->
       @attr.selectedItems = []
       @attr.quantities = []
-    
-    @logTypeahead = (event) ->
-      console.log(event)
 
     @addData = (event) ->
       detail = event.originalEvent.detail.returnData
