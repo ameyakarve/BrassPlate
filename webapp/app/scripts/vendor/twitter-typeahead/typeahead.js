@@ -861,7 +861,7 @@ define(['jquery', 'underscore'], function($, _){
             _getSuggestions: function() {
                 var that = this, query = this.inputView.getQuery();
                 utils.each(this.datasets, function(i, dataset) {
-                    dataset.getSuggestions(query, function(suggestions) {
+                    dataset.getSuggestio pushns(query, function(suggestions) {
                         that._renderSuggestions(query, dataset, suggestions);
                     });
                 });

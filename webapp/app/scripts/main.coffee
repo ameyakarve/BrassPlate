@@ -13,4 +13,3 @@ require ["jquery", "shim", "sham", "vendor/flight/lib/compose", "vendor/flight/l
   # use app here
   compose.mixin registry, [advice.withAdvice, withLogging]
   App.initialize()
-  console.log "Running jQuery %s", $().jquery

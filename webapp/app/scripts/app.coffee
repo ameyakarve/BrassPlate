@@ -1,7 +1,8 @@
 #global define
 "use strict"
-define ["jquery", "router", "modules/sidebar/boot"], ($, Router, Sidebar) ->
+# Here, load the init components too. The header, sidebar etc
+define ["jquery", "router", "modules/header"], ($, Router, Header) ->
   initialize = ->
-    Sidebar.initialize()
     Router.initialize()
+    Header.initialize()
   initialize: initialize
