@@ -1,0 +1,364 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'nodejs', '/usr/bin/npm', 'install', 'grunt-requirejs' ]
+2 info using npm@1.2.12
+3 info using node@v0.8.21
+4 verbose read json /home/ameya/Code/Brassplate/Ingredients/package.json
+5 warn package.json webapp@0.0.0 No README.md file found!
+6 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-usemin/package.json
+7 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-contrib-uglify/package.json
+8 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-contrib-cssmin/package.json
+9 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt/package.json
+10 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-contrib-clean/package.json
+11 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/matchdep/package.json
+12 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-contrib-compass/package.json
+13 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-open/package.json
+14 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-regarde/package.json
+15 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-contrib-connect/package.json
+16 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-contrib-copy/package.json
+17 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-contrib-jshint/package.json
+18 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-bower-hooks/package.json
+19 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-mocha/package.json
+20 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-contrib-coffee/package.json
+21 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-contrib-livereload/package.json
+22 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-contrib-htmlmin/package.json
+23 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-contrib-concat/package.json
+24 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-contrib-imagemin/package.json
+25 verbose from cache /home/ameya/Code/Brassplate/Ingredients/package.json
+26 verbose readDependencies using package.json deps
+27 verbose cache add [ 'grunt-requirejs', null ]
+28 verbose cache add name=undefined spec="grunt-requirejs" args=["grunt-requirejs",null]
+29 verbose parsed url { pathname: 'grunt-requirejs',
+29 verbose parsed url   path: 'grunt-requirejs',
+29 verbose parsed url   href: 'grunt-requirejs' }
+30 silly lockFile 74c16445-grunt-requirejs grunt-requirejs
+31 verbose lock grunt-requirejs /home/ameya/.npm/74c16445-grunt-requirejs.lock
+32 silly lockFile 74c16445-grunt-requirejs grunt-requirejs
+33 silly lockFile 74c16445-grunt-requirejs grunt-requirejs
+34 verbose addNamed [ 'grunt-requirejs', '' ]
+35 verbose addNamed [ null, '' ]
+36 silly lockFile 84b4f598-grunt-requirejs grunt-requirejs@
+37 verbose lock grunt-requirejs@ /home/ameya/.npm/84b4f598-grunt-requirejs.lock
+38 silly addNameRange { name: 'grunt-requirejs', range: '', hasData: false }
+39 verbose url raw grunt-requirejs
+40 verbose url resolving [ 'https://registry.npmjs.org/', './grunt-requirejs' ]
+41 verbose url resolved https://registry.npmjs.org/grunt-requirejs
+42 info trying registry request attempt 1 at 19:19:25
+43 verbose etag "8AP7ONZ1RKI6GRQRCRWJH8G7V"
+44 http GET https://registry.npmjs.org/grunt-requirejs
+45 http 304 https://registry.npmjs.org/grunt-requirejs
+46 silly registry.get cb [ 304,
+46 silly registry.get   { server: 'CouchDB/1.2.1 (Erlang OTP/R15B03)',
+46 silly registry.get     etag: '"8AP7ONZ1RKI6GRQRCRWJH8G7V"',
+46 silly registry.get     date: 'Wed, 20 Mar 2013 13:49:35 GMT',
+46 silly registry.get     'content-length': '0' } ]
+47 verbose etag grunt-requirejs from cache
+48 silly addNameRange number 2 { name: 'grunt-requirejs', range: '', hasData: true }
+49 silly addNameRange versions [ 'grunt-requirejs',
+49 silly addNameRange   [ '0.1.0',
+49 silly addNameRange     '0.2.0',
+49 silly addNameRange     '0.2.1',
+49 silly addNameRange     '0.2.2',
+49 silly addNameRange     '0.2.5',
+49 silly addNameRange     '0.2.6',
+49 silly addNameRange     '0.2.7',
+49 silly addNameRange     '0.2.8',
+49 silly addNameRange     '0.2.9',
+49 silly addNameRange     '0.2.10',
+49 silly addNameRange     '0.2.11',
+49 silly addNameRange     '0.2.12',
+49 silly addNameRange     '0.2.13',
+49 silly addNameRange     '0.2.14',
+49 silly addNameRange     '0.3.0',
+49 silly addNameRange     '0.3.1',
+49 silly addNameRange     '0.3.2',
+49 silly addNameRange     '0.3.3' ] ]
+50 verbose addNamed [ 'grunt-requirejs', '0.3.3' ]
+51 verbose addNamed [ '0.3.3', '0.3.3' ]
+52 silly lockFile 5a9f3ac1-grunt-requirejs-0-3-3 grunt-requirejs@0.3.3
+53 verbose lock grunt-requirejs@0.3.3 /home/ameya/.npm/5a9f3ac1-grunt-requirejs-0-3-3.lock
+54 verbose read json /home/ameya/.npm/grunt-requirejs/0.3.3/package/package.json
+55 warn package.json grunt-requirejs@0.3.3 No README.md file found!
+56 silly lockFile 5a9f3ac1-grunt-requirejs-0-3-3 grunt-requirejs@0.3.3
+57 silly lockFile 5a9f3ac1-grunt-requirejs-0-3-3 grunt-requirejs@0.3.3
+58 silly lockFile 84b4f598-grunt-requirejs grunt-requirejs@
+59 silly lockFile 84b4f598-grunt-requirejs grunt-requirejs@
+60 silly resolved [ { name: 'grunt-requirejs',
+60 silly resolved     description: 'Building require.js based applications with grunt',
+60 silly resolved     version: '0.3.3',
+60 silly resolved     homepage: 'https://github.com/asciidisco/grunt-requirejs',
+60 silly resolved     author: { name: 'Sebastian Golasch', email: 'public@asciidisco.com' },
+60 silly resolved     repository:
+60 silly resolved      { type: 'git',
+60 silly resolved        url: 'http://github.com/asciidisco/grunt-requirejs' },
+60 silly resolved     bugs: { url: 'https://github.com/asciidisco/grunt-requirejs/issues' },
+60 silly resolved     licenses: [ [Object] ],
+60 silly resolved     main: 'Grunfile.js',
+60 silly resolved     engines: { node: '>=0.8.0' },
+60 silly resolved     scripts: { test: 'grunt --verbose' },
+60 silly resolved     dependencies:
+60 silly resolved      { requirejs: '2.1.x',
+60 silly resolved        cheerio: '0.10.x',
+60 silly resolved        domino: 'git://github.com/fgnass/domino.git#master',
+60 silly resolved        almond: '0.2.x',
+60 silly resolved        'gzip-js': '0.3.x',
+60 silly resolved        q: '0.8.x',
+60 silly resolved        temp: '0.4.x',
+60 silly resolved        'grunt-lodashbuilder': '0.1.x',
+60 silly resolved        'grunt-jquerybuilder': '0.1.x',
+60 silly resolved        'grunt-backbonebuilder': '0.1.x' },
+60 silly resolved     devDependencies:
+60 silly resolved      { grunt: '~0.4.0',
+60 silly resolved        'grunt-contrib-clean': '~0.4.0',
+60 silly resolved        'grunt-contrib-copy': '~0.4.0',
+60 silly resolved        'grunt-contrib-jshint': '~0.1.1',
+60 silly resolved        'grunt-contrib-nodeunit': '~0.1.2',
+60 silly resolved        'grunt-contrib-qunit': '~0.1.1' },
+60 silly resolved     peerDependencies: { grunt: '~0.4.0' },
+60 silly resolved     keywords: [ 'gruntplugin', 'requirejs' ],
+60 silly resolved     _id: 'grunt-requirejs@0.3.3',
+60 silly resolved     readme: 'ERROR: No README.md file found!',
+60 silly resolved     _from: 'grunt-requirejs@' } ]
+61 info install grunt-requirejs@0.3.3 into /home/ameya/Code/Brassplate/Ingredients
+62 info installOne grunt-requirejs@0.3.3
+63 verbose from cache /home/ameya/.npm/grunt-requirejs/0.3.3/package/package.json
+64 info /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-requirejs unbuild
+65 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-requirejs/package.json
+66 verbose tar unpack /home/ameya/.npm/grunt-requirejs/0.3.3/package.tgz
+67 silly lockFile 6f79167e-nts-node-modules-grunt-requirejs /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-requirejs
+68 verbose lock /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-requirejs /home/ameya/.npm/6f79167e-nts-node-modules-grunt-requirejs.lock
+69 silly lockFile 42c45435-runt-requirejs-0-3-3-package-tgz /home/ameya/.npm/grunt-requirejs/0.3.3/package.tgz
+70 verbose lock /home/ameya/.npm/grunt-requirejs/0.3.3/package.tgz /home/ameya/.npm/42c45435-runt-requirejs-0-3-3-package-tgz.lock
+71 silly gunzTarPerm modes [ '755', '644' ]
+72 silly gunzTarPerm extractEntry package.json
+73 silly gunzTarPerm extractEntry Gruntfile.js
+74 silly gunzTarPerm extractEntry .jshintrc
+75 silly gunzTarPerm extractEntry tasks/require.js
+76 silly gunzTarPerm extractEntry lib/almondify.js
+77 silly gunzTarPerm extractEntry lib/replace.js
+78 silly gunzTarPerm extractEntry lib/optimize.js
+79 silly gunzTarPerm extractEntry lib/custombuilder/jquery.js
+80 silly gunzTarPerm extractEntry lib/custombuilder/backbone.js
+81 silly gunzTarPerm extractEntry lib/custombuilder/lodash.js
+82 silly gunzTarPerm extractEntry lib/helper/closurecompiler.js
+83 silly gunzTarPerm extractEntry lib/helper/rjsversion.js
+84 silly gunzTarPerm extractEntry lib/helper/errorhandler.js
+85 silly gunzTarPerm extractEntry lib/helper/sizeInfo.js
+86 silly gunzTarPerm extractEntry LICENSE-MIT
+87 verbose read json /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-requirejs/package.json
+88 silly lockFile 6f79167e-nts-node-modules-grunt-requirejs /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-requirejs
+89 silly lockFile 6f79167e-nts-node-modules-grunt-requirejs /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-requirejs
+90 silly lockFile 42c45435-runt-requirejs-0-3-3-package-tgz /home/ameya/.npm/grunt-requirejs/0.3.3/package.tgz
+91 silly lockFile 42c45435-runt-requirejs-0-3-3-package-tgz /home/ameya/.npm/grunt-requirejs/0.3.3/package.tgz
+92 info preinstall grunt-requirejs@0.3.3
+93 verbose from cache /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-requirejs/package.json
+94 verbose readDependencies using package.json deps
+95 verbose from cache /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-requirejs/package.json
+96 verbose readDependencies using package.json deps
+97 verbose cache add [ 'requirejs@2.1.x', null ]
+98 verbose cache add name=undefined spec="requirejs@2.1.x" args=["requirejs@2.1.x",null]
+99 verbose parsed url { pathname: 'requirejs@2.1.x',
+99 verbose parsed url   path: 'requirejs@2.1.x',
+99 verbose parsed url   href: 'requirejs@2.1.x' }
+100 verbose cache add name="requirejs" spec="2.1.x" args=["requirejs","2.1.x"]
+101 verbose parsed url { pathname: '2.1.x', path: '2.1.x', href: '2.1.x' }
+102 verbose addNamed [ 'requirejs', '2.1.x' ]
+103 verbose addNamed [ null, '>=2.1.0- <2.2.0-' ]
+104 silly lockFile 2120676d-requirejs-2-1-x requirejs@2.1.x
+105 verbose lock requirejs@2.1.x /home/ameya/.npm/2120676d-requirejs-2-1-x.lock
+106 verbose cache add [ 'cheerio@0.10.x', null ]
+107 verbose cache add name=undefined spec="cheerio@0.10.x" args=["cheerio@0.10.x",null]
+108 verbose parsed url { pathname: 'cheerio@0.10.x',
+108 verbose parsed url   path: 'cheerio@0.10.x',
+108 verbose parsed url   href: 'cheerio@0.10.x' }
+109 verbose cache add name="cheerio" spec="0.10.x" args=["cheerio","0.10.x"]
+110 verbose parsed url { pathname: '0.10.x', path: '0.10.x', href: '0.10.x' }
+111 verbose addNamed [ 'cheerio', '0.10.x' ]
+112 verbose addNamed [ null, '>=0.10.0- <0.11.0-' ]
+113 silly lockFile d0b54608-cheerio-0-10-x cheerio@0.10.x
+114 verbose lock cheerio@0.10.x /home/ameya/.npm/d0b54608-cheerio-0-10-x.lock
+115 verbose cache add [ 'domino@git://github.com/fgnass/domino.git#master', null ]
+116 verbose cache add name=undefined spec="domino@git://github.com/fgnass/domino.git#master" args=["domino@git://github.com/fgnass/domino.git#master",null]
+117 verbose parsed url { hash: '#master',
+117 verbose parsed url   pathname: 'domino@git://github.com/fgnass/domino.git',
+117 verbose parsed url   path: 'domino@git://github.com/fgnass/domino.git',
+117 verbose parsed url   href: 'domino@git://github.com/fgnass/domino.git#master' }
+118 verbose cache add name="domino" spec="git://github.com/fgnass/domino.git#master" args=["domino","git://github.com/fgnass/domino.git#master"]
+119 verbose parsed url { protocol: 'git:',
+119 verbose parsed url   slashes: true,
+119 verbose parsed url   host: 'github.com',
+119 verbose parsed url   hostname: 'github.com',
+119 verbose parsed url   href: 'git://github.com/fgnass/domino.git#master',
+119 verbose parsed url   hash: '#master',
+119 verbose parsed url   pathname: '/fgnass/domino.git',
+119 verbose parsed url   path: '/fgnass/domino.git' }
+120 silly lockFile 0fac8a99-hub-com-fgnass-domino-git-master git://github.com/fgnass/domino.git#master
+121 verbose lock git://github.com/fgnass/domino.git#master /home/ameya/.npm/0fac8a99-hub-com-fgnass-domino-git-master.lock
+122 silly addNameRange { name: 'requirejs', range: '>=2.1.0- <2.2.0-', hasData: false }
+123 silly addNameRange { name: 'cheerio', range: '>=0.10.0- <0.11.0-', hasData: false }
+124 verbose addRemoteGit [ 'git://github.com/fgnass/domino.git', 'master' ]
+125 verbose url raw requirejs
+126 verbose url resolving [ 'https://registry.npmjs.org/', './requirejs' ]
+127 verbose url resolved https://registry.npmjs.org/requirejs
+128 info trying registry request attempt 1 at 19:19:35
+129 verbose etag "7M4N8WD6PXEE2I5MMWVRWLVO5"
+130 http GET https://registry.npmjs.org/requirejs
+131 verbose url raw cheerio
+132 verbose url resolving [ 'https://registry.npmjs.org/', './cheerio' ]
+133 verbose url resolved https://registry.npmjs.org/cheerio
+134 info trying registry request attempt 1 at 19:19:35
+135 verbose etag "BR56X7Y166Q1Y2RUW6S8HHZWX"
+136 http GET https://registry.npmjs.org/cheerio
+137 verbose cache add [ 'almond@0.2.x', null ]
+138 verbose cache add name=undefined spec="almond@0.2.x" args=["almond@0.2.x",null]
+139 verbose parsed url { pathname: 'almond@0.2.x',
+139 verbose parsed url   path: 'almond@0.2.x',
+139 verbose parsed url   href: 'almond@0.2.x' }
+140 verbose cache add name="almond" spec="0.2.x" args=["almond","0.2.x"]
+141 verbose parsed url { pathname: '0.2.x', path: '0.2.x', href: '0.2.x' }
+142 verbose addNamed [ 'almond', '0.2.x' ]
+143 verbose addNamed [ null, '>=0.2.0- <0.3.0-' ]
+144 silly lockFile 7b1e9b01-almond-0-2-x almond@0.2.x
+145 verbose lock almond@0.2.x /home/ameya/.npm/7b1e9b01-almond-0-2-x.lock
+146 verbose cache add [ 'gzip-js@0.3.x', null ]
+147 verbose cache add name=undefined spec="gzip-js@0.3.x" args=["gzip-js@0.3.x",null]
+148 verbose parsed url { pathname: 'gzip-js@0.3.x',
+148 verbose parsed url   path: 'gzip-js@0.3.x',
+148 verbose parsed url   href: 'gzip-js@0.3.x' }
+149 verbose cache add name="gzip-js" spec="0.3.x" args=["gzip-js","0.3.x"]
+150 verbose parsed url { pathname: '0.3.x', path: '0.3.x', href: '0.3.x' }
+151 verbose addNamed [ 'gzip-js', '0.3.x' ]
+152 verbose addNamed [ null, '>=0.3.0- <0.4.0-' ]
+153 silly lockFile e417b0a2-gzip-js-0-3-x gzip-js@0.3.x
+154 verbose lock gzip-js@0.3.x /home/ameya/.npm/e417b0a2-gzip-js-0-3-x.lock
+155 verbose cache add [ 'q@0.8.x', null ]
+156 verbose cache add name=undefined spec="q@0.8.x" args=["q@0.8.x",null]
+157 verbose parsed url { pathname: 'q@0.8.x', path: 'q@0.8.x', href: 'q@0.8.x' }
+158 verbose cache add name="q" spec="0.8.x" args=["q","0.8.x"]
+159 verbose parsed url { pathname: '0.8.x', path: '0.8.x', href: '0.8.x' }
+160 verbose addNamed [ 'q', '0.8.x' ]
+161 verbose addNamed [ null, '>=0.8.0- <0.9.0-' ]
+162 silly lockFile 092bea3a-q-0-8-x q@0.8.x
+163 verbose lock q@0.8.x /home/ameya/.npm/092bea3a-q-0-8-x.lock
+164 verbose cache add [ 'temp@0.4.x', null ]
+165 verbose cache add name=undefined spec="temp@0.4.x" args=["temp@0.4.x",null]
+166 verbose parsed url { pathname: 'temp@0.4.x',
+166 verbose parsed url   path: 'temp@0.4.x',
+166 verbose parsed url   href: 'temp@0.4.x' }
+167 verbose cache add name="temp" spec="0.4.x" args=["temp","0.4.x"]
+168 verbose parsed url { pathname: '0.4.x', path: '0.4.x', href: '0.4.x' }
+169 verbose addNamed [ 'temp', '0.4.x' ]
+170 verbose addNamed [ null, '>=0.4.0- <0.5.0-' ]
+171 silly lockFile 0c7194aa-temp-0-4-x temp@0.4.x
+172 verbose lock temp@0.4.x /home/ameya/.npm/0c7194aa-temp-0-4-x.lock
+173 verbose cache add [ 'grunt-lodashbuilder@0.1.x', null ]
+174 verbose cache add name=undefined spec="grunt-lodashbuilder@0.1.x" args=["grunt-lodashbuilder@0.1.x",null]
+175 verbose parsed url { pathname: 'grunt-lodashbuilder@0.1.x',
+175 verbose parsed url   path: 'grunt-lodashbuilder@0.1.x',
+175 verbose parsed url   href: 'grunt-lodashbuilder@0.1.x' }
+176 verbose cache add name="grunt-lodashbuilder" spec="0.1.x" args=["grunt-lodashbuilder","0.1.x"]
+177 verbose parsed url { pathname: '0.1.x', path: '0.1.x', href: '0.1.x' }
+178 verbose addNamed [ 'grunt-lodashbuilder', '0.1.x' ]
+179 verbose addNamed [ null, '>=0.1.0- <0.2.0-' ]
+180 silly lockFile d540006d-grunt-lodashbuilder-0-1-x grunt-lodashbuilder@0.1.x
+181 verbose lock grunt-lodashbuilder@0.1.x /home/ameya/.npm/d540006d-grunt-lodashbuilder-0-1-x.lock
+182 verbose cache add [ 'grunt-jquerybuilder@0.1.x', null ]
+183 verbose cache add name=undefined spec="grunt-jquerybuilder@0.1.x" args=["grunt-jquerybuilder@0.1.x",null]
+184 verbose parsed url { pathname: 'grunt-jquerybuilder@0.1.x',
+184 verbose parsed url   path: 'grunt-jquerybuilder@0.1.x',
+184 verbose parsed url   href: 'grunt-jquerybuilder@0.1.x' }
+185 verbose cache add name="grunt-jquerybuilder" spec="0.1.x" args=["grunt-jquerybuilder","0.1.x"]
+186 verbose parsed url { pathname: '0.1.x', path: '0.1.x', href: '0.1.x' }
+187 verbose addNamed [ 'grunt-jquerybuilder', '0.1.x' ]
+188 verbose addNamed [ null, '>=0.1.0- <0.2.0-' ]
+189 silly lockFile 26dc9ee1-grunt-jquerybuilder-0-1-x grunt-jquerybuilder@0.1.x
+190 verbose lock grunt-jquerybuilder@0.1.x /home/ameya/.npm/26dc9ee1-grunt-jquerybuilder-0-1-x.lock
+191 verbose cache add [ 'grunt-backbonebuilder@0.1.x', null ]
+192 verbose cache add name=undefined spec="grunt-backbonebuilder@0.1.x" args=["grunt-backbonebuilder@0.1.x",null]
+193 verbose parsed url { pathname: 'grunt-backbonebuilder@0.1.x',
+193 verbose parsed url   path: 'grunt-backbonebuilder@0.1.x',
+193 verbose parsed url   href: 'grunt-backbonebuilder@0.1.x' }
+194 verbose cache add name="grunt-backbonebuilder" spec="0.1.x" args=["grunt-backbonebuilder","0.1.x"]
+195 verbose parsed url { pathname: '0.1.x', path: '0.1.x', href: '0.1.x' }
+196 verbose addNamed [ 'grunt-backbonebuilder', '0.1.x' ]
+197 verbose addNamed [ null, '>=0.1.0- <0.2.0-' ]
+198 silly lockFile d1104061-grunt-backbonebuilder-0-1-x grunt-backbonebuilder@0.1.x
+199 verbose lock grunt-backbonebuilder@0.1.x /home/ameya/.npm/d1104061-grunt-backbonebuilder-0-1-x.lock
+200 silly lockFile a6582ac8-git-github-com-fgnass-domino-git git://github.com/fgnass/domino.git
+201 silly addNameRange { name: 'almond', range: '>=0.2.0- <0.3.0-', hasData: false }
+202 silly addNameRange { name: 'gzip-js', range: '>=0.3.0- <0.4.0-', hasData: false }
+203 silly addNameRange { name: 'q', range: '>=0.8.0- <0.9.0-', hasData: false }
+204 silly addNameRange { name: 'temp', range: '>=0.4.0- <0.5.0-', hasData: false }
+205 silly addNameRange { name: 'grunt-lodashbuilder',
+205 silly addNameRange   range: '>=0.1.0- <0.2.0-',
+205 silly addNameRange   hasData: false }
+206 silly addNameRange { name: 'grunt-jquerybuilder',
+206 silly addNameRange   range: '>=0.1.0- <0.2.0-',
+206 silly addNameRange   hasData: false }
+207 silly addNameRange { name: 'grunt-backbonebuilder',
+207 silly addNameRange   range: '>=0.1.0- <0.2.0-',
+207 silly addNameRange   hasData: false }
+208 verbose about to build /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-requirejs
+209 info /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-requirejs unbuild
+210 verbose from cache /home/ameya/Code/Brassplate/Ingredients/node_modules/grunt-requirejs/package.json
+211 info preuninstall grunt-requirejs@0.3.3
+212 verbose url raw almond
+213 verbose url resolving [ 'https://registry.npmjs.org/', './almond' ]
+214 verbose url resolved https://registry.npmjs.org/almond
+215 info trying registry request attempt 1 at 19:19:35
+216 verbose etag "3MIVKYZ4WSCB35G52YY1RQGF9"
+217 http GET https://registry.npmjs.org/almond
+218 verbose url raw gzip-js
+219 verbose url resolving [ 'https://registry.npmjs.org/', './gzip-js' ]
+220 verbose url resolved https://registry.npmjs.org/gzip-js
+221 info trying registry request attempt 1 at 19:19:35
+222 verbose etag "6IK2OZG6AHRZNUKZJ5N79IY6"
+223 http GET https://registry.npmjs.org/gzip-js
+224 verbose url raw q
+225 verbose url resolving [ 'https://registry.npmjs.org/', './q' ]
+226 verbose url resolved https://registry.npmjs.org/q
+227 info trying registry request attempt 1 at 19:19:35
+228 verbose etag "AD6CVHPXLSZPDCY8QOUHSQ51W"
+229 http GET https://registry.npmjs.org/q
+230 verbose url raw temp
+231 verbose url resolving [ 'https://registry.npmjs.org/', './temp' ]
+232 verbose url resolved https://registry.npmjs.org/temp
+233 info trying registry request attempt 1 at 19:19:35
+234 verbose etag "CJ88SZ7YWV0E4BIGBZJJ0IJR"
+235 http GET https://registry.npmjs.org/temp
+236 verbose url raw grunt-lodashbuilder
+237 verbose url resolving [ 'https://registry.npmjs.org/', './grunt-lodashbuilder' ]
+238 verbose url resolved https://registry.npmjs.org/grunt-lodashbuilder
+239 info trying registry request attempt 1 at 19:19:35
+240 verbose etag "AXXBLDYH95ATBRFAWZUE1411"
+241 http GET https://registry.npmjs.org/grunt-lodashbuilder
+242 verbose url raw grunt-jquerybuilder
+243 verbose url resolving [ 'https://registry.npmjs.org/', './grunt-jquerybuilder' ]
+244 verbose url resolved https://registry.npmjs.org/grunt-jquerybuilder
+245 info trying registry request attempt 1 at 19:19:35
+246 verbose etag "3LOXVZS2KJJC6435L58ULK9N0"
+247 http GET https://registry.npmjs.org/grunt-jquerybuilder
+248 verbose url raw grunt-backbonebuilder
+249 verbose url resolving [ 'https://registry.npmjs.org/', './grunt-backbonebuilder' ]
+250 verbose url resolved https://registry.npmjs.org/grunt-backbonebuilder
+251 info trying registry request attempt 1 at 19:19:35
+252 verbose etag "D41WA1NHS9I8WYQMG2LFRE4U9"
+253 http GET https://registry.npmjs.org/grunt-backbonebuilder
+254 info uninstall grunt-requirejs@0.3.3
+255 verbose true,/home/ameya/Code/Brassplate/Ingredients/node_modules,/home/ameya/Code/Brassplate/Ingredients/node_modules unbuild grunt-requirejs@0.3.3
+256 info postuninstall grunt-requirejs@0.3.3
+257 error Error: EACCES, mkdir '/home/ameya/.npm/_git-remotes/git-github-com-fgnass-domino-git-a6582ac8'
+257 error  { [Error: EACCES, mkdir '/home/ameya/.npm/_git-remotes/git-github-com-fgnass-domino-git-a6582ac8']
+257 error   errno: 3,
+257 error   code: 'EACCES',
+257 error   path: '/home/ameya/.npm/_git-remotes/git-github-com-fgnass-domino-git-a6582ac8' }
+258 error Please try running this command again as root/Administrator.
+259 error System Linux 3.2.0-23-generic-pae
+260 error command "nodejs" "/usr/bin/npm" "install" "grunt-requirejs"
+261 error cwd /home/ameya/Code/Brassplate/Ingredients
+262 error node -v v0.8.21
+263 error npm -v 1.2.12
+264 error path /home/ameya/.npm/_git-remotes/git-github-com-fgnass-domino-git-a6582ac8
+265 error code EACCES
+266 error errno 3
+267 error stack Error: EACCES, mkdir '/home/ameya/.npm/_git-remotes/git-github-com-fgnass-domino-git-a6582ac8'
+268 verbose exit [ 3, true ]
