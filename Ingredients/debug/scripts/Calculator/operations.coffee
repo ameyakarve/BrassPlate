@@ -5,10 +5,21 @@ define ['jquery', 'underscore'], ($, _)->
     @init = ->
       console.log $
     @addItem = (event) ->
-    	if (_.contains(_.pluck(@attr.Items,'uid'), event.returnData.uid))
-            console.log("Item already exists")
-        else
-            @attr.Items.push(event.returnData)
-            @renderItem(event.returnData)
+      data = event.originalEvent.detail.data[0]
+      if _.contains @attr.Uids, data.uid 
+        console.log 'duplicate data'
+      else
+        @attr.Uids.push data.uid
+        @renderItem data
+        calculatorItem = 
+          uid: data.uid
+          name: data.value
+          quantity: 0
+          price: data.price
+          totalCost: (quantity, price) ->
+            quantity*price
+        @attr.Items.push(calculatorItem)
+    @changeItem = () ->
+      console.log 'changed input'
   operations
 

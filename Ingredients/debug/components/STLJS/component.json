@@ -1,0 +1,9 @@
+{
+  "name": "STLJS",
+  "version": "0.0.0",
+  "commit": "e1554bf54b076e18b2b0f650c991ce816a065e53",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ameyakarve/STLJS.git"
+  }
+}

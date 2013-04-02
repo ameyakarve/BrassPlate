@@ -1,0 +1,14 @@
+<div class="row" id="{{id}}">
+	<div class="span7">{{data.value}}</div>
+	<div class="span1">{{data.price}}</div>
+	<div class="span1">
+		<select class="input-block-level" id="calclatorInput{{id}}">
+			{{#data.quantity}}
+			<option value = "{{.}}">{{.}}</option>
+			{{/data.quantity}}
+		</select>
+	</div>
+	<div class="span1">{{data.unit}}</div>
+	<div class="span1">0.0</div>
+	<div class="span1"><a class="btn btn-danger"><i class="icon-remove-circle icon-black"></i></a></div>
+</div>

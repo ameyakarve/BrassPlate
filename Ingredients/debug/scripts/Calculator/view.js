@@ -1,7 +1,7 @@
 (function() {
   "use strict";
 
-  define(["jquery", "mustache", "vendor/twitter-typeahead/typeahead", "text!Calculator/ingredient.html"], function($, Mustache, Typeahead, ingredientTemplate) {
+  define(["jquery", "mustache", "vendor/typeahead.js/dist/typeahead", "text!Calculator/ingredient.html", "text!Calculator/ingredientDropdown.html"], function($, Mustache, Typeahead, ingredientTemplate, ingredientDropdownTemplate) {
     var view;
     view = function() {
       this.renderInit = function() {
@@ -12,11 +12,26 @@
         });
       };
       return this.renderItem = function(data) {
-        $("#calculatorItems").append(Mustache.render(ingredientTemplate, {
-          data: data
-        }));
-        console.log(ingredientTemplate);
-        return console.log(Mustache.render(ingredientTemplate, data));
+        var id, options;
+        id = _.uniqueId('calculatorRow');
+        options = {
+          data: data,
+          id: id
+        };
+        if (data.quantity) {
+          console.log('I need a dropdown');
+          $('#calculatorItems').append(Mustache.render(ingredientDropdownTemplate, options));
+        } else {
+          console.log('Box is fine', ingredientTemplate);
+          $('#calculatorItems').append(Mustache.render(ingredientTemplate, options));
+        }
+        return $('#' + id + ' input').first().on('input onchange', function() {
+          return require(['jquery'], function($) {
+            return $('#calculator').trigger({
+              type: 'changed'
+            });
+          });
+        });
       };
     };
     return view;

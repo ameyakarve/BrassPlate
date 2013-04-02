@@ -1,0 +1,33 @@
+<html>
+<head>
+	<title>STL PAGE</title>
+	<script type="text/javascript" src="stl-es6.js"></script>
+	<script type="text/javascript">
+		var intValidate = function (object) {
+			if(typeof(object) === 'number')
+			{
+				return true;
+			}
+			return false;
+		};
+		var intFilter = function(item) {
+			return item;
+			//signed
+		};
+		var intCompare = function (one, two)
+		{
+			if(one<two) return -1;
+			if(one>two) return 1;
+			return 0;
+		};
+		var intVector = new iVector([], {
+			compareFn: intCompare
+		});
+
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "Icarus",
+  "version": "0.0.0",
+  "commit": "f056c40f7f305c4f595d7e967472084af4ef98cd",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ameyakarve/Icarus.git"
+  }
+}

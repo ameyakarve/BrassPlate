@@ -2,14 +2,12 @@
 "use strict"
 define ["vendor/flight/lib/component", "Calculator/operations", "Calculator/view"], (defineComponent, operations,view) ->
   topBar = ->
-    @defaultAttrs(Items:[])
+    @defaultAttrs(Items:[], Uids:[])
     @after "initialize", ->
-    	@renderInit()  
-    	@on(document.getElementById("calculatorAdd"), "twitterTypeaheadEvent", @addItem)
-    	#working; rsender new children etc for above
-    	#@on change
-    	#@on remove
-    	console.log("Attached to DOM")
+        @renderInit()
+        @on document.getElementById("calculatorAdd"), "typeahead:selected", @addItem
+        @on "changed", @changeItem
+        @attr.items = []
 
   defineComponent topBar, operations, view
 
