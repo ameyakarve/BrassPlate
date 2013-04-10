@@ -9,8 +9,13 @@ define ["jquery", "mustache", "vendor/typeahead.js/dist/typeahead", "text!Calcul
         name: "calculatorTypeahead", 
         prefetch: "scripts/Calculator/localdata.json"
         })
-    @renderItem = (data)->
-      id = _.uniqueId 'calculatorRow'
+    @renderChanged = (Items) ->
+      sum = 0
+      for i in Items 
+        $("#calculatorTotal" + i.id).html i.total
+        sum += i.total
+      $("#calculatorTotalAll").html sum
+    @renderItem = (data, id)->
       options = 
         data: data
         id: id
@@ -23,4 +28,14 @@ define ["jquery", "mustache", "vendor/typeahead.js/dist/typeahead", "text!Calcul
       $('#'+ id + ' input').first().on 'input onchange', ->
         require ['jquery'], ($) ->
           $('#calculator').trigger type: 'changed'
+      $('#'+ id + ' select').first().change  ->
+        require ['jquery'], ($) ->
+          $('#calculator').trigger type: 'changed'
+      
+      $('#calculatorRemove' + id).on 'click', =>
+        require ['jquery'], ($) =>
+          options = 
+            type: 'removed'
+            id: id
+          $('#calculator').trigger options 
   view

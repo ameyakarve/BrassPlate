@@ -7,6 +7,7 @@ define ["vendor/flight/lib/component", "Calculator/operations", "Calculator/view
         @renderInit()
         @on document.getElementById("calculatorAdd"), "typeahead:selected", @addItem
         @on "changed", @changeItem
+        @on "removed", @removeItem
         @attr.items = []
 
   defineComponent topBar, operations, view

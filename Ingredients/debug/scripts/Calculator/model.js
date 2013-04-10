@@ -12,6 +12,7 @@
         this.renderInit();
         this.on(document.getElementById("calculatorAdd"), "typeahead:selected", this.addItem);
         this.on("changed", this.changeItem);
+        this.on("removed", this.removeItem);
         return this.attr.items = [];
       });
     };
